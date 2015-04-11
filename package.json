@@ -12,13 +12,9 @@
     "gulp-mocha": "^2.0.1",
     "gulp-myth": "^1.0.2",
     "gulp-serve": "^0.3.1",
-    "gulp-sourcemaps": "^1.5.1",
     "merge-stream": "^0.1.7",
     "mocha": "^2.2.1",
     "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.1.0"
-  },
-  "scripts": {
-    "test": "jest"
   }
 }
