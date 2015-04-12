@@ -1,18 +1,12 @@
-/* For now the fixed-height display is used rather than flexible masonry, since there are quite some problems: */
-/* 1. I cannot get it right (always have vertical gutters, don't know why) */
-/* 2. The open source Masonry library seems to only handle elements with float: left */
-/* 3. The width is inflexible and we have to set them manually */
 #gallery .page {
     max-width: 800px;
     margin: 0 auto;
     padding: 0;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: block;
 }
 
 #gallery .page > li {
-    height: 200px;
+    max-width: 200px;
     padding: 5px;
     box-sizing: border-box;
 }

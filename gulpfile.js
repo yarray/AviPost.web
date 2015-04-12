@@ -23,7 +23,7 @@ gulp.task('scripts', function() {
     return browserify('./app/scripts/app.js', {
             debug: true
         })
-        .require('./app/config/dev.js')
+        .add('./app/config/dev.js')
         .bundle()
         .on('error', function(err) {
             console.log(err.message);
