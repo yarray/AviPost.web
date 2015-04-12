@@ -1,0 +1,10 @@
+[{
+	"id": 1,
+	"name": "demo",
+	"address": "Heidelberg, Germany"
+},
+{
+	"id": 2,
+	"name": "demo2",
+	"address": "Kassel, Germany"
+}]

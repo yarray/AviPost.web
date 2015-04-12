@@ -8,6 +8,7 @@ var source = require('vinyl-source-stream');
 
 // gulp
 var gulp = require('gulp');
+var rename = require('gulp-rename');
 var myth = require('gulp-myth');
 var csso = require('gulp-csso');
 var serve = require('gulp-serve');
@@ -22,7 +23,12 @@ gulp.task('scripts', function() {
     return browserify('./app/scripts/app.js', {
             debug: true
         })
+        .require('./app/config/dev.js')
         .bundle()
+        .on('error', function(err) {
+            console.log(err.message);
+            this.emit('end');
+        })
         .pipe(source('app.js'))
         .pipe(gulp.dest('.tmp/scripts/'));
 });
@@ -34,7 +40,8 @@ gulp.task('styles', function() {
 });
 
 gulp.task('test', function() {
-    return gulp.src('./test/**/*.js')
+    require('./spec/init');
+    return gulp.src('./spec/**/*-test.js')
         .pipe(mocha());
 });
 
@@ -42,6 +49,7 @@ gulp.task('serve', ['watch'], serve(['.tmp', 'app']));
 
 gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/scripts/**/*.js', ['scripts']);
+    gulp.watch('./app/config/*.js', ['scripts']);
     gulp.watch('./app/styles/**/*.css', ['styles']);
 });
 

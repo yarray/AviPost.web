@@ -1,0 +1,12 @@
+[{
+	"id": 1,
+	"cover": "http://127.0.0.1:3000/api/image/1.jpg",
+	"sender": "demo",
+	"senderAddr": "Heidelberg, Germany",
+},
+{
+	"id": 2,
+	"cover": "http://127.0.0.1:3000/api/image/2.jpg",
+	"sender": "demo",
+	"senderAddr": "Heidelberg, Germany",
+}]

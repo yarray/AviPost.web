@@ -1,0 +1,9 @@
+{
+	"id": 1,
+	"cover": "http://127.0.0.1:3000/api/image/1.jpg",
+	"message": "Hellooooo!",
+	"sender": "demo",
+	"receiver": "demo2",
+	"senderAddr": "Heidelberg, Germany",
+	"receiverAddr": "Kassel, Germany"
+}
