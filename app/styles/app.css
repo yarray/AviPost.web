@@ -4,6 +4,8 @@ ul {
     list-style: none;
 }
 
-.clearfix:before, .clearfix:after { content: " "; display: table; }
-.clearfix:after { clear: both; }
-
+[data-template] {
+    display: none;
+    width: 0;
+    height: 0;
+}
