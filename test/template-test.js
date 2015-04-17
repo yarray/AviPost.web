@@ -1,7 +1,7 @@
-var binding = require('../app/scripts/binding.js');
+var binding = require('../app/scripts/template.js');
 
-describe('binding', function() {
-    var render = binding.render;
+describe('template', function() {
+    var render = template.render;
 
     it('can render template', function() {
         expect(render({
