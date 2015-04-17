@@ -8,6 +8,7 @@ var source = require('vinyl-source-stream');
 
 // gulp
 var gulp = require('gulp');
+var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var myth = require('gulp-myth');
 var csso = require('gulp-csso');
@@ -18,6 +19,13 @@ var mocha = require('gulp-mocha');
 var merge = require('merge-stream');
 var del = require('del');
 
+
+gulp.task('jshint', function() {
+    return gulp.src('./app/scripts/**/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint.reporter('fail'));
+});
 
 gulp.task('scripts', function() {
     return browserify('./app/scripts/app.js', {
@@ -39,7 +47,7 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('.tmp/styles/'));
 });
 
-gulp.task('test', function() {
+gulp.task('test', ['jshint'], function() {
     require('./spec/init');
     return gulp.src('./spec/**/*-test.js')
         .pipe(mocha());
@@ -53,7 +61,7 @@ gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/styles/**/*.css', ['styles']);
 });
 
-gulp.task('build', function() {
+gulp.task('build', ['test', 'jshint'], function() {
     var pages =
         gulp.src('./app/*.html')
         .pipe(gulp.dest('./dist/'));

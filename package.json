@@ -16,6 +16,7 @@
     "gulp-serve": "^0.3.1",
     "imagesloaded": "^3.1.8",
     "jsdom": "^4.4.0",
+    "jshint-stylish": "^1.0.1",
     "merge-stream": "^0.1.7",
     "mocha": "^2.2.1",
     "uglifyify": "^3.0.1",
