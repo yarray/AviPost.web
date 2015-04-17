@@ -48,8 +48,8 @@ gulp.task('styles', function() {
 });
 
 gulp.task('test', ['jshint'], function() {
-    require('./spec/init');
-    return gulp.src('./spec/**/*-test.js')
+    require('./test/init');
+    return gulp.src('./test/**/*-test.js')
         .pipe(mocha());
 });
 
@@ -60,10 +60,6 @@ gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/config/*.js', ['scripts']);
     gulp.watch('./app/styles/**/*.css', ['styles']);
 });
-
-gulp.task('ci', [
-    'test'
-]);
 
 gulp.task('build', ['test', 'jshint'], function() {
     var pages =

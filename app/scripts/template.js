@@ -15,6 +15,7 @@ var render = function(data, template) {
     buffer.innerHTML = render2html(data, template.outerHTML);
     array(buffer.querySelectorAll('img')).forEach(function(img) {
         img.src = img.getAttribute('data-src') || img.src;
+        img.removeAttribute('data-src');
     });
     buffer.firstChild.removeAttribute('data-template');
 
@@ -29,5 +30,6 @@ var renderArray = function(data, template) {
 
 module.exports = {
     renderArray: renderArray,
-    render: render
+    render: render,
+    render2html: render2html
 };
