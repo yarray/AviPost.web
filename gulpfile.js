@@ -61,6 +61,10 @@ gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/styles/**/*.css', ['styles']);
 });
 
+gulp.task('ci', [
+    'test'
+]);
+
 gulp.task('build', ['test', 'jshint'], function() {
     var pages =
         gulp.src('./app/*.html')
