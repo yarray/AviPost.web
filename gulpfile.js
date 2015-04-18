@@ -71,8 +71,8 @@ gulp.task('test', ['jshint'], function() {
         .pipe(mocha());
 });
 
-// replace config
-gulp.task('config.test', function() {
+// use test config
+gulp.task('config.test', ['build'], function() {
     return gulp.src('./app/config/config.test.js')
         .pipe(rename('config.js'))
         .pipe(gulp.dest('./dist/'));

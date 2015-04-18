@@ -1,5 +1,6 @@
 {
     "src_folders": ["e2e"],
+    "output_folder": "/tmp/reports",
     "selenium": {
         "start_process": false
     },
