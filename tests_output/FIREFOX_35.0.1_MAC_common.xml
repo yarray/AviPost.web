@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="1">
+
+  <testsuite name="common"
+    errors="0" failures="1" hostname="" id="" package="common" skipped="0"
+    tests="1" time="10.12" timestamp="Sat, 18 Apr 2015 19:46:50 GMT">
+  
+    <testcase name="Demo test Google" time="10.12" assertions="5">
+
+    
+
+    
+
+    
+
+      <failure message="Testing if element &lt;ol#rso li:first-child&gt; contains text: &quot;Rembrandt - Wikipedia&quot;.">Testing if element &lt;ol#rso li:first-child&gt; contains text: &quot;Rembrandt - Wikipedia&quot;.: Expected &quot;Rembrandt - Wikipedia&quot; but got: &quot;Rembrandt van Rijn – Wikipedia
+de.wikipedia.org/wiki/Rembrandt_van_Rijn
+Rembrandt Harmenszoon van Rijn (* 15. Juli 1606 in Leiden; † 4. Oktober 1669 in Amsterdam; bekannt unter seinem Vornamen Rembrandt) gilt als einer der ...
+Leben - Werke - Sammlung - Bedeutung und Nachwirkungen&quot;
+    at Object.&lt;anonymous&gt; (/usr/local/lib/node_modules/nightwatch/lib/core/assertion.js:88:19)
+    at Object.&lt;anonymous&gt; (/usr/local/lib/node_modules/nightwatch/lib/api/element-commands.js:351:24)
+    at HttpRequest.&lt;anonymous&gt; (/usr/local/lib/node_modules/nightwatch/lib/index.js:276:20)
+    at HttpRequest.EventEmitter.emit (events.js:98:17)
+    at HttpRequest.&lt;anonymous&gt; (/usr/local/lib/node_modules/nightwatch/lib/index.js:299:15)
+    at HttpRequest.EventEmitter.emit (events.js:106:17)
+    at IncomingMessage.&lt;anonymous&gt; (/usr/local/lib/node_modules/nightwatch/lib/http/request.js:148:16)
+    at IncomingMessage.EventEmitter.emit (events.js:117:20)
+    at _stream_readable.js:919:16
+    at process._tickCallback (node.js:419:13)</failure>
+
+    
+    </testcase>
+  
+  
+  </testsuite>
+</testsuites>

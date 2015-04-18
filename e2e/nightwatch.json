@@ -1,0 +1,19 @@
+{
+    "src_folders": ["e2e"],
+    "selenium": {
+        "start_process": false
+    },
+
+    "test_settings": {
+        "default": {
+            "launch_url": "http://localhost:2043",
+            "silent": true,
+
+            "desiredCapabilities": {
+                "browserName": "phantomjs",
+                "javascriptEnabled": true,
+                "acceptSslCerts": true
+            }
+        }
+    }
+}

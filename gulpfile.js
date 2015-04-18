@@ -14,12 +14,15 @@ var myth = require('gulp-myth');
 var csso = require('gulp-csso');
 var serve = require('gulp-serve');
 var mocha = require('gulp-mocha');
+var nightwatch = require('gulp-nightwatch-headless');
+var exit = require('gulp-exit');
 
 // others
 var merge = require('merge-stream');
 var del = require('del');
 
-
+// development
+// 
 gulp.task('jshint', function() {
     return gulp.src('./app/scripts/**/*.js')
         .pipe(jshint())
@@ -28,29 +31,28 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('scripts', function() {
-    return browserify('./app/scripts/app.js', {
+    var scripts = browserify('./app/scripts/app.js', {
             debug: true
         })
-        .add('./app/config/dev.js')
         .bundle()
         .on('error', function(err) {
             console.log(err.message);
             this.emit('end');
         })
         .pipe(source('app.js'))
-        .pipe(gulp.dest('.tmp/scripts/'));
+        .pipe(gulp.dest('./.tmp/scripts/'));
+
+    var config = gulp.src('./app/config/config.dev.js')
+        .pipe(rename('config.js'))
+        .pipe(gulp.dest('./.tmp/'));
+
+    return merge(scripts, config);
 });
 
 gulp.task('styles', function() {
     return gulp.src('./app/styles/app.css')
         .pipe(myth())
-        .pipe(gulp.dest('.tmp/styles/'));
-});
-
-gulp.task('test', ['jshint'], function() {
-    require('./test/init');
-    return gulp.src('./test/**/*-test.js')
-        .pipe(mocha());
+        .pipe(gulp.dest('./.tmp/styles/'));
 });
 
 gulp.task('serve', ['watch'], serve(['.tmp', 'app']));
@@ -61,25 +63,57 @@ gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/styles/**/*.css', ['styles']);
 });
 
-gulp.task('build', ['test', 'jshint'], function() {
-    var pages =
-        gulp.src('./app/*.html')
+// test
+// 
+gulp.task('test', ['jshint'], function() {
+    require('./test/init');
+    return gulp.src('./test/**/*-test.js')
+        .pipe(mocha());
+});
+
+// replace config
+gulp.task('config.test', function() {
+    return gulp.src('./app/config/config.test.js')
+        .pipe(rename('config.js'))
+        .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('e2e', ['config.test'], function() {
+    return gulp.src('')
+        .pipe(nightwatch({
+            nightwatch: {
+                tempDir: '.tmp',
+                config: 'e2e/nightwatch.json'
+            },
+            httpserver: {
+                port: 2043,
+                path: 'dist'
+            }
+        }));
+});
+
+// production
+//
+gulp.task('build', ['clean', 'test', 'jshint'], function() {
+    var pages = gulp.src('./app/*.html')
         .pipe(gulp.dest('./dist/'));
 
-    var scripts =
-        browserify('./app/scripts/app.js')
+    var scripts = browserify('./app/scripts/app.js')
         .transform(uglifyify)
         .bundle()
         .pipe(source('app.js'))
         .pipe(gulp.dest('./dist/scripts/'));
 
-    var styles =
-        gulp.src('./app/styles/app.css')
+    var styles = gulp.src('./app/styles/app.css')
         .pipe(myth())
         .pipe(csso())
         .pipe(gulp.dest('./dist/styles/'));
 
-    return merge(pages, scripts, styles);
+    var config = gulp.src('./app/config/config.prod.js')
+        .pipe(rename('config.js'))
+        .pipe(gulp.dest('dist/'));
+
+    return merge(pages, scripts, config, styles);
 });
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
