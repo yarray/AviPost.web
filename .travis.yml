@@ -14,5 +14,5 @@ before_script:
     - psql -d travis_ci_test -c 'CREATE EXTENSION postgis' -U postgres
     - cd AviPost/avipost
     - python manage.py migrate --settings=avipost.settings.travis_ci
-    - python manage.py runserver --settings=avipost.settings.travis_ci
+    - python manage.py runserver --settings=avipost.settings.travis_ci &
 script: gulp e2e
