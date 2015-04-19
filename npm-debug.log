@@ -1,0 +1,249 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', '-g', 'gulp' ]
+2 info using npm@2.7.4
+3 info using node@v0.10.28
+4 verbose node symlink /usr/local/bin/node
+5 silly cache add args [ 'gulp', null ]
+6 verbose cache add spec gulp
+7 silly cache add parsed spec { raw: 'gulp',
+7 silly cache add   scope: null,
+7 silly cache add   name: 'gulp',
+7 silly cache add   rawSpec: '',
+7 silly cache add   spec: '*',
+7 silly cache add   type: 'range' }
+8 verbose addNamed gulp@*
+9 silly addNamed semver.valid null
+10 silly addNamed semver.validRange *
+11 silly addNameRange { name: 'gulp', range: '*', hasData: false }
+12 silly mapToRegistry name gulp
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/gulp
+16 verbose addNameRange registry:https://registry.npmjs.org/gulp not in flight; fetching
+17 verbose request uri https://registry.npmjs.org/gulp
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 19:57:52
+20 verbose request id fd341597657170ba
+21 verbose etag "VUZYLRDI7TCU6ZHVXKKKWZRT"
+22 http request GET https://registry.npmjs.org/gulp
+23 http 200 https://registry.npmjs.org/gulp
+24 silly get cb [ 200,
+24 silly get   { date: 'Sun, 19 Apr 2015 17:57:52 GMT',
+24 silly get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+24 silly get     etag: '"E5CQBMEVN97KJX3TQRK7UA00W"',
+24 silly get     'content-type': 'application/json',
+24 silly get     'cache-control': 'max-age=60',
+24 silly get     'content-length': '100870',
+24 silly get     'accept-ranges': 'bytes',
+24 silly get     via: '1.1 varnish',
+24 silly get     age: '16',
+24 silly get     'x-served-by': 'cache-fra1223-FRA',
+24 silly get     'x-cache': 'HIT',
+24 silly get     'x-cache-hits': '1',
+24 silly get     'x-timer': 'S1429466272.628144,VS0,VE0',
+24 silly get     vary: 'Accept',
+24 silly get     'keep-alive': 'timeout=10, max=50',
+24 silly get     connection: 'Keep-Alive' } ]
+25 verbose get saving gulp to /Users/yarray/.npm/registry.npmjs.org/gulp/.cache.json
+26 silly addNameRange number 2 { name: 'gulp', range: '*', hasData: true }
+27 silly addNameRange versions [ 'gulp',
+27 silly addNameRange   [ '0.0.1',
+27 silly addNameRange     '0.0.2',
+27 silly addNameRange     '0.0.3',
+27 silly addNameRange     '0.0.4',
+27 silly addNameRange     '0.0.5',
+27 silly addNameRange     '0.0.7',
+27 silly addNameRange     '0.0.8',
+27 silly addNameRange     '0.0.9',
+27 silly addNameRange     '0.1.0',
+27 silly addNameRange     '0.2.0',
+27 silly addNameRange     '1.0.0',
+27 silly addNameRange     '1.1.0',
+27 silly addNameRange     '1.2.0',
+27 silly addNameRange     '1.2.1',
+27 silly addNameRange     '2.0.0',
+27 silly addNameRange     '2.0.1',
+27 silly addNameRange     '2.1.0',
+27 silly addNameRange     '2.2.0',
+27 silly addNameRange     '2.3.0',
+27 silly addNameRange     '2.4.0',
+27 silly addNameRange     '2.4.1',
+27 silly addNameRange     '2.6.0',
+27 silly addNameRange     '2.6.1',
+27 silly addNameRange     '2.7.0',
+27 silly addNameRange     '3.0.0',
+27 silly addNameRange     '3.1.1',
+27 silly addNameRange     '3.1.2',
+27 silly addNameRange     '3.1.3',
+27 silly addNameRange     '3.1.4',
+27 silly addNameRange     '3.2.0',
+27 silly addNameRange     '3.2.1',
+27 silly addNameRange     '3.2.2',
+27 silly addNameRange     '3.2.3',
+27 silly addNameRange     '3.2.4',
+27 silly addNameRange     '3.2.5',
+27 silly addNameRange     '3.3.0',
+27 silly addNameRange     '3.3.1',
+27 silly addNameRange     '3.3.2',
+27 silly addNameRange     '3.3.4',
+27 silly addNameRange     '3.4.0',
+27 silly addNameRange     '3.5.0',
+27 silly addNameRange     '3.5.1',
+27 silly addNameRange     '3.5.2',
+27 silly addNameRange     '3.5.5',
+27 silly addNameRange     '3.5.6',
+27 silly addNameRange     '3.6.0',
+27 silly addNameRange     '3.6.1',
+27 silly addNameRange     '3.6.2',
+27 silly addNameRange     '3.7.0',
+27 silly addNameRange     '3.8.0',
+27 silly addNameRange     '3.8.1',
+27 silly addNameRange     '3.8.2',
+27 silly addNameRange     '3.8.3',
+27 silly addNameRange     '3.8.4',
+27 silly addNameRange     '3.8.5',
+27 silly addNameRange     '3.8.6',
+27 silly addNameRange     '3.8.7',
+27 silly addNameRange     '3.8.8',
+27 silly addNameRange     '3.8.9',
+27 silly addNameRange     '3.8.10',
+27 silly addNameRange     '3.8.11' ] ]
+28 verbose addNamed gulp@3.8.11
+29 silly addNamed semver.valid 3.8.11
+30 silly addNamed semver.validRange 3.8.11
+31 silly cache afterAdd gulp@3.8.11
+32 verbose afterAdd /Users/yarray/.npm/gulp/3.8.11/package/package.json not in flight; writing
+33 verbose afterAdd /Users/yarray/.npm/gulp/3.8.11/package/package.json written
+34 silly install resolved [ { name: 'gulp',
+34 silly install resolved     description: 'The streaming build system',
+34 silly install resolved     version: '3.8.11',
+34 silly install resolved     homepage: 'http://gulpjs.com',
+34 silly install resolved     repository: { type: 'git', url: 'https://github.com/gulpjs/gulp' },
+34 silly install resolved     author:
+34 silly install resolved      { name: 'Fractal',
+34 silly install resolved        email: 'contact@wearefractal.com',
+34 silly install resolved        url: 'http://wearefractal.com/' },
+34 silly install resolved     tags: [ 'build', 'stream', 'system', 'make', 'tool', 'asset', 'pipeline' ],
+34 silly install resolved     files: [ 'index.js', 'lib', 'bin', 'completion' ],
+34 silly install resolved     bin: { gulp: './bin/gulp.js' },
+34 silly install resolved     man: [ 'gulp.1' ],
+34 silly install resolved     dependencies:
+34 silly install resolved      { archy: '^1.0.0',
+34 silly install resolved        chalk: '^0.5.0',
+34 silly install resolved        deprecated: '^0.0.1',
+34 silly install resolved        'gulp-util': '^3.0.0',
+34 silly install resolved        interpret: '^0.3.2',
+34 silly install resolved        liftoff: '^2.0.1',
+34 silly install resolved        minimist: '^1.1.0',
+34 silly install resolved        orchestrator: '^0.3.0',
+34 silly install resolved        'pretty-hrtime': '^0.2.0',
+34 silly install resolved        semver: '^4.1.0',
+34 silly install resolved        tildify: '^1.0.0',
+34 silly install resolved        v8flags: '^2.0.2',
+34 silly install resolved        'vinyl-fs': '^0.3.0' },
+34 silly install resolved     devDependencies:
+34 silly install resolved      { coveralls: '^2.7.0',
+34 silly install resolved        'graceful-fs': '^3.0.0',
+34 silly install resolved        istanbul: '^0.3.0',
+34 silly install resolved        jshint: '^2.5.0',
+34 silly install resolved        'jshint-stylish': '^1.0.0',
+34 silly install resolved        'marked-man': '^0.1.3',
+34 silly install resolved        mkdirp: '^0.5.0',
+34 silly install resolved        mocha: '^2.0.1',
+34 silly install resolved        'mocha-lcov-reporter': '^0.0.1',
+34 silly install resolved        q: '^1.0.0',
+34 silly install resolved        rimraf: '^2.2.5',
+34 silly install resolved        should: '^4.0.0' },
+34 silly install resolved     scripts:
+34 silly install resolved      { prepublish: 'marked-man --name gulp docs/CLI.md > gulp.1',
+34 silly install resolved        lint: 'jshint lib bin index.js --reporter node_modules/jshint-stylish/stylish.js --exclude node_modules',
+34 silly install resolved        test: 'npm run-script lint && mocha --reporter spec',
+34 silly install resolved        coveralls: 'istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage' },
+34 silly install resolved     engineStrict: true,
+34 silly install resolved     engines: { node: '>= 0.9' },
+34 silly install resolved     licenses: [ [Object] ],
+34 silly install resolved     gitHead: '84df40b0faabc2b61d576154fd1145e2146377ca',
+34 silly install resolved     bugs: { url: 'https://github.com/gulpjs/gulp/issues' },
+34 silly install resolved     _id: 'gulp@3.8.11',
+34 silly install resolved     _shasum: 'd557e0a7283eb4136491969b0497767972f1d28a',
+34 silly install resolved     _from: 'gulp@*',
+34 silly install resolved     _npmVersion: '2.5.1',
+34 silly install resolved     _nodeVersion: '0.12.0',
+34 silly install resolved     _npmUser: { name: 'phated', email: 'blaine@iceddev.com' },
+34 silly install resolved     maintainers: [ [Object], [Object] ],
+34 silly install resolved     dist:
+34 silly install resolved      { shasum: 'd557e0a7283eb4136491969b0497767972f1d28a',
+34 silly install resolved        tarball: 'http://registry.npmjs.org/gulp/-/gulp-3.8.11.tgz' },
+34 silly install resolved     directories: {},
+34 silly install resolved     _resolved: 'https://registry.npmjs.org/gulp/-/gulp-3.8.11.tgz',
+34 silly install resolved     readme: 'ERROR: No README data found!' } ]
+35 info install gulp@3.8.11 into /usr/local/lib
+36 info installOne gulp@3.8.11
+37 verbose installOne of gulp to /usr/local/lib not in flight; installing
+38 verbose lock using /Users/yarray/.npm/_locks/gulp-709d00e5d169ceb3.lock for /usr/local/lib/node_modules/gulp
+39 silly install write writing gulp 3.8.11 to /usr/local/lib/node_modules/gulp
+40 silly cache addNamed cb gulp@3.8.11
+41 verbose unbuild lib/node_modules/gulp
+42 info preuninstall gulp@3.8.11
+43 info uninstall gulp@3.8.11
+44 verbose unbuild rmStuff gulp@3.8.11 from /usr/local/lib/node_modules
+45 silly gentlyRm /usr/local/bin/gulp is being gently removed
+46 silly gentlyRm verifying /usr/local is an npm working directory
+47 verbose rmMans man files are [ 'gulp.1' ] in /usr/local/share/man
+48 silly rmMan preparing to remove gulp.1
+49 silly gentlyRm /usr/local/share/man/man1/gulp.1.1 is being gently removed
+50 silly gentlyRm verifying /usr/local is an npm working directory
+51 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+52 silly gentlyRm deletion target /usr/local/bin/gulp is under /usr/local
+53 verbose gentlyRm vacuuming from /usr/local/bin/gulp up to /usr/local
+54 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+55 silly gentlyRm deletion target /usr/local/share/man/man1/gulp.1.1 is under /usr/local
+56 verbose gentlyRm vacuuming from /usr/local/share/man/man1/gulp.1.1 up to /usr/local
+57 silly vacuum-fs removing /usr/local/bin/gulp
+58 silly vacuum-fs quitting because other entries in /usr/local/bin
+59 info postuninstall gulp@3.8.11
+60 silly gentlyRm /usr/local/lib/node_modules/gulp is being purged from base /usr/local
+61 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/gulp
+62 silly vacuum-fs purging /usr/local/lib/node_modules/gulp
+63 verbose unlock done using /Users/yarray/.npm/_locks/gulp-709d00e5d169ceb3.lock for /usr/local/lib/node_modules/gulp
+64 verbose stack Error: EACCES, unlink '/usr/local/lib/node_modules/gulp/CHANGELOG.md'
+65 verbose cwd /Users/yarray/projects/websites/AviPost.web
+66 error Darwin 14.1.0
+67 error argv "node" "/usr/local/bin/npm" "install" "-g" "gulp"
+68 error node v0.10.28
+69 error npm  v2.7.4
+70 error path /usr/local/lib/node_modules/gulp/CHANGELOG.md
+71 error code EACCES
+72 error errno 3
+73 error Error: EACCES, unlink '/usr/local/lib/node_modules/gulp/CHANGELOG.md'
+73 error  { [Error: EACCES, unlink '/usr/local/lib/node_modules/gulp/CHANGELOG.md']
+73 error   errno: 3,
+73 error   code: 'EACCES',
+73 error   path: '/usr/local/lib/node_modules/gulp/CHANGELOG.md' }
+74 error Please try running this command again as root/Administrator.
+75 verbose exit [ 3, true ]
+76 verbose unbuild lib/node_modules/gulp
+77 info preuninstall gulp@3.8.11
+78 info uninstall gulp@3.8.11
+79 verbose unbuild rmStuff gulp@3.8.11 from /usr/local/lib/node_modules
+80 silly gentlyRm /usr/local/bin/gulp is being gently removed
+81 silly gentlyRm verifying /usr/local is an npm working directory
+82 verbose rmMans man files are [ 'gulp.1' ] in /usr/local/share/man
+83 silly rmMan preparing to remove gulp.1
+84 silly gentlyRm /usr/local/share/man/man1/gulp.1.1 is being gently removed
+85 silly gentlyRm verifying /usr/local is an npm working directory
+86 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+87 silly gentlyRm deletion target /usr/local/bin/gulp is under /usr/local
+88 verbose gentlyRm vacuuming from /usr/local/bin/gulp up to /usr/local
+89 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+90 silly gentlyRm deletion target /usr/local/share/man/man1/gulp.1.1 is under /usr/local
+91 verbose gentlyRm vacuuming from /usr/local/share/man/man1/gulp.1.1 up to /usr/local
+92 info postuninstall gulp@3.8.11
+93 silly gentlyRm /usr/local/lib/node_modules/gulp is being purged from base /usr/local
+94 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/gulp
+95 silly vacuum-fs purging /usr/local/lib/node_modules/gulp
+96 error error rolling back Error: EACCES, unlink '/usr/local/lib/node_modules/gulp/CHANGELOG.md'
+96 error error rolling back  { [Error: EACCES, unlink '/usr/local/lib/node_modules/gulp/CHANGELOG.md']
+96 error error rolling back   errno: 3,
+96 error error rolling back   code: 'EACCES',
+96 error error rolling back   path: '/usr/local/lib/node_modules/gulp/CHANGELOG.md' }
