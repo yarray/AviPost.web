@@ -13,4 +13,5 @@ before_script:
     - cd AviPost/avipost
     - python manage.py migrate --settings=avipost.settings.travis_ci
     - python manage.py runserver --settings=avipost.settings.travis_ci &
+    - cd -
 script: gulp e2e
