@@ -14,9 +14,12 @@ dependencies:
 
   override:
     - mkdir -p ~/docker
-    - docker pull nginx
-    # - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; \
-    #   else docker pull nginx && docker save nginx > ~/docker/base.tar; fi
+    - if [[ -e ~/docker/base.tar ]]; then \
+        docker load -i ~/docker/base.tar \
+      else \
+        docker pull nginx && docker save nginx > ~/docker/base.tar \
+      fi
+
 
 ## Customize test commands
 test:
