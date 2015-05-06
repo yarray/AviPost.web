@@ -11,11 +11,12 @@ machine:
 dependencies:
   cache_directories:
     - "~/docker"
-    - "node_modules"
+
   override:
     - mkdir -p ~/docker
-    - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar && echo load; \
-      else docker pull nginx && docker save nginx > ~/docker/base.tar; fi
+    - docker pull nginx
+    # - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; \
+    #   else docker pull nginx && docker save nginx > ~/docker/base.tar; fi
 
 ## Customize test commands
 test:
