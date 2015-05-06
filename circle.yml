@@ -13,6 +13,7 @@ test:
     - gulp build.test
     - docker build -t avipost.web dist/
     - docker run --name=app -p 8000:80 -d avipost.web 
-    - wget -O .tmp/selenium-sever.jar http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
+    - wget -O selenium-sever.jar http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
+    - java -jar selenium-server.jar
   override:
     - nightwatch -c e2e/nightwatch.json

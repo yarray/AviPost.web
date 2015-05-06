@@ -1,11 +1,6 @@
 {
     "src_folders": ["e2e"],
-    "output_folder": ".tmp/reports",
-    "selenium": {
-        "start_process": true,
-        "server_path": ".tmp/selenium-server.jar"
-    },
-
+    "output_folder": "/tmp/reports",
     "test_settings": {
         "default": {
             "launch_url": "http://127.0.0.1:8000",
