@@ -1,7 +1,11 @@
 ## Customize the test machine
 machine:
+  node:
+    version: v0.12.2
   services:
     - docker
+  environment:
+    PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
 
 ## Customize test commands
 test:
