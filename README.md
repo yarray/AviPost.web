@@ -1,5 +1,5 @@
 # AviPost
-[![Build Status](https://travis-ci.org/yarray/AviPost.web.svg?branch=master)](https://travis-ci.org/yarray/AviPost.web)
+[![Circle CI](https://circleci.com/gh/yarray/AviPost.web.svg?style=svg)](https://circleci.com/gh/yarray/AviPost.web)
 
 Web app version of AviPost. Please refer to sunforest/AviPost as backend.
 
