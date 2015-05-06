@@ -1,3 +1,4 @@
 // test config
-// TODO add test config for e2e test
-var config = {};
+var config = {
+    "uri": "http://127.0.0.1:3001/api"
+};

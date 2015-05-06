@@ -63,36 +63,14 @@ gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/styles/**/*.css', ['styles']);
 });
 
-// test
-// 
 gulp.task('test', ['jshint'], function() {
     require('./test/init');
     return gulp.src('./test/**/*-test.js')
         .pipe(mocha());
 });
 
-// use test config
-gulp.task('config.test', ['build'], function() {
-    return gulp.src('./app/config/config.test.js')
-        .pipe(rename('config.js'))
-        .pipe(gulp.dest('./dist/'));
-});
 
-gulp.task('e2e', ['config.test'], function() {
-    return gulp.src('')
-        .pipe(nightwatch({
-            nightwatch: {
-                tempDir: '.tmp',
-                config: 'e2e/nightwatch.json'
-            },
-            httpserver: {
-                port: 2043,
-                path: 'dist'
-            }
-        }));
-});
-
-// production
+// integration
 //
 gulp.task('build', ['clean', 'test', 'jshint'], function() {
     var pages = gulp.src('./app/*.html')
@@ -119,12 +97,11 @@ gulp.task('build', ['clean', 'test', 'jshint'], function() {
     return merge(pages, scripts, config, styles, docker);
 });
 
-gulp.task('docker', ['build'], function() {
-    exec('docker build -t avipost.web dist/', function(err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
+// build test version
+gulp.task('build.test', ['build'], function() {
+    return gulp.src('./app/config/config.test.js')
+        .pipe(rename('config.js'))
+        .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
