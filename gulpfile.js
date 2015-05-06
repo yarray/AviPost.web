@@ -14,8 +14,6 @@ var myth = require('gulp-myth');
 var csso = require('gulp-csso');
 var serve = require('gulp-serve');
 var mocha = require('gulp-mocha');
-var nightwatch = require('gulp-nightwatch-headless');
-var exec = require('child_process').exec;
 
 // others
 var merge = require('merge-stream');
