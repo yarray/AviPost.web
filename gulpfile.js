@@ -15,7 +15,7 @@ var csso = require('gulp-csso');
 var serve = require('gulp-serve');
 var mocha = require('gulp-mocha');
 var nightwatch = require('gulp-nightwatch-headless');
-var exit = require('gulp-exit');
+var exec = require('child_process').exec;
 
 // others
 var merge = require('merge-stream');
@@ -113,7 +113,18 @@ gulp.task('build', ['clean', 'test', 'jshint'], function() {
         .pipe(rename('config.js'))
         .pipe(gulp.dest('dist/'));
 
-    return merge(pages, scripts, config, styles);
+    var docker = gulp.src('./Dockerfile')
+        .pipe(gulp.dest('dist/'));
+
+    return merge(pages, scripts, config, styles, docker);
+});
+
+gulp.task('docker', ['build'], function() {
+    exec('docker build -t avipost.web dist/', function(err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
 });
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
