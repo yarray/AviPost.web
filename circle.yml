@@ -37,10 +37,10 @@ database:
 ## Customize test commands
 test:
   pre:
-    - docker run --name=api --net='host' -p 8000:80 -e "DJANGO_SETTINGS_MODULE=avipost.settings.ci_stubbed_prod" -d avipost
+    - docker run --name=api --net='host' -e "DJANGO_SETTINGS_MODULE=avipost.settings.ci_stubbed_prod" -d avipost
     - gulp build.test
     - docker build -t avipost.web dist/
-    - docker run --name=app -p 80:80 -d avipost.web 
+    - docker run --name=app -p 3000:80 -d avipost.web 
     - wget -O selenium-server.jar http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
     - java -jar selenium-server.jar:
         background: true

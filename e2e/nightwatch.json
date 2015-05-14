@@ -3,7 +3,7 @@
     "output_folder": ".tmp/reports",
     "test_settings": {
         "default": {
-            "launch_url": "http://127.0.0.1",
+            "launch_url": "http://127.0.0.1:3000",
             "silent": true,
 
             "desiredCapabilities": {
