@@ -1,9 +1,0 @@
-{
-	"id": 2,
-	"cover": "http://127.0.0.1:3000/api/image/2.jpg",
-	"message": ":)",
-	"sender": "demo",
-	"receiver": "demo2",
-	"senderAddr": "Heidelberg, Germany",
-	"receiverAddr": "Kassel, Germany"
-}

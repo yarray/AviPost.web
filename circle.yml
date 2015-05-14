@@ -6,22 +6,34 @@ machine:
     - docker
   environment:
     PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
+    DJANGO_SETTINGS_MODULE: avipost.settings.ci
 
-## Cache base docker image (nginx) and node_modules to speed up rebuilding
+## Cache base docker image (nginx) to speed up rebuilding
 dependencies:
   cache_directories:
     - "~/docker"
+
+  pre:
+    - pip install -r AviPost/requirements/ci.txt
+    - docker build -t avipost AviPost/
 
   override:
     - mkdir -p ~/docker
     - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; else docker pull nginx && docker save nginx > ~/docker/base.tar; fi
 
+database:
+  post:
+    - psql -c 'CREATE DATABASE avipost_ci;'
+    - psql -c "CREATE EXTENSION postgis;" -d avipost_ci
+    - python AviPost/avipost/manage.py migrate
+
 ## Customize test commands
 test:
   pre:
+    - docker run --name=api --net='host' -p 8000:80 -e "DJANGO_SETTINGS_MODULE=avipost.settings.ci_stubbed_prod" -d avipost
     - gulp build.test
     - docker build -t avipost.web dist/
-    - docker run --name=app -p 8000:80 -d avipost.web 
+    - docker run --name=app -p 80:80 -d avipost.web 
     - wget -O selenium-server.jar http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
     - java -jar selenium-server.jar:
         background: true

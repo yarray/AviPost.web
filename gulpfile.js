@@ -97,7 +97,7 @@ gulp.task('build', ['clean', 'test', 'jshint'], function() {
 
 // build test version
 gulp.task('build.test', ['build'], function() {
-    return gulp.src('./app/config/config.test.js')
+    return gulp.src('./app/config/config.ci.js')
         .pipe(rename('config.js'))
         .pipe(gulp.dest('./dist/'));
 });
