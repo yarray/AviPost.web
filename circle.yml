@@ -8,6 +8,11 @@ machine:
     PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
     DJANGO_SETTINGS_MODULE: avipost.settings.ci
 
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+
 ## Cache base docker image (nginx) to speed up rebuilding
 dependencies:
   cache_directories:
