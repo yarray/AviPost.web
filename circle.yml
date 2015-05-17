@@ -2,8 +2,6 @@
 machine:
   node:
     version: v0.12.2
-  python:
-    version: 2.7.6
   services:
     - docker
   environment:
