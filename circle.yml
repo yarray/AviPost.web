@@ -2,6 +2,8 @@
 machine:
   node:
     version: v0.12.2
+  python:
+    version: 2.7.6
   services:
     - docker
   environment:
@@ -19,12 +21,13 @@ dependencies:
     - "~/docker"
 
   pre:
-    - sudo pip install -r AviPost/requirements/ci.txt
+    - pip install -r AviPost/requirements/ci.txt
     - docker build -t avipost AviPost/
 
   override:
     - mkdir -p ~/docker
     - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; else docker pull nginx && docker save nginx > ~/docker/base.tar; fi
+    - npm install
 
 database:
   post:
