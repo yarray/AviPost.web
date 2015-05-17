@@ -19,7 +19,7 @@ dependencies:
     - "~/docker"
 
   pre:
-    - pip install -r AviPost/requirements/ci.txt
+    - sudo pip install -r AviPost/requirements/ci.txt
     - docker build -t avipost AviPost/
 
   override:
