@@ -10,12 +10,12 @@
     display: block;
     position: relative;
 
-    column-count: 5;
+    column-count: 4;
 	column-gap: 0;
 }
 
 #gallery ul.page > li {
-    padding: 1px 1px;
+    padding: 3px 3px;
     box-sizing: border-box;
     background-color: white;
     line-height: 0;

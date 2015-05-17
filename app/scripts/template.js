@@ -13,13 +13,16 @@ var render2html = function(data, template) {
 var render = function(data, template) {
     var buffer = document.createElement('div');
     buffer.innerHTML = render2html(data, template.outerHTML);
-    array(buffer.querySelectorAll('img')).forEach(function(img) {
+    var result = buffer.firstChild;
+
+    array(result.querySelectorAll('img')).forEach(function(img) {
         img.src = img.getAttribute('data-src') || img.src;
         img.removeAttribute('data-src');
     });
-    buffer.firstChild.removeAttribute('data-template');
+    result.removeAttribute('data-template');
+    result.removeAttribute('id'); // id should be unique to template
 
-    return buffer.firstChild;
+    return result;
 };
 
 var renderArray = function(data, template) {

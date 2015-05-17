@@ -14,6 +14,7 @@ describe('template', function() {
 
     it('can render template', function() {
         var tmpl = document.createElement('li');
+        tmpl.id = "unique";
         tmpl.innerHTML = '<img src="//:0" data-src="{{url}}">{{b}}</img>';
         expect(template.render({
             url: 'http://1.com/1.png',
@@ -22,5 +23,4 @@ describe('template', function() {
             '<li><img src="http://1.com/1.png">2</li>'
         );
     });
-
 });

@@ -45,4 +45,4 @@ test:
     - java -jar selenium-server.jar:
         background: true
   override:
-    - nightwatch -c e2e/nightwatch.json
+    - cucumber-js e2e/features
