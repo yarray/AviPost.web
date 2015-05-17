@@ -8,6 +8,10 @@ ul {
     list-style: none;
 }
 
+figure {
+    margin: 0;
+}
+
 [data-template] {
     display: none !important;
     width: 0;

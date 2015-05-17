@@ -17,9 +17,9 @@ var gallery = function() {
     });
 
     this.Then(/^with (\d+) figures/, function(count, done) {
-        this.client.elements('figure').then(function(res) {
+        this.client.getHTML('figure').then(function(elements) {
             // count + 1 template
-            res.value.should.have.length(parseInt(count, 10) + 1);
+            elements.should.have.length(parseInt(count, 10) + 1);
         }).call(done);
     });
 };
