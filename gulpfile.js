@@ -11,7 +11,6 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var myth = require('gulp-myth');
-var prefixer = require('gulp-autoprefixer');
 var csso = require('gulp-csso');
 var serve = require('gulp-serve');
 var mocha = require('gulp-mocha');
@@ -50,7 +49,6 @@ gulp.task('scripts', function() {
 
 gulp.task('styles', function() {
     return gulp.src('./app/styles/app.css')
-        .pipe(prefixer())
         .pipe(myth())
         .pipe(gulp.dest('./.tmp/styles/'));
 });
