@@ -11,6 +11,7 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var myth = require('gulp-myth');
+var prefixer = require('gulp-autoprefixer');
 var csso = require('gulp-csso');
 var serve = require('gulp-serve');
 var mocha = require('gulp-mocha');
@@ -49,6 +50,7 @@ gulp.task('scripts', function() {
 
 gulp.task('styles', function() {
     return gulp.src('./app/styles/app.css')
+        .pipe(prefixer())
         .pipe(myth())
         .pipe(gulp.dest('./.tmp/styles/'));
 });
@@ -84,6 +86,9 @@ gulp.task('build', ['clean', 'test', 'jshint'], function() {
         .pipe(myth())
         .pipe(csso())
         .pipe(gulp.dest('./dist/styles/'));
+
+    var images = gulp.src('./app/images/*')
+        .pipe(gulp.dest('./dist/images/'));
 
     var config = gulp.src('./app/config/config.prod.js')
         .pipe(rename('config.js'))

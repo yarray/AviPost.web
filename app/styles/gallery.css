@@ -1,17 +1,28 @@
-#gallery .page {
-    max-width: 800px;
-    margin: 0 auto;
+#gallery {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#gallery ul.page {
     padding: 0;
+    width: 90%;
     display: block;
+    position: relative;
+
+    column-count: 5;
+	column-gap: 0;
 }
 
-#gallery .page > li {
-    max-width: 200px;
-    padding: 5px;
+#gallery ul.page > li {
+    padding: 1px 1px;
     box-sizing: border-box;
+    background-color: white;
+    line-height: 0;
+    overflow: hidden;
 }
 
-#gallery .page > li img {
+#gallery ul.page > li img {
     max-width: 100%;
     max-height: 100%;
 }

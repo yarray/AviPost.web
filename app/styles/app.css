@@ -1,11 +1,15 @@
 @import 'gallery.css';
 
+body {
+    margin: 0;
+}
+
 ul {
     list-style: none;
 }
 
 [data-template] {
-    display: none;
+    display: none !important;
     width: 0;
     height: 0;
 }
