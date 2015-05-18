@@ -1,14 +1,10 @@
 var clientSession = function() {
-    this.Before(function(callback) {
-        this.client.init();
-        console.log('session init');
-        callback();
+    this.Before(function(done) {
+        this.client.init().then(done);
     });
 
-    this.After(function(callback) {
-        this.client.end();
-        console.log('session end');
-        callback();
+    this.After(function(done) {
+        this.client.end().then(done);
     });
 };
 
