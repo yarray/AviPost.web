@@ -47,3 +47,5 @@ test:
         background: true
   override:
     - cucumber-js e2e/features
+  post:
+    - cat nohup.out
