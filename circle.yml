@@ -49,3 +49,4 @@ test:
     - cucumber-js e2e/features
   post:
     - docker logs api
+    - docker logs app
