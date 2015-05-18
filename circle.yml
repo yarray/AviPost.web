@@ -29,11 +29,6 @@ dependencies:
     - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; else docker pull nginx && docker save nginx > ~/docker/base.tar; fi
     - npm install
 
-  post:
-    - wget -O selenium-server.jar http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
-    - java -jar selenium-server.jar:
-        background: true
-
 database:
   post:
     - psql -c 'CREATE DATABASE avipost_ci;'
@@ -47,5 +42,10 @@ test:
     - gulp build.test
     - docker build -t avipost.web dist/
     - docker run --name=app -p 3000:80 -d avipost.web 
+    - wget -O selenium-server.jar http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
+    - java -jar selenium-server.jar:
+        background: true
   override:
     - cucumber-js e2e/features
+  post:
+    - cat nohup.out
