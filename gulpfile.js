@@ -14,7 +14,6 @@ var myth = require('gulp-myth');
 var csso = require('gulp-csso');
 var serve = require('gulp-serve');
 var mocha = require('gulp-mocha');
-var flow = require('gulp-flowtype');
 
 // others
 var merge = require('merge-stream');
@@ -27,11 +26,6 @@ gulp.task('jshint', function() {
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(jshint.reporter('fail'));
-});
-
-gulp.task('flow', function() {
-    return gulp.src('./app/scripts/**/*.js')
-        .pipe(flow());
 });
 
 gulp.task('scripts', function() {
