@@ -1,36 +1,43 @@
+/* @flow */
+
 // The entrance of the gallery component
-var imagesLoaded = require('imagesloaded');
 var renderArray = require('./template.js').renderArray;
+var ajax = require('./ajax.js');
+var helper = require('./helper.js');
 
 
-var gallery = function(uri) {
+var gallery = function(uri /*: string */ ) {
     var container = document.querySelector('#gallery>.page');
-    var columnWidth = 300;
 
     var request = new XMLHttpRequest();
     request.open('GET', uri + '/postcards/');
     request.setRequestHeader("Accept", "application/json");
-    request.onload = function(e) {
-        if (request.readyState === 4 && request.status === 200) {
-            var data = JSON.parse(request.responseText);
-            var dom = renderArray(data, container.querySelector('[data-template]'));
-            dom.forEach(function(element) {
-                // set invisible until all pictures are all loaded
-                element.style.visibility = 'hidden';
+
+    var cardElements /* : Promise<[Element]> */ = (
+        ajax.promise(request)
+        .catch(function(res) {
+            console.error(res.statusText);
+        })
+        .then(function(res) {
+            var data = JSON.parse(res.responseText);
+            var cards = renderArray(data, container.querySelector('[data-template]'));
+            return helper.removeNulls(cards);
+        })
+    );
+
+    // dom IO
+    cardElements.then(function(cards) {
+            cards.forEach(function(element) {
                 container.appendChild(element);
             });
-            imagesLoaded(container, function() {
-                // show
-                dom.forEach(function(element) {
-                    element.style.visibility = 'visible';
-                });
-            }, 1000);
-
-        } else {
-            console.error(request.statusText);
-        }
-    };
-    request.send();
+            return helper.loadImage(container, cards);
+        })
+        .then(function(cards) {
+            // show
+            cards.forEach(function(element) {
+                element.classList.add('ready');
+            });
+        });
 };
 
 module.exports = gallery;

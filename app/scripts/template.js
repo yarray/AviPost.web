@@ -1,8 +1,12 @@
+/* @flow */
 // A deadly simple one-way binding module, using observe() is es7
-var array = require('./utils').array;
+var array = require('./helper').array;
 
 
-var render2html = function(data, template) {
+var render2html = function(
+    data /* : {} */ ,
+    template /* : string */
+) /* : string */ {
     var res = template;
     Object.keys(data).forEach(function(key) {
         res = res.replace(RegExp('{{' + key + '}}', 'g'), data[key]);
@@ -10,10 +14,18 @@ var render2html = function(data, template) {
     return res;
 };
 
-var render = function(data, template) {
+
+var render = function(
+    data /*: {} */ ,
+    template /*: Element */
+) /*: ?Element */ {
     var buffer = document.createElement('div');
     buffer.innerHTML = render2html(data, template.outerHTML);
-    var result = buffer.firstChild;
+
+    var result = buffer.firstElementChild;
+    if (!result) {
+        return null;
+    }
 
     array(result.querySelectorAll('img')).forEach(function(img) {
         img.src = img.getAttribute('data-src') || img.src;
@@ -25,11 +37,16 @@ var render = function(data, template) {
     return result;
 };
 
-var renderArray = function(data, template) {
+
+var renderArray = function(
+    data /*: [{}] */ ,
+    template /*: Element */
+) /*: [?Element] */ {
     return data.map(function(d) {
         return render(d, template);
     });
 };
+
 
 module.exports = {
     renderArray: renderArray,

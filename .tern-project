@@ -1,5 +1,9 @@
 {
-  "libs": [
-    "browser"
-  ]
+    "libs": [
+        "browser",
+        "es6"
+    ],
+    "plugins": {
+        "node": {}
+    }
 }

@@ -8,7 +8,6 @@
     padding: 0;
     width: 90%;
     display: block;
-    position: relative;
 
     column-count: 4;
 	column-gap: 0;
@@ -20,6 +19,11 @@
     background-color: white;
     line-height: 0;
     overflow: hidden;
+    opacity: 0;
+}
+
+#gallery ul.page > li.ready {
+    opacity: 1;
 }
 
 #gallery ul.page > li img {

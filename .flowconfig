@@ -1,0 +1,14 @@
+[ignore]
+.*/.tmp/.*
+.*/dist/.*
+.*/AviPost/.*
+.*/gulpfile.js
+.*/node_modules/gulp-.*
+
+[include]
+./app/scripts/
+
+[libs]
+
+[options]
+module.system=node
