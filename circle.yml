@@ -43,8 +43,10 @@ test:
     - docker build -t avipost.web dist/
     - docker run --name=app -p 3000:80 -d avipost.web 
     - wget -O selenium-server.jar http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
-    # - java -jar selenium-server.jar:
-    #     background: true
+    - java -jar selenium-server.jar:
+        background: true
   override:
-    - java -jar selenium-server.jar
-    # - cucumber-js e2e/features
+    - cucumber-js e2e/features
+  post:
+    - docker logs api
+    - docker logs app
