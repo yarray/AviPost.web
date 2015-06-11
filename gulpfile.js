@@ -61,7 +61,7 @@ gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/styles/**/*.css', ['styles']);
 });
 
-gulp.task('test', ['jshint', 'flow'], function() {
+gulp.task('test', ['jshint'], function() {
     require('./test/init');
     return gulp.src('./test/**/*-test.js')
         .pipe(mocha());
