@@ -3,7 +3,8 @@
 // The entrance of the gallery component
 var renderArray = require('./template.js').renderArray;
 var ajax = require('./ajax.js');
-var helper = require('./helper.js');
+var removeNulls = require('./helper.js').removeNulls;
+var loadImage = require('./dom-helper.js').loadImage;
 
 
 var gallery = function(uri /*: string */ ) {
@@ -21,7 +22,7 @@ var gallery = function(uri /*: string */ ) {
         .then(function(res) {
             var data = JSON.parse(res.responseText);
             var cards = renderArray(data, container.querySelector('[data-template]'));
-            return helper.removeNulls(cards);
+            return removeNulls(cards);
         })
     );
 
@@ -30,7 +31,7 @@ var gallery = function(uri /*: string */ ) {
             cards.forEach(function(element) {
                 container.appendChild(element);
             });
-            return helper.loadImage(container, cards);
+            return loadImage(container, cards);
         })
         .then(function(cards) {
             // show

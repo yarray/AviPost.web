@@ -1,7 +1,7 @@
 ## Customize the test machine
 machine:
   node:
-    version: v0.12.2
+    version: iojs-v2.2.1
   python:
     version: 2.7.6
   services:

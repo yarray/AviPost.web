@@ -4,8 +4,8 @@ var array = require('./helper').array;
 
 
 var render2html = function(
-    data /* : {} */ ,
-    template /* : string */
+    data /*: {} */ ,
+    template /*: string */
 ) /* : string */ {
     var res = template;
     Object.keys(data).forEach(function(key) {
