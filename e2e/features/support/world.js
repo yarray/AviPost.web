@@ -9,7 +9,7 @@ var chai = require('chai');
 var backendPath = path.join(__dirname, '../../../AviPost/');
 var seleniumOptions = {
     desiredCapabilities: {
-        browserName: 'phantomjs'
+        browserName: 'firefox'
     }
 };
 var baseUrl = 'http://127.0.0.1:3000';
