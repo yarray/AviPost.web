@@ -1,0 +1,12 @@
+nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    width: 400px;
+    border-bottom: solid 3px #999;
+}
+
+nav a.activated {
+    /* TODO how to describe this == :hover? */
+    opacity: 1;
+}

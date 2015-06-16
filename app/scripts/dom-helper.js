@@ -15,5 +15,5 @@ var loadImage = function /*:: <T> */ (
 };
 
 module.exports = {
-    loadImage: loadImage
+    loadImage
 };

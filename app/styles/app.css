@@ -1,7 +1,9 @@
+@import 'nav.css';
 @import 'gallery.css';
 
 body {
     margin: 0;
+    position: relative;
 }
 
 ul {
@@ -12,8 +14,23 @@ figure {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+    color: #000;
+    font-size: 20pt;
+    opacity: 0.3;
+}
+
+a:hover {
+    opacity: 1;
+}
+
 [data-template] {
     display: none !important;
     width: 0;
     height: 0;
+}
+
+.hide {
+    display: none !important;
 }

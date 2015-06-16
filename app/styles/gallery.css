@@ -19,11 +19,6 @@
     background-color: white;
     line-height: 0;
     overflow: hidden;
-    opacity: 0;
-}
-
-#gallery ul.page > li.ready {
-    opacity: 1;
 }
 
 #gallery ul.page > li img {

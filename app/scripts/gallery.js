@@ -7,8 +7,14 @@ var removeNulls = require('./helper.js').removeNulls;
 var loadImage = require('./dom-helper.js').loadImage;
 
 
-var gallery = function(uri /*: string */ ) {
-    var container = document.querySelector('#gallery>.page');
+// cannot declare as UI, because flow requires an interface file to handle
+// it, but it restart server every time and is super slow.
+var gallery = function(
+    root /*: Element */,
+    uri /*: string */,
+    ui /*: Object */
+) {
+    var container = root.querySelector('.page');
 
     var request = new XMLHttpRequest();
     request.open('GET', uri + '/postcards/');
@@ -31,13 +37,12 @@ var gallery = function(uri /*: string */ ) {
             cards.forEach(function(element) {
                 container.appendChild(element);
             });
+            cards.forEach(ui.hide);
             return loadImage(container, cards);
         })
         .then(function(cards) {
             // show
-            cards.forEach(function(element) {
-                element.classList.add('ready');
-            });
+            cards.forEach(ui.show);
         });
 };
 

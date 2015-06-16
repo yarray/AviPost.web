@@ -1,8 +1,5 @@
 /* @flow */
 // A deadly simple one-way binding module, using observe() is es7
-var array = require('./helper').array;
-
-
 var render2html = function(
     data /*: {} */ ,
     template /*: string */
@@ -27,7 +24,7 @@ var render = function(
         return null;
     }
 
-    array(result.querySelectorAll('img')).forEach(function(img) {
+    Array.from(result.querySelectorAll('img')).forEach(function(img) {
         img.src = img.getAttribute('data-src') || img.src;
         img.removeAttribute('data-src');
     });
@@ -49,7 +46,7 @@ var renderArray = function(
 
 
 module.exports = {
-    renderArray: renderArray,
-    render: render,
-    render2html: render2html
+    renderArray,
+    render,
+    render2html
 };

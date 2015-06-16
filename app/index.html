@@ -9,12 +9,20 @@
         <script src="scripts/app.js" type="text/javascript" charset="utf-8"></script>
     </head>
     <body>
-    <article id="gallery">
-        <ul class="page">
-            <li id="gallery-item" data-template>
-                <figure><img src="//:0" data-src="{{cover}}" alt=""></figure>
-            </li>
-        </ul>
-    </article>
+        <nav>
+            <a href="/compose">COMPOSE</a>
+            <a href="/gallery">GALLERY</a>
+        </nav>
+        <article id="gallery">
+            <ul class="page">
+                <li id="gallery-item" data-template>
+                    <figure><img src="//:0" data-src="{{cover}}" alt=""></figure>
+                </li>
+            </ul>
+        </article>
+        <article id="compose">
+            <figure></figure>
+            <textarea name="message" rows="8" cols="40"></textarea>
+        </article>
     </body>
 </html>

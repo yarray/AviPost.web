@@ -1,10 +1,4 @@
 /* @flow */
-// convert array-like things (NodeList for example) to array
-var array = function(
-    list /*: any */) /*: [any] */ {
-    return Array.prototype.slice.call(list);
-};
-
 // since flow doesn't recognize filter, we use this style
 var removeNulls = function /*:: <T> */ (
     nullableList /*: [?T] */
@@ -19,6 +13,5 @@ var removeNulls = function /*:: <T> */ (
 };
 
 module.exports = {
-    array: array,
-    removeNulls: removeNulls
+    removeNulls
 };
