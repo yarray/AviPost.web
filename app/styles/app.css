@@ -1,5 +1,8 @@
+@import '_style.css';
 @import 'nav.css';
 @import 'gallery.css';
+@import 'compose.css';
+
 
 body {
     margin: 0;
@@ -18,7 +21,6 @@ a {
     text-decoration: none;
     color: #000;
     font-size: 20pt;
-    opacity: 0.3;
 }
 
 a:hover {
@@ -29,8 +31,4 @@ a:hover {
     display: none !important;
     width: 0;
     height: 0;
-}
-
-.hide {
-    display: none !important;
 }

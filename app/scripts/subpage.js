@@ -14,7 +14,7 @@ var subpages = function(
             dom.classList.remove('hide');
             if (!called) {
                 called = true;
-                f.apply(null, arguments);
+                f(dom);
             }
         };
     };

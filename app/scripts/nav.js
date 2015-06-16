@@ -2,10 +2,9 @@
 var nav = function(element /*: Element */, path /*: string */) {
     var links = Array.from(element.getElementsByTagName('a'));
     links.forEach(function(a) {
+        a.classList.add('inactive');
         if (a.getAttribute('href') === path) {
-            a.classList.add('activated');
-        } else {
-            a.classList.remove('activated');
+            a.classList.remove('inactive');
         }
     });
 };

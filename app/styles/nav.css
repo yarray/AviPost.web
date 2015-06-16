@@ -5,8 +5,3 @@ nav {
     width: 400px;
     border-bottom: solid 3px #999;
 }
-
-nav a.activated {
-    /* TODO how to describe this == :hover? */
-    opacity: 1;
-}

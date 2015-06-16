@@ -6,23 +6,20 @@ var page = require('page');
 var createSubpages = require('./subpage.js');
 
 var app = function(config) {
-    var galleryRoot = document.querySelector('#gallery');
-    var composeRoot = document.querySelector('#compose');
-
     var subpages = createSubpages([
         {
             key: '/gallery',
-            dom: galleryRoot,
-            init: function() {
-                require('./gallery.js')(galleryRoot, config.uri);
+            dom: document.querySelector('#gallery'),
+            init: function(dom) {
+                require('./gallery.js')(dom, config.uri);
             }
         },
 
         {
             key: '/compose',
-            dom: composeRoot,
-            init: function() {
-                require('./compose.js')(composeRoot, config.uri);
+            dom: document.querySelector('#compose'),
+            init: function(dom) {
+                require('./compose.js')(dom, config.uri);
             }
         }
     ]);

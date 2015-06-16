@@ -1,0 +1,23 @@
+/* Classes which represent shortcuts of a bunch of styles. */
+
+/* There are two types of classes. One is semantic class, like 'btn'. */
+/* Another is style class, which describe styles, like 'big'. An easy way */
+/* to distinguish these two is whether it makes sense if html support this */
+/* class as tag. For example, < btn > < /btn> is meaningful but <big></big > */
+/* is not. */
+
+/* This file contains the second type of classes */
+
+.hide {
+    display: none !important;
+}
+
+.inactive {
+    opacity: 0.3;
+}
+
+.light-overlay {
+    background-color: #ffffff;
+    background-blend-mode: multiply;
+    opacity: 0.7;
+}

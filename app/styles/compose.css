@@ -1,0 +1,33 @@
+#compose {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
+#compose textarea {
+    resize: none;
+    font-size: 18pt;
+    padding: 35px 50px;
+    border: 1px dashed #666666;
+    z-index: 2;
+}
+
+#compose textarea:focus {
+    outline: none;
+    margin-top: -4px;
+    border: none;
+    border-bottom: 5px solid #666;
+    border-top: 5px solid #666;
+}
+
+#compose .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
