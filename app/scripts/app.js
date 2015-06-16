@@ -3,7 +3,6 @@
 require('./polyfill.js')();
 
 var page = require('page');
-var ui = require('./ui.js')();
 var createSubpages = require('./subpage.js');
 
 var app = function(config) {
@@ -15,7 +14,7 @@ var app = function(config) {
             key: '/gallery',
             dom: galleryRoot,
             init: function() {
-                require('./gallery.js')(galleryRoot, config.uri, ui);
+                require('./gallery.js')(galleryRoot, config.uri);
             }
         },
 
@@ -23,10 +22,10 @@ var app = function(config) {
             key: '/compose',
             dom: composeRoot,
             init: function() {
-                require('./compose.js')(composeRoot, config.uri, ui);
+                require('./compose.js')(composeRoot, config.uri);
             }
         }
-    ], ui);
+    ]);
 
     page.redirect('/', '/gallery');
     page('*', function(ctx, next) {

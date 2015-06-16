@@ -11,8 +11,7 @@ var loadImage = require('./dom-helper.js').loadImage;
 // it, but it restart server every time and is super slow.
 var gallery = function(
     root /*: Element */,
-    uri /*: string */,
-    ui /*: Object */
+    uri /*: string */
 ) {
     var container = root.querySelector('.page');
 
@@ -35,14 +34,16 @@ var gallery = function(
     // dom IO
     cardElements.then(function(cards) {
             cards.forEach(function(element) {
+                element.classList.add('hide');
                 container.appendChild(element);
             });
-            cards.forEach(ui.hide);
             return loadImage(container, cards);
         })
         .then(function(cards) {
             // show
-            cards.forEach(ui.show);
+            cards.forEach(function(element) {
+                element.classList.remove('hide');
+            });
         });
 };
 

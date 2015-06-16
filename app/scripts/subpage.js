@@ -1,17 +1,17 @@
 /* @flow */
 // subpage controller in single page applications
 var subpages = function(
-    specs /*: [{key: string, dom: HTMLElement, init: function}] */ ,
-    ui /*: Object */
+    specs /*: [{key: string, dom: HTMLElement, init: function}] */
 ) /*: { [key: string]: function } */ {
     var load = function(dom, f) {
         var called = false;
         
         return function() {
             specs.forEach(function(spec) {
-                ui.hide(spec.dom);
+                spec.dom.classList.add('hide');
             });
-            ui.show(dom);
+
+            dom.classList.remove('hide');
             if (!called) {
                 called = true;
                 f.apply(null, arguments);
@@ -20,7 +20,7 @@ var subpages = function(
     };
 
     specs.forEach(function(spec) {
-        ui.hide(spec.dom);
+        spec.dom.classList.add('hide');
     });
 
     var result = new Map(
