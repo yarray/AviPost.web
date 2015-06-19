@@ -4,4 +4,8 @@ nav {
     padding: 10px 0;
     width: 400px;
     border-bottom: solid 3px #999;
+    background-blend-mode: multiply;
+    z-index: 50;
+    position: relative; /* only with this z-index will work with fixed elements */
+    background-color: rgba(255, 255, 255, 0.3);
 }

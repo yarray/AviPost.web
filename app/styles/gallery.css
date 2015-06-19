@@ -20,8 +20,3 @@
     line-height: 0;
     overflow: hidden;
 }
-
-#gallery ul.page > li img {
-    max-width: 100%;
-    max-height: 100%;
-}

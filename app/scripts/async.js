@@ -1,5 +1,5 @@
 /* @flow */
-// dom wrappers
+// async operations as promise
 var imagesLoaded = require('imagesloaded');
 
 // since loadImage is an event and will not resolve to value, we can give one

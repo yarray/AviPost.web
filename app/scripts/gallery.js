@@ -4,7 +4,7 @@
 var renderArray = require('./template.js').renderArray;
 var ajax = require('./ajax.js');
 var removeNulls = require('./helper.js').removeNulls;
-var loadImage = require('./dom-helper.js').loadImage;
+var loadImage = require('./async.js').loadImage;
 
 
 // cannot declare as UI, because flow requires an interface file to handle

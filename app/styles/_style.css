@@ -10,14 +10,46 @@
 
 .hide {
     display: none !important;
+    position: fixed;
+    top: -99999px;
 }
 
 .inactive {
     opacity: 0.3;
 }
 
-.light-overlay {
+.foremost {
+    z-index: 9999 !important;
+}
+
+.light-overlay:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background-color: #ffffff;
-    background-blend-mode: multiply;
+    background-blend-mode: screen;
     opacity: 0.7;
+}
+
+.round {
+    border-radius: 9999999px;
+}
+
+.opaque {
+    opacity: 1 !important;
+}
+
+.blue {
+    background-color: #2B79CF;
+} 
+
+.green {
+    background-color: #30CF68;
+} 
+
+.red {
+    background-color: red;
 }
