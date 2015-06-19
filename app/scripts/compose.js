@@ -12,13 +12,11 @@ var compose = function(root /* : Element */) {
     msgPanel.removeAttribute('disabled'); // don't know why firefox "remember" disabled state even after refreshing
     msgPanel.addEventListener('focus', function(e) {
         root.classList.add('foremost');
-        bg.classList.add('light-overlay');
         e.target.removeAttribute('placeholder');
     });
 
     msgPanel.addEventListener('blur', function(e) {
         root.classList.remove('foremost');
-        bg.classList.remove('light-overlay');
         e.target.setAttribute('placeholder', placeholder);
     });
 
