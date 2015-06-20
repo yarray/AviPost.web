@@ -11,9 +11,7 @@ var gallery = function() {
     });
 
     this.Then(/^I see the gallery$/, function(done) {
-        this.client.isVisible('#gallery').then(function(visible) {
-            visible.should.be.true;
-        }).call(done);
+        this.client.waitForVisible('#gallery', 1000).call(done);
     });
 
     this.Then(/^with (\d+) figures/, function(count, done) {
