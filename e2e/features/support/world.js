@@ -33,7 +33,7 @@ var WorldConstructor = function(callback) {
     chai.should();
 
     // make dir for screenshots
-    var dir = '.tmp/screenshots';
+    var dir = '/tmp/screenshots';
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
