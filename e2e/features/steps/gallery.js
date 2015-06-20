@@ -16,7 +16,7 @@ var gallery = function() {
 
     this.Then(/^with (\d+) figures/, function(count, done) {
         var client = this.client;
-        this.client.pause(1000).then(function() {
+        this.client.pause(20000).then(function() {
             return client.elements('figure');
         }).then(function(res) {
             // count + 1 template
