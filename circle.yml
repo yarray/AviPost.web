@@ -1,4 +1,8 @@
 ## Customize the test machine
+general:
+  artifacts:
+    - ".tmp/screenshots/"
+
 machine:
   node:
     version: iojs-v2.2.1
@@ -32,7 +36,7 @@ dependencies:
 database:
   post:
     - psql -c 'CREATE DATABASE avipost_ci;'
-    - psql -c "CREATE EXTENSION postgis;" -d avipost_ci
+    - psql -c 'CREATE EXTENSION postgis;' -d avipost_ci
     - python AviPost/avipost/manage.py migrate
 
 ## Customize test commands
