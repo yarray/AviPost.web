@@ -35,7 +35,7 @@ var compose = function(root /* : Element */) {
     });
 
     preview.addEventListener('click', function(e) {
-        bg.classList.toggle('white-trans');
+        bg.classList.toggle('opaque');
         root.classList.toggle('foremost');
         e.target.classList.toggle('fa-eye-slash');
         if (!msgPanel.hasAttribute('disabled')) {
