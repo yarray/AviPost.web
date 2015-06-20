@@ -46,7 +46,7 @@ var renderArray = function(
 
 
 module.exports = {
-    renderArray,
-    render,
-    render2html
+    renderArray: renderArray,
+    render: render,
+    render2html: render2html
 };

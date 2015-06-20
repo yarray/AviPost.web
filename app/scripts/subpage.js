@@ -3,7 +3,7 @@
 var subpages = function(
     specs /*: [{key: string, dom: HTMLElement, init: function}] */
 ) /*: { [key: string]: function } */ {
-    var load = function(dom, f) {
+    var loader = function(dom, f) {
         var called = false;
         
         return function() {
@@ -23,11 +23,10 @@ var subpages = function(
         spec.dom.classList.add('hide');
     });
 
-    var result = new Map(
-        specs.map(function(spec) {
-            return [spec.key, load(spec.dom, spec.init)];
-        })
-    );
+    var result = new Map();
+    specs.forEach(function(spec) {
+        result.set(spec.key, loader(spec.dom, spec.init));
+    });
     
     return result;
 };
