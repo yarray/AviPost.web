@@ -4,6 +4,7 @@
 // browserify
 var browserify = require('browserify');
 var uglifyify = require('uglifyify');
+var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 
 // gulp
@@ -32,6 +33,7 @@ gulp.task('scripts', function() {
     var scripts = browserify('./app/scripts/app.js', {
             debug: true
         })
+        .transform(babelify)
         .bundle()
         .on('error', function(err) {
             console.log(err.message);
@@ -63,8 +65,11 @@ gulp.task('watch', ['scripts', 'styles'], function() {
 
 gulp.task('test', ['jshint'], function() {
     require('./test/init');
+    var babel = require('babel/register');
     return gulp.src('./test/**/*-test.js')
-        .pipe(mocha());
+        .pipe(mocha(
+            { compiler: babel }
+        ));
 });
 
 
@@ -76,6 +81,7 @@ gulp.task('build', ['clean', 'test', 'jshint'], function() {
 
     var scripts = browserify('./app/scripts/app.js')
         .transform(uglifyify)
+        .transform(babelify)
         .bundle()
         .pipe(source('app.js'))
         .pipe(gulp.dest('./dist/scripts/'));

@@ -9,4 +9,4 @@ var nav = function(element /*: Element */, path /*: string */) {
     });
 };
 
-module.exports = nav;
+export { nav as default };

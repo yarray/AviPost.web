@@ -47,4 +47,4 @@ var compose = function(root /* : Element */) {
     });
 };
 
-module.exports = compose;
+export { compose as default };

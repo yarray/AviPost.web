@@ -45,8 +45,4 @@ var renderArray = function(
 };
 
 
-module.exports = {
-    renderArray: renderArray,
-    render: render,
-    render2html: render2html
-};
+export { renderArray, render, render2html };

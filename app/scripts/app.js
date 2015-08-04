@@ -1,9 +1,14 @@
 /* @flow */
 // The entrance of the app, mainly do routing & dispatching
-require('./polyfill.js')();
+import page from 'page';
 
-var page = require('page');
-var createSubpages = require('./subpage.js');
+import polyfill from './polyfill.js';
+import createSubpages from './subpage.js';
+import gallery from './gallery.js';
+import compose from './compose.js';
+import nav from './nav.js';
+
+polyfill();
 
 var app = function(config) {
     var subpages = createSubpages([
@@ -11,7 +16,7 @@ var app = function(config) {
             key: '/gallery',
             dom: document.querySelector('#gallery'),
             init: function(dom) {
-                require('./gallery.js')(dom, config.uri);
+                gallery(dom, config.uri);
             }
         },
 
@@ -19,15 +24,15 @@ var app = function(config) {
             key: '/compose',
             dom: document.querySelector('#compose'),
             init: function(dom) {
-                require('./compose.js')(dom, config.uri);
+                compose(dom, config.uri);
             }
         }
     ]);
 
     page.redirect('/', '/gallery');
     page('*', function(ctx, next) {
-        var nav = document.getElementsByTagName('nav')[0];
-        require('./nav.js')(nav, ctx.pathname);
+        var navElement = document.getElementsByTagName('nav')[0];
+        nav(navElement, ctx.pathname);
         next();
     });
 

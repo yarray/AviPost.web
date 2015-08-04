@@ -31,4 +31,4 @@ var subpages = function(
     return result;
 };
 
-module.exports = subpages;
+export { subpages as default };

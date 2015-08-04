@@ -1,10 +1,10 @@
 /* @flow */
 
 // The entrance of the gallery component
-var renderArray = require('./template.js').renderArray;
-var ajax = require('./ajax.js');
-var removeNulls = require('./helper.js').removeNulls;
-var loadImage = require('./async.js').loadImage;
+import * as ajax from './ajax.js';
+import { renderArray } from './template.js';
+import { removeNulls } from './helper.js';
+import { loadImage } from './async.js';
 
 
 // cannot declare as UI, because flow requires an interface file to handle
@@ -47,4 +47,4 @@ var gallery = function(
         });
 };
 
-module.exports = gallery;
+export { gallery as default };

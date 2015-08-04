@@ -1,6 +1,6 @@
 /* @flow */
 // async operations as promise
-var imagesLoaded = require('imagesloaded');
+import imagesLoaded from 'imagesloaded';
 
 // since loadImage is an event and will not resolve to value, we can give one
 var loadImage = function /*:: <T> */ (
@@ -14,6 +14,4 @@ var loadImage = function /*:: <T> */ (
     });
 };
 
-module.exports = {
-    loadImage: loadImage
-};
+export { loadImage };

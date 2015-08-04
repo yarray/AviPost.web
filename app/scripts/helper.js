@@ -12,6 +12,4 @@ var removeNulls = function /*:: <T> */ (
     return res;
 };
 
-module.exports = {
-    removeNulls: removeNulls
-};
+export { removeNulls };

@@ -22,7 +22,4 @@ var promise = function(request /*: XMLHttpRequest */ ) /*: Promise */ {
     });
 };
 
-module.exports = {
-    params: params,
-    promise: promise
-};
+export { params, promise };
