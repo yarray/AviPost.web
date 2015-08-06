@@ -1,15 +1,16 @@
 /* @flow */
+// TODO recheck tern lint, flow is too aggresive to always cause false positive
 // since flow doesn't recognize filter, we use this style
-var removeNulls = function /*:: <T> */ (
+function removeNulls /*:: <T> */ (
     nullableList /*: [?T] */
 ) /*: [T] */ {
-    var res = [];
-    nullableList.forEach(function(e) {
+    const res = [];
+    nullableList.forEach(e => {
         if (e) {
             res.push(e);
         }
     });
     return res;
-};
+}
 
 export { removeNulls };

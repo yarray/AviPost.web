@@ -1,9 +1,10 @@
-var template = require('../app/scripts/template.js');
+import * as template from '../app/scripts/template.js';
+import jsdom from 'mocha-jsdom';
 
-require('mocha-jsdom')();
+jsdom();
 
-describe('template', function() {
-    it('can render template to html', function() {
+describe('template', () => {
+    it('can render template to html', () => {
         expect(template.render2html({
             a: 1,
             b: 2
@@ -12,8 +13,8 @@ describe('template', function() {
         );
     });
 
-    it('can render template', function() {
-        var tmpl = document.createElement('li');
+    it('can render template', () => {
+        const tmpl = document.createElement('li');
         tmpl.id = "unique";
         tmpl.innerHTML = '<img src="//:0" data-src="{{url}}">{{b}}</img>';
         expect(template.render({

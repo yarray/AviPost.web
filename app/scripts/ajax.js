@@ -1,17 +1,14 @@
 /* @flow */
 // super lightweight utlities for ajax calls
-var params = function(object /*: any */ ) /*: string */ {
-    var res = Object.keys(object)
-        .map(function(key) {
-            return key.toString() + '=' + encodeURIComponent(object[key]);
-        })
+function params(object /*: any */ ) /*: string */ {
+    return Object.keys(object)
+        .map(key => key.toString() + '=' + encodeURIComponent(object[key]))
         .join('&');
-    return res;
-};
+}
 
-var promise = function(request /*: XMLHttpRequest */ ) /*: Promise */ {
-    return new Promise(function(resolve, reject) {
-        request.onload = function() {
+function promise(request /*: XMLHttpRequest */ ) /*: Promise */ {
+    return new Promise((resolve, reject) => {
+        request.onload = () => {
             if (request.status < 400) {
                 resolve(request);
             } else {
@@ -20,6 +17,6 @@ var promise = function(request /*: XMLHttpRequest */ ) /*: Promise */ {
         };
         request.send();
     });
-};
+}
 
 export { params, promise };

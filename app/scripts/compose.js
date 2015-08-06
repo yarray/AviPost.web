@@ -1,31 +1,31 @@
 /* @flow */
 
-var compose = function(root /* : Element */) {
-    var msgPanel = root.querySelector('textarea');
-    var placeholder = msgPanel.getAttribute('placeholder');
+function compose(root /* : Element */) {
+    const msgPanel = root.querySelector('textarea');
+    const placeholder = msgPanel.getAttribute('placeholder');
 
-    var coverInput = root.querySelector('input[type=file]');
-    var bg = root.querySelector("[data-tag=cover]");
+    const coverInput = root.querySelector('input[type=file]');
+    const bg = root.querySelector("[data-tag=cover]");
 
-    var preview = root.querySelector('[data-tag=preview]');
+    const preview = root.querySelector('[data-tag=preview]');
 
     msgPanel.removeAttribute('disabled'); // don't know why firefox "remember" disabled state even after refreshing
-    msgPanel.addEventListener('focus', function(e) {
+    msgPanel.addEventListener('focus', e => {
         root.classList.add('foremost');
         e.target.removeAttribute('placeholder');
     });
 
-    msgPanel.addEventListener('blur', function(e) {
+    msgPanel.addEventListener('blur', e => {
         root.classList.remove('foremost');
         e.target.setAttribute('placeholder', placeholder);
     });
 
-    coverInput.addEventListener('change', function(e) {
-        var files = e.target.files;
+    coverInput.addEventListener('change', e => {
+        const files = e.target.files;
         if (files && files[0]) {
-            var reader = new FileReader();
+            const reader = new FileReader();
 
-            reader.onload = function (e) {
+            reader.onload = e => {
                 bg.getElementsByTagName('img')[0]
                     .setAttribute('src', e.target.result);
             };
@@ -34,7 +34,7 @@ var compose = function(root /* : Element */) {
         }
     });
 
-    preview.addEventListener('click', function(e) {
+    preview.addEventListener('click', e => {
         bg.classList.toggle('opaque');
         root.classList.toggle('foremost');
         e.target.classList.toggle('fa-eye-slash');
@@ -45,6 +45,6 @@ var compose = function(root /* : Element */) {
         }
         e.preventDefault();
     });
-};
+}
 
-export { compose as default };
+export default compose;

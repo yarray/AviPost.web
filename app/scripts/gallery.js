@@ -9,42 +9,42 @@ import { loadImage } from './async.js';
 
 // cannot declare as UI, because flow requires an interface file to handle
 // it, but it restart server every time and is super slow.
-var gallery = function(
+function gallery(
     root /*: Element */,
     uri /*: string */
 ) {
-    var container = root.querySelector('.page');
+    const container = root.querySelector('.page');
 
-    var request = new XMLHttpRequest();
+    const request = new XMLHttpRequest();
     request.open('GET', uri + '/postcards/');
     request.setRequestHeader("Accept", "application/json");
 
-    var cardElements /* : Promise<[Element]> */ = (
+    const cardElements /* : Promise<[Element]> */ = (
         ajax.promise(request)
-        .catch(function(res) {
+        .catch(res => {
             console.error(res.statusText);
         })
-        .then(function(res) {
-            var data = JSON.parse(res.responseText);
-            var cards = renderArray(data, container.querySelector('[data-template]'));
+        .then(res => {
+            const data = JSON.parse(res.responseText);
+            const cards = renderArray(data, container.querySelector('[data-template]'));
             return removeNulls(cards);
         })
     );
 
     // dom IO
-    cardElements.then(function(cards) {
-            cards.forEach(function(element) {
+    cardElements.then(cards => {
+            cards.forEach(element => {
                 element.classList.add('hide');
                 container.appendChild(element);
             });
             return loadImage(container, cards);
         })
-        .then(function(cards) {
+        .then(cards => {
             // show
-            cards.forEach(function(element) {
+            cards.forEach(element => {
                 element.classList.remove('hide');
             });
         });
-};
+}
 
-export { gallery as default };
+export default gallery;

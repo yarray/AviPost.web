@@ -1,13 +1,13 @@
 /* @flow */
 // subpage controller in single page applications
-var subpages = function(
+function subpages (
     specs /*: [{key: string, dom: HTMLElement, init: function}] */
 ) /*: { [key: string]: function } */ {
-    var loader = function(dom, f) {
-        var called = false;
+    function loader(dom, f) {
+        let called = false;
         
-        return function() {
-            specs.forEach(function(spec) {
+        return () => {
+            specs.forEach(spec => {
                 spec.dom.classList.add('hide');
             });
 
@@ -17,18 +17,18 @@ var subpages = function(
                 f(dom);
             }
         };
-    };
+    }
 
-    specs.forEach(function(spec) {
+    specs.forEach(spec => {
         spec.dom.classList.add('hide');
     });
 
-    var result = new Map();
-    specs.forEach(function(spec) {
+    const result = new Map();
+    specs.forEach(spec => {
         result.set(spec.key, loader(spec.dom, spec.init));
     });
     
     return result;
-};
+}
 
-export { subpages as default };
+export default subpages;

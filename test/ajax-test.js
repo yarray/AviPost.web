@@ -1,9 +1,9 @@
-var ajax = require('../app/scripts/ajax.js');
+import * as ajax from '../app/scripts/ajax.js';
 
-describe('param parser', function() {
-    var params = ajax.params;
+describe('param parser', () => {
+    const params = ajax.params;
 
-    it('can parse simple params', function() {
+    it('can parse simple params', () => {
         expect(params({
             a: 'hello',
             b: 42,
@@ -13,7 +13,7 @@ describe('param parser', function() {
         );
     });
 
-    it('can parse troublesome params', function() {
+    it('can parse troublesome params', () => {
         expect(params({
             a: 'hell=',
             b: '42&',

@@ -1,30 +1,29 @@
 /* @flow */
 // A deadly simple one-way binding module, using observe() is es7
-var render2html = function(
+function render2html (
     data /*: {} */ ,
     template /*: string */
 ) /* : string */ {
-    var res = template;
-    Object.keys(data).forEach(function(key) {
-        res = res.replace(RegExp('{{' + key + '}}', 'g'), data[key]);
-    });
-    return res;
-};
+    return Object.keys(data).reduce(
+        (res, key) => res.replace(RegExp('{{' + key + '}}', 'g'), data[key]),
+        template
+    );
+}
 
 
-var render = function(
+function render(
     data /*: {} */ ,
     template /*: Element */
 ) /*: ?Element */ {
-    var buffer = document.createElement('div');
+    const buffer = document.createElement('div');
     buffer.innerHTML = render2html(data, template.outerHTML);
 
-    var result = buffer.firstElementChild;
+    const result = buffer.firstElementChild;
     if (!result) {
         return null;
     }
 
-    Array.from(result.querySelectorAll('img')).forEach(function(img) {
+    Array.from(result.querySelectorAll('img')).forEach(img => {
         img.src = img.getAttribute('data-src') || img.src;
         img.removeAttribute('data-src');
     });
@@ -32,17 +31,15 @@ var render = function(
     result.removeAttribute('id'); // id should be unique to template
 
     return result;
-};
+}
 
 
-var renderArray = function(
+function renderArray(
     data /*: [{}] */ ,
     template /*: Element */
 ) /*: [?Element] */ {
-    return data.map(function(d) {
-        return render(d, template);
-    });
-};
+    return data.map(d => render(d, template));
+}
 
 
 export { renderArray, render, render2html };

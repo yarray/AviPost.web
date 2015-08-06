@@ -1,6 +1,6 @@
 /* @flow */
-var polyfill = function() {
+function polyfill () {
     require('array.from');
-};
+}
 
-export { polyfill as default };
+export default polyfill;

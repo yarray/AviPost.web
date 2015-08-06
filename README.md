@@ -30,4 +30,4 @@ Quick & dirty steps (be careful it is **NOT** best practice and may pollute your
 5. ``` createdb avipost_ci ```
 6. ``` psql -U postgres -c "CREATE EXTENSION postgis -d avipost_ci" ```
 7. ``` python AviPost/avipost/manage.py migrate ```
-8. ``` docker run --name=api --net='host' -e "DJANGO_SETTINGS_MODULE=avipost.settings.ci_stubbed_prod" -d avipost ```
+8. ``` docker run --name=api --net='host' -e "DJANGO_SETTINGS_MODULE=avipost.settings.dev_yar" -d avipost ```
