@@ -14,4 +14,4 @@ function loadImage/*:: <T> */ (
     });
 }
 
-export { loadImage };
+export default { loadImage };

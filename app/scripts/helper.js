@@ -13,4 +13,4 @@ function removeNulls /*:: <T> */ (
     return res;
 }
 
-export { removeNulls };
+export default { removeNulls };

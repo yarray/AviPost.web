@@ -42,4 +42,4 @@ function renderArray(
 }
 
 
-export { renderArray, render, render2html };
+export default { renderArray, render, render2html };

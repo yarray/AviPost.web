@@ -1,4 +1,4 @@
-import * as template from '../app/scripts/template.js';
+import template from '../app/scripts/template.js';
 import jsdom from 'mocha-jsdom';
 
 jsdom();

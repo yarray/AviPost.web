@@ -1,4 +1,4 @@
-import * as ajax from '../app/scripts/ajax.js';
+import ajax from '../app/scripts/ajax.js';
 
 describe('param parser', () => {
     const params = ajax.params;

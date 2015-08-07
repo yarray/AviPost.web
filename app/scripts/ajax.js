@@ -19,4 +19,4 @@ function promise(request /*: XMLHttpRequest */ ) /*: Promise */ {
     });
 }
 
-export { params, promise };
+export default { params, promise };

@@ -1,7 +1,7 @@
 /* @flow */
 
 // The entrance of the gallery component
-import * as ajax from './ajax.js';
+import ajax from './ajax.js';
 import { renderArray } from './template.js';
 import { removeNulls } from './helper.js';
 import { loadImage } from './async.js';
