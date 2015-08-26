@@ -1,4 +1,3 @@
-/* @flow */
 // The entrance of the app, mainly do routing & dispatching
 import page from 'page';
 
@@ -17,7 +16,7 @@ function app(config) {
             dom: document.querySelector('#gallery'),
             init(dom) {
                 gallery(dom, config.uri);
-            }
+            },
         },
 
         {
@@ -25,8 +24,8 @@ function app(config) {
             dom: document.querySelector('#compose'),
             init(dom) {
                 compose(dom, config.uri);
-            }
-        }
+            },
+        },
     ]);
 
     page.redirect('/', '/gallery');
@@ -41,11 +40,11 @@ function app(config) {
     });
 
     page({
-        hashbang: true
+        hashbang: true,
     });
 }
 
-document.addEventListener("DOMContentLoaded", event => {
+document.addEventListener('DOMContentLoaded', () => {
     // config is a global variable which will be injected when built
     app(global.config);
 });

@@ -1,11 +1,15 @@
-/* @flow */
-
-function compose(root /* : Element */) {
+/**
+ * controller for the compose page
+ *
+ * @param {HTMLElement} root
+ * @return {undefined}
+ */
+function compose(root) {
     const msgPanel = root.querySelector('textarea');
     const placeholder = msgPanel.getAttribute('placeholder');
 
     const coverInput = root.querySelector('input[type=file]');
-    const bg = root.querySelector("[data-tag=cover]");
+    const bg = root.querySelector('[data-tag=cover]');
 
     const preview = root.querySelector('[data-tag=preview]');
 
@@ -25,7 +29,7 @@ function compose(root /* : Element */) {
         if (files && files[0]) {
             const reader = new FileReader();
 
-            reader.onload = e => {
+            reader.onload = () => {
                 bg.getElementsByTagName('img')[0]
                     .setAttribute('src', e.target.result);
             };

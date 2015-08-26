@@ -1,7 +1,8 @@
 {
     "libs": [
         "browser",
-        "es6"
+        "es6",
+        "ecma6"
     ],
     "plugins": {
         "node": {}

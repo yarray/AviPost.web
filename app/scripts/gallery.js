@@ -1,34 +1,32 @@
-/* @flow */
-
 // The entrance of the gallery component
 import ajax from './ajax.js';
 import { renderArray } from './template.js';
-import { removeNulls } from './helper.js';
 import { loadImage } from './async.js';
 
 /**
- * @param {Element} root
+ * controller for the gallery page
+ *
+ * @param {HTMLElement} root
  * @param {string} uri
 */
-function gallery(
-    root /*: Element */ ,
-    uri /*: string */
-) {
+function gallery(root, uri) {
     const container = root.querySelector('.page');
 
     const request = new XMLHttpRequest();
     request.open('GET', uri + '/postcards/');
     request.setRequestHeader('Accept', 'application/json');
 
-    const cardElements /* : Promise<[Element]> */ = ajax.promise(request)
-        .catch(function(res) {
+    const cardElements = ajax.promise(request)
+        .catch(res => {
+            // TODO promote to notice
             console.error(res.statusText);
         })
         .then(res => {
             const data = JSON.parse(res.responseText);
             const cards = renderArray(data, container.querySelector('[data-template]'));
-            return removeNulls(cards);
+            return cards;
         });
+
 
     // dom IO
     cardElements

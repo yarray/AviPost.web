@@ -1,11 +1,21 @@
-/* @flow */
 // subpage controller in single page applications
-function subpages (
-    specs /*: [{key: string, dom: HTMLElement, init: function}] */
-) /*: { [key: string]: function } */ {
+/**
+ * subpages
+ *
+ * @param {{key: string, dom: HTMLElement, init: function}[]} specs
+ * @return {{Map.<string, function>}[]}
+ */
+function subpages(specs) {
+    /**
+     * loader
+     *
+     * @param {HTMLElement} dom
+     * @param {function} f
+     * @return {function}
+     */
     function loader(dom, f) {
         let called = false;
-        
+
         return () => {
             specs.forEach(spec => {
                 spec.dom.classList.add('hide');
@@ -27,7 +37,7 @@ function subpages (
     specs.forEach(spec => {
         result.set(spec.key, loader(spec.dom, spec.init));
     });
-    
+
     return result;
 }
 

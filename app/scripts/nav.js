@@ -1,5 +1,11 @@
-/* @flow */
-function nav(element /*: Element */, path /*: string */) {
+/**
+ * nav
+ *
+ * @param {HTMLElement} element
+ * @param {string} path
+ * @return {undefined}
+ */
+function nav(element, path) {
     const links = Array.from(element.getElementsByTagName('a'));
     links.forEach(a => {
         a.classList.add('inactive');

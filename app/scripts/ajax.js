@@ -1,12 +1,23 @@
-/* @flow */
 // super lightweight utlities for ajax calls
-function params(object /*: any */ ) /*: string */ {
+/**
+ * build html query string from params
+ *
+ * @param {object} object
+ * @return {string}
+ */
+function params(object) {
     return Object.keys(object)
         .map(key => key.toString() + '=' + encodeURIComponent(object[key]))
         .join('&');
 }
 
-function promise(request /*: XMLHttpRequest */ ) /*: Promise */ {
+/**
+ * create a Promise from XMLHttpRequest
+ *
+ * @param {XMLHttpRequest} request
+ * @return {Promise}
+ */
+function promise(request ) {
     return new Promise((resolve, reject) => {
         request.onload = () => {
             if (request.status < 400) {

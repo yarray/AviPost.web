@@ -1,5 +1,4 @@
-/* @flow */
-function polyfill () {
+function polyfill() {
     require('array.from');
 }
 

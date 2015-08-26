@@ -1,9 +1,10 @@
-/* @flow */
-// A deadly simple one-way binding module, using observe() is es7
-function render2html (
-    data /*: {} */ ,
-    template /*: string */
-) /* : string */ {
+/**
+ * render data with a template, return a html string
+ * @param {object} data
+ * @param {string} template
+ * @return {string}
+ */
+function render2html(data, template) {
     return Object.keys(data).reduce(
         (res, key) => res.replace(RegExp('{{' + key + '}}', 'g'), data[key]),
         template
@@ -11,10 +12,13 @@ function render2html (
 }
 
 
-function render(
-    data /*: {} */ ,
-    template /*: Element */
-) /*: ?Element */ {
+/**
+ * render data with a template, return html element
+ * @param {object} data
+ * @param {string} template
+ * @return {?HTMLElement}
+ */
+function render(data, template) {
     const buffer = document.createElement('div');
     buffer.innerHTML = render2html(data, template.outerHTML);
 
@@ -34,10 +38,14 @@ function render(
 }
 
 
-function renderArray(
-    data /*: [{}] */ ,
-    template /*: Element */
-) /*: [?Element] */ {
+/**
+ * render a list of data with a template, return a list of html elements
+ *
+ * @param {object[]} data
+ * @param {string} template
+ * @return {Array.<?HTMLElement>}
+ */
+function renderArray(data, template) {
     return data.map(d => render(d, template));
 }
 
