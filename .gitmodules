@@ -1,0 +1,3 @@
+[submodule "AviPost"]
+	path = AviPost
+	url = https://github.com/sunForest/AviPost.git
