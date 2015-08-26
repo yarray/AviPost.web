@@ -9,7 +9,7 @@ var source = require('vinyl-source-stream');
 
 // gulp
 var gulp = require('gulp');
-var jshint = require('gulp-jshint');
+var eslint = require('gulp-eslint');
 var rename = require('gulp-rename');
 var myth = require('gulp-myth');
 var csso = require('gulp-csso');
@@ -22,11 +22,11 @@ var del = require('del');
 
 // development
 // 
-gulp.task('jshint', function() {
+gulp.task('lint', function() {
     return gulp.src('./app/scripts/**/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
-        .pipe(jshint.reporter('fail'));
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failOnError());
 });
 
 gulp.task('scripts', function() {
@@ -63,7 +63,7 @@ gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/styles/**/*.css', ['styles']);
 });
 
-gulp.task('test', ['jshint'], function() {
+gulp.task('test', ['lint'], function() {
     require('./test/init');
     var babel = require('babel/register');
     return gulp.src('./test/**/*-test.js')
@@ -75,7 +75,7 @@ gulp.task('test', ['jshint'], function() {
 
 // integration
 //
-gulp.task('build', ['clean', 'test', 'jshint'], function() {
+gulp.task('build', ['clean', 'test', 'lint'], function() {
     var pages = gulp.src('./app/*.html')
         .pipe(gulp.dest('./dist/'));
 
