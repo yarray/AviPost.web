@@ -29,6 +29,12 @@ var WorldConstructor = function(callback) {
     };
 
     var client = webdriverio.remote(seleniumOptions);
+    client.on('error', function(e) {
+        // will be executed everytime an error occured
+        // e.g. when element couldn't be found
+        console.log(e);   // -> "org.openqa.selenium.NoSuchElementException"
+    });
+
     // use chai
     chai.should();
 

@@ -1,6 +1,6 @@
 /* jshint expr: true */
 var gallery = function() {
-    this.World = require("../support/world.js").World;
+    this.World = require('../support/world.js').World;
 
     this.When(/^I open the app$/, function(done) {
         this.client.url(this.absUrl('/')).call(done);
@@ -16,7 +16,7 @@ var gallery = function() {
 
     this.Then(/^with (\d+) figures/, function(count, done) {
         var client = this.client;
-        this.client.pause(400).then(function() {
+        this.client.pause(5000).then(function() {
             return client.saveScreenshot('/tmp/screenshots/gallery.png');
         }).then(function() {
             return client.elements('figure');

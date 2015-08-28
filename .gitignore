@@ -10,3 +10,6 @@ dist/
 # vim exchange/temp file
 .*.sw*
 .*~
+
+# webstorm project folder
+.idea
