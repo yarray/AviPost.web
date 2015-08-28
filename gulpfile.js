@@ -63,7 +63,7 @@ gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/styles/**/*.css', ['styles']);
 });
 
-gulp.task('test', ['lint'], function() {
+gulp.task('test', function() {
     require('./test/init');
     var babel = require('babel/register');
     return gulp.src('./test/**/*-test.js')
@@ -75,14 +75,18 @@ gulp.task('test', ['lint'], function() {
 
 // integration
 //
-gulp.task('build', ['clean', 'test', 'lint'], function() {
+gulp.task('build', ['clean', 'lint', 'test'], function() {
     var pages = gulp.src('./app/*.html')
         .pipe(gulp.dest('./dist/'));
 
     var scripts = browserify('./app/scripts/app.js')
-        .transform(uglifyify)
         .transform(babelify)
+        .transform(uglifyify)
         .bundle()
+        .on('error', function(err) {
+            console.log(err.message);
+            this.emit('end');
+        })
         .pipe(source('app.js'))
         .pipe(gulp.dest('./dist/scripts/'));
 
