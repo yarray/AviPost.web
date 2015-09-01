@@ -98,13 +98,14 @@ gulp.task('build', ['clean', 'lint', 'test'], function() {
         .pipe(source('app.js'))
         .pipe(gulp.dest('./dist/scripts/'));
 
-    var styles = gulp.src('./app/styles/app.css')
-        .pipe(myth())
+    var styles = gulp.src('./app/styles/app.scss')
+        .pipe(sass())
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(csso())
         .pipe(gulp.dest('./dist/styles/'));
-
-    var images = gulp.src('./app/images/*')
-        .pipe(gulp.dest('./dist/images/'));
 
     var config = gulp.src('./app/config/config.prod.js')
         .pipe(rename('config.js'))
