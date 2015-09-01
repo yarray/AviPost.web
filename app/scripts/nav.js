@@ -3,7 +3,6 @@
  *
  * @param {HTMLElement} element
  * @param {string} path
- * @return {undefined}
  */
 function nav(element, path) {
     const links = Array.from(element.getElementsByTagName('a'));

@@ -1,0 +1,93 @@
+#compose
+{
+    position: relative;
+    /* so it can be bring to foremost */
+
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 50px;
+
+    justify-content: center;
+    align-items: center;
+
+    textarea
+    {
+        font-family: 'Courier', sans-serif;
+        font-size: 18pt;
+        line-height: 1.75;
+
+        z-index: 2;
+
+        box-sizing: border-box;
+        height: 200px;
+        padding: 35px 50px;
+
+        resize: none;
+
+        opacity: .8;
+        border: none;
+        border-top: 5px dashed transparent;
+    }
+
+    textarea:focus
+    {
+        opacity: 1;
+        border-top: 5px solid #666;
+        outline: none;
+    }
+
+    textarea[disabled]
+    {
+        color: #000;
+    }
+
+    [data-tag=cover]
+    {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        display: flex;
+        overflow-y: scroll;
+
+        opacity: .7;
+        background-color: #fff;
+
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    [data-tag=compose-tools]
+    {
+        z-index: 2;
+
+        display: flex;
+
+        width: 450px;
+        margin-top: 50px;
+
+        justify-content: space-around;
+    }
+
+    [data-tag=compose-tools] > label
+    {
+        font-size: 24px;
+
+        display: block;
+        display: flex;
+
+        width: 50px;
+        height: 50px;
+
+        cursor: pointer;
+
+        color: #fff;
+        border: 3px solid #fff;
+
+        justify-content: center;
+        align-items: center;
+    }
+}

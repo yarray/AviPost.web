@@ -10,11 +10,11 @@ function subpages(specs) {
      * loader
      *
      * @param {HTMLElement} dom
-     * @param {function} f
+     * @param {function} init
      * @return {function}
      */
-    function loader(dom, f) {
-        let called = false;
+    function loader(dom, init) {
+        let inited = false;
 
         return () => {
             specs.forEach(spec => {
@@ -22,9 +22,9 @@ function subpages(specs) {
             });
 
             dom.classList.remove('hide');
-            if (!called) {
-                called = true;
-                f(dom);
+            if (!inited) {
+                inited = true;
+                init(dom);
             }
         };
     }

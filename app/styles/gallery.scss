@@ -1,0 +1,33 @@
+#gallery
+{
+    position: relative;
+
+    display: flex;
+
+    width: 100%;
+
+    justify-content: center;
+
+    ul.page
+    {
+        display: block;
+
+        width: 90%;
+        padding: 0;
+
+        column-count: 4;
+        column-gap: 0;
+    }
+
+    ul.page > li
+    {
+        line-height: 0;
+
+        overflow: hidden;
+
+        box-sizing: border-box;
+        padding: 3px 3px;
+
+        background-color: white;
+    }
+}

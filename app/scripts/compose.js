@@ -29,9 +29,9 @@ function compose(root) {
         if (files && files[0]) {
             const reader = new FileReader();
 
-            reader.onload = () => {
+            reader.onload = progress => {
                 bg.getElementsByTagName('img')[0]
-                    .setAttribute('src', e.target.result);
+                    .setAttribute('src', progress.target.result);
             };
 
             reader.readAsDataURL(files[0]);

@@ -11,7 +11,9 @@ var source = require('vinyl-source-stream');
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var rename = require('gulp-rename');
-var myth = require('gulp-myth');
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
 var csso = require('gulp-csso');
 var serve = require('gulp-serve');
 var mocha = require('gulp-mocha');
@@ -50,8 +52,14 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('styles', function() {
-    return gulp.src('./app/styles/app.css')
-        .pipe(myth())
+    return gulp.src('./app/styles/app.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('./.tmp/styles/'));
 });
 
