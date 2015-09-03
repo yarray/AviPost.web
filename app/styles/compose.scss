@@ -66,36 +66,42 @@
         margin-top: 50px;
 
         justify-content: space-around;
-
-        > label {
-            font-size: 24px;
-
-            display: flex;
-
-            width: 50px;
-            height: 50px;
-
-            cursor: pointer;
-
-            color: $white;
-            border: 3px solid $white;
-
-            align-items: center;
-            justify-content: center;
-        }
     }
 
-    [data-tag=upload-cover] {
-        background-color: $blue;
+    [data-tag=compose-tools] > label {
+        @include round;
+
+        font-size: 24px;
+
+        display: flex;
+
+        width: 50px;
+        height: 50px;
+
+        cursor: pointer;
+
+        color: $white;
+        border: 3px solid $white;
+
+        align-items: center;
+        justify-content: center;
     }
 
-    [data-tag=preview] {
-        background-color: $green;
+    [data-tag=compose-tools] input {
+        @include hide;
     }
+}
 
-    [data-tag=send] {
-        background-color: $blue;
-    }
+[data-tag=upload-cover] {
+    background-color: $blue;
+}
+
+[data-tag=preview] {
+    background-color: $green;
+}
+
+[data-tag=send] {
+    background-color: $blue;
 }
 
 #compose.preview,

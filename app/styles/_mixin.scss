@@ -1,28 +1,14 @@
-.hide {
+@mixin hide {
     position: fixed;
     top: -99999px;
 
-    display: none !important;
-}
-
-.inactive {
-    opacity: .3;
+    display: none;
 }
 
 @mixin foremost {
     z-index: 9999;
 }
 
-.fullscreen {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    content: '';
-}
-
-.round {
+@mixin round {
     border-radius: 9999999px;
 }
