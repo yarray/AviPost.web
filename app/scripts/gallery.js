@@ -32,7 +32,7 @@ function gallery(root, uri) {
     cardElements
         .then(cards => {
             cards.forEach(element => {
-                element.classList.add('hide');
+                element.classList.add('loading');
                 container.appendChild(element);
             });
 
@@ -41,7 +41,7 @@ function gallery(root, uri) {
         .then(cards => {
             // show
             cards.forEach(element => {
-                element.classList.remove('hide');
+                element.classList.remove('loading');
             });
         });
 }

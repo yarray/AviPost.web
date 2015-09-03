@@ -18,10 +18,11 @@ function subpages(specs) {
 
         return () => {
             specs.forEach(spec => {
-                spec.dom.classList.add('hide');
+                spec.dom.style.display = 'none';
             });
 
-            dom.classList.remove('hide');
+            // restore display
+            dom.style.display = null;
             if (!inited) {
                 inited = true;
                 init(dom);
@@ -30,7 +31,7 @@ function subpages(specs) {
     }
 
     specs.forEach(spec => {
-        spec.dom.classList.add('hide');
+        spec.dom.style.visibility = 'none';
     });
 
     const result = new Map();
