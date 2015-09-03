@@ -15,12 +15,12 @@ function compose(root) {
 
     msgPanel.removeAttribute('disabled'); // don't know why firefox "remember" disabled state even after refreshing
     msgPanel.addEventListener('focus', e => {
-        root.classList.add('foremost');
+        root.classList.add('writing');
         e.target.removeAttribute('placeholder');
     });
 
     msgPanel.addEventListener('blur', e => {
-        root.classList.remove('foremost');
+        root.classList.remove('writing');
         e.target.setAttribute('placeholder', placeholder);
     });
 
@@ -39,8 +39,7 @@ function compose(root) {
     });
 
     preview.addEventListener('click', e => {
-        bg.classList.toggle('opaque');
-        root.classList.toggle('foremost');
+        root.classList.toggle('preview');
         e.target.classList.toggle('fa-eye-slash');
         if (!msgPanel.hasAttribute('disabled')) {
             msgPanel.setAttribute('disabled', '');

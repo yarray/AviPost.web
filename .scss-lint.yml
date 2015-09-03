@@ -13,3 +13,5 @@ linters:
   # why selectors like input.disabled is bad?
   QualifyingElement:
     enabled: false
+  MergeableSelector:
+    force_nesting: false

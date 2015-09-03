@@ -1,4 +1,5 @@
 @import '_colors';
+@import '_mixin';
 
 #compose {
     position: relative;
@@ -82,5 +83,28 @@
             align-items: center;
             justify-content: center;
         }
+    }
+
+    [data-tag=upload-cover] {
+        background-color: $blue;
+    }
+
+    [data-tag=preview] {
+        background-color: $green;
+    }
+
+    [data-tag=send] {
+        background-color: $blue;
+    }
+}
+
+#compose.preview,
+#compose.writing {
+    @include foremost;
+}
+
+#compose.preview {
+    [data-tag=cover] {
+        opacity: 1;
     }
 }

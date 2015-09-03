@@ -68,7 +68,7 @@ gulp.task('serve', ['watch'], serve(['.tmp', 'app']));
 gulp.task('watch', ['scripts', 'styles'], function() {
     gulp.watch('./app/scripts/**/*.js', ['scripts']);
     gulp.watch('./app/config/*.js', ['scripts']);
-    gulp.watch('./app/styles/**/*.css', ['styles']);
+    gulp.watch('./app/styles/**/*.scss', ['styles']);
 });
 
 gulp.task('test', function() {
