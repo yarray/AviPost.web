@@ -3,9 +3,12 @@
 nav {
     position: relative; // only with this z-index will work with fixed elements
     z-index: 51;
+
     display: flex;
-    padding: 10px 0;
+
     width: 400px;
+    padding: 10px 0;
+
     border-bottom: solid 3px $black;
 
     background-blend-mode: multiply;
@@ -13,12 +16,15 @@ nav {
 
     &:before {
         position: fixed;
+        z-index: -1;
         top: 0;
         right: 0;
         left: 0;
-        z-index: -1;
+
         height: 120px;
-        background-image: linear-gradient(180deg, #{$white} 0%, rgba(255, 255, 255, 0) 85%);
+
         content: '';
+
+        background-image: linear-gradient(180deg, #{$white} 0%, rgba(255, 255, 255, 0) 85%);
     }
 }

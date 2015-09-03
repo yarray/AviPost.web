@@ -7,7 +7,9 @@
 
 body {
     position: relative;
+
     margin: 0;
+
     background-color: $light-grey;
     background-size: auto 1000px;
 }
@@ -21,9 +23,11 @@ figure {
 }
 
 a {
-    color: $black;
-    text-decoration: none;
     font-size: 20pt;
+
+    text-decoration: none;
+
+    color: $black;
 }
 
 a:hover {
@@ -38,6 +42,7 @@ img {
 // scss-lint:disable ImportantRule
 [data-template] {
     display: none !important;
+
     width: 0;
     height: 0;
 }

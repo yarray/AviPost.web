@@ -2,30 +2,36 @@
 
 #compose {
     position: relative;
+
     display: flex;
     flex-direction: column;
+
     padding-top: 50px;
 
     align-items: center;
     justify-content: center;
 
     textarea {
-        z-index: 2;
-        box-sizing: border-box;
-        padding: 35px 50px;
-        height: 200px;
-        border: 0;
-        border-top: 5px dashed transparent;
-        font-size: 18pt;
         font-family: 'Courier', sans-serif;
+        font-size: 18pt;
         line-height: 1.75;
-        opacity: .8;
+
+        z-index: 2;
+
+        box-sizing: border-box;
+        height: 200px;
+        padding: 35px 50px;
+
         resize: none;
 
+        opacity: .8;
+        border: 0;
+        border-top: 5px dashed transparent;
+
         &:focus {
-            outline: none;
-            border-top: 5px solid $dark-grey;
             opacity: 1;
+            border-top: 5px solid $dark-grey;
+            outline: none;
         }
 
         &[disabled] {
@@ -39,10 +45,12 @@
         right: 0;
         bottom: 0;
         left: 0;
+
         display: flex;
         overflow-y: scroll;
-        background-color: $white;
+
         opacity: .7;
+        background-color: $white;
 
         align-items: flex-start;
         justify-content: center;
@@ -50,20 +58,26 @@
 
     [data-tag=compose-tools] {
         z-index: 2;
+
         display: flex;
-        margin-top: 50px;
+
         width: 450px;
+        margin-top: 50px;
 
         justify-content: space-around;
 
         > label {
+            font-size: 24px;
+
             display: flex;
+
             width: 50px;
             height: 50px;
-            border: 3px solid $white;
-            color: $white;
-            font-size: 24px;
+
             cursor: pointer;
+
+            color: $white;
+            border: 3px solid $white;
 
             align-items: center;
             justify-content: center;

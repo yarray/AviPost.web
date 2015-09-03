@@ -11,6 +11,7 @@
 .hide {
     position: fixed;
     top: -99999px;
+
     display: none !important;
 }
 
@@ -32,6 +33,7 @@
     right: 0;
     bottom: 0;
     left: 0;
+
     content: '';
 }
 
