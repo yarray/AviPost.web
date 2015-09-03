@@ -1,93 +1,72 @@
-#compose
-{
-    position: relative;
-    /* so it can be bring to foremost */
+@import '_colors';
 
+#compose {
+    position: relative;
     display: flex;
     flex-direction: column;
-
     padding-top: 50px;
 
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    textarea
-    {
-        font-family: 'Courier', sans-serif;
-        font-size: 18pt;
-        line-height: 1.75;
-
+    textarea {
         z-index: 2;
-
         box-sizing: border-box;
-        height: 200px;
         padding: 35px 50px;
-
+        height: 200px;
+        border: 0;
+        border-top: 5px dashed transparent;
+        font-size: 18pt;
+        font-family: 'Courier', sans-serif;
+        line-height: 1.75;
+        opacity: .8;
         resize: none;
 
-        opacity: .8;
-        border: none;
-        border-top: 5px dashed transparent;
+        &:focus {
+            outline: none;
+            border-top: 5px solid $dark-grey;
+            opacity: 1;
+        }
+
+        &[disabled] {
+            color: $black;
+        }
     }
 
-    textarea:focus
-    {
-        opacity: 1;
-        border-top: 5px solid #666;
-        outline: none;
-    }
-
-    textarea[disabled]
-    {
-        color: #000;
-    }
-
-    [data-tag=cover]
-    {
+    [data-tag=cover] {
         position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
-
         display: flex;
         overflow-y: scroll;
-
+        background-color: $white;
         opacity: .7;
-        background-color: #fff;
 
-        justify-content: center;
         align-items: flex-start;
+        justify-content: center;
     }
 
-    [data-tag=compose-tools]
-    {
+    [data-tag=compose-tools] {
         z-index: 2;
-
         display: flex;
-
-        width: 450px;
         margin-top: 50px;
+        width: 450px;
 
         justify-content: space-around;
-    }
 
-    [data-tag=compose-tools] > label
-    {
-        font-size: 24px;
+        > label {
+            display: flex;
+            width: 50px;
+            height: 50px;
+            border: 3px solid $white;
+            color: $white;
+            font-size: 24px;
+            cursor: pointer;
 
-        display: block;
-        display: flex;
-
-        width: 50px;
-        height: 50px;
-
-        cursor: pointer;
-
-        color: #fff;
-        border: 3px solid #fff;
-
-        justify-content: center;
-        align-items: center;
+            align-items: center;
+            justify-content: center;
+        }
     }
 }

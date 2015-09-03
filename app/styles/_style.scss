@@ -8,56 +8,33 @@
 
 /* This file contains the second type of classes */
 
-.hide
-{
+.hide {
     position: fixed;
     top: -99999px;
-
     display: none !important;
 }
 
-.inactive
-{
+.inactive {
     opacity: .3;
 }
 
-.opaque
-{
+.opaque {
     opacity: 1 !important;
 }
 
-.foremost
-{
+.foremost {
     z-index: 9999 !important;
 }
 
-.fullscreen
-{
+.fullscreen {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-
     content: '';
 }
 
-.round
-{
+.round {
     border-radius: 9999999px;
-}
-
-.blue
-{
-    background-color: #2b79cf;
-}
-
-.green
-{
-    background-color: #30cf68;
-}
-
-.red
-{
-    background-color: red;
 }

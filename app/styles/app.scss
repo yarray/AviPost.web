@@ -1,55 +1,43 @@
+@import '_color';
 @import '_style';
 @import 'nav';
 @import 'gallery';
 @import 'compose';
 
 
-body
-{
+body {
     position: relative;
-
     margin: 0;
-
-    background-color: #ccc;
-    /* background-image: linear-gradient(180deg, white 0%, rgba(255,255,255,0.9) 15%, rgba(255,255,255,0) 31%); */
-    /* background-repeat: repeat-x; */
+    background-color: $light-grey;
     background-size: auto 1000px;
 }
 
-ul
-{
+ul {
     list-style: none;
 }
 
-figure
-{
+figure {
     margin: 0;
 }
 
-a
-{
-    font-size: 20pt;
-
+a {
+    color: $black;
     text-decoration: none;
-
-    color: #000;
+    font-size: 20pt;
 }
 
-a:hover
-{
+a:hover {
     opacity: 1;
 }
 
-img
-{
+img {
     max-width: 100%;
-    /* max-height: 100%; */
 }
 
-[data-template]
-{
+// template should always be invisible
+// scss-lint:disable ImportantRule
+[data-template] {
     display: none !important;
-
     width: 0;
     height: 0;
 }

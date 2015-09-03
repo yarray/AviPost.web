@@ -1,0 +1,15 @@
+---
+linters:
+  # we use id selector as namespace
+  IdSelector:
+    enabled: false
+  Indentation:
+    width: 4
+  # we prefer naming conventions
+  ImportPath:
+    enabled: false
+  PropertySortOrder:
+    enabled: false
+  # why selectors like input.disabled is bad?
+  QualifyingElement:
+    enabled: false

@@ -1,33 +1,25 @@
-#gallery
-{
+@import '_colors';
+
+#gallery {
     position: relative;
-
     display: flex;
-
     width: 100%;
 
     justify-content: center;
 
-    ul.page
-    {
+    ul.page {
         display: block;
-
-        width: 90%;
         padding: 0;
-
+        width: 90%;
         column-count: 4;
         column-gap: 0;
-    }
 
-    ul.page > li
-    {
-        line-height: 0;
-
-        overflow: hidden;
-
-        box-sizing: border-box;
-        padding: 3px 3px;
-
-        background-color: white;
+        > li {
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 3px;
+            background-color: $white;
+            line-height: 0;
+        }
     }
 }
