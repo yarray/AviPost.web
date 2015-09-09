@@ -17,9 +17,10 @@ var baseUrl = 'http://127.0.0.1:3000';
 
 // world
 var WorldConstructor = function(callback) {
+    // TODO should be more specific
     var initFixture = function(callback) {
         var manager = path.join(backendPath, 'avipost/manage.py');
-        var fixture = path.join(backendPath, 'e2e/client/fixtures.py');
+        var fixture = path.join(backendPath, 'e2e/fixtures/postcards.py');
 
         exec('python ' + manager + ' shell_plus < ' + fixture, callback);
     };
