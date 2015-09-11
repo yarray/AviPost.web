@@ -17,12 +17,14 @@ var baseUrl = 'http://127.0.0.1:3000';
 
 // world
 var WorldConstructor = function(callback) {
-    // TODO should be more specific
-    var initFixture = function(callback) {
-        var manager = path.join(backendPath, 'avipost/manage.py');
-        var fixture = path.join(backendPath, 'e2e/fixtures/postcards.py');
+    var manager = path.join(backendPath, 'avipost/manage.py');
 
-        exec('python ' + manager + ' shell_plus < ' + fixture, callback);
+    var fixture = function(creator, args, callback) {
+        exec('python ' + manager + ' fixture ' + creator + ' --par ' + args.join(','), callback);
+    };
+
+    var cleandb = function(callback) {
+        exec('python ' + manager + ' flush --no-input', callback);
     };
 
     var absUrl = function(partial) {
@@ -33,7 +35,7 @@ var WorldConstructor = function(callback) {
     client.on('error', function(e) {
         // will be executed everytime an error occured
         // e.g. when element couldn't be found
-        console.log(e);   // -> "org.openqa.selenium.NoSuchElementException"
+        console.error(e);   // -> "org.openqa.selenium.NoSuchElementException"
     });
 
     // use chai
@@ -46,7 +48,8 @@ var WorldConstructor = function(callback) {
     }
 
     callback({
-        initFixture: initFixture,
+        fixture: fixture,
+        cleandb: cleandb,
         client: client,
         absUrl: absUrl
     });

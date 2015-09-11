@@ -1,10 +1,19 @@
 var clientSession = function() {
     this.Before(function(done) {
-        this.client.init().call(done);
+        var that = this;
+
+        that.cleandb(function() {
+            that.fixture('_oauth', [], function() {
+                that.client.init().call(done);
+            });
+        });
     });
 
     this.After(function(done) {
-        this.client.end(done);
+        var that = this;
+        that.cleandb(function() {
+            that.client.end(done);
+        });
     });
 };
 
