@@ -3,16 +3,10 @@ var path = require('path');
 var url = require('url');
 var fs = require('fs');
 
-var webdriverio = require('webdriverio');
-var chai = require('chai');
+var webdriver = require('selenium-webdriver');
 
 // settings
 var backendPath = path.join(__dirname, '../../../AviPost/');
-var seleniumOptions = {
-    desiredCapabilities: {
-        browserName: 'firefox'
-    }
-};
 var baseUrl = 'http://127.0.0.1:3000';
 
 // world
@@ -20,7 +14,11 @@ var WorldConstructor = function(callback) {
     var manager = path.join(backendPath, 'avipost/manage.py');
 
     var fixture = function(creator, args, callback) {
-        exec('python ' + manager + ' fixture ' + creator + ' --par ' + args.join(','), callback);
+        var cmd = 'python ' + manager + ' fixture ' + creator;
+        if (args.length > 0) {
+            cmd += ' --par ' + args.join(',');
+        }
+        exec(cmd, callback);
     };
 
     var cleandb = function(callback) {
@@ -31,15 +29,16 @@ var WorldConstructor = function(callback) {
         return url.resolve(baseUrl, partial);
     };
 
-    var client = webdriverio.remote(seleniumOptions);
-    client.on('error', function(e) {
-        // will be executed everytime an error occured
-        // e.g. when element couldn't be found
-        console.error(e);   // -> "org.openqa.selenium.NoSuchElementException"
-    });
+    var driver = new webdriver.Builder().
+        withCapabilities(webdriver.Capabilities.phantomjs()).
+        build();
 
-    // use chai
-    chai.should();
+    driver.waitForVisible = function(selector, timeout) {
+        var waitTimeout = timeout || 2000;
+        return driver.wait(function() {
+            return driver.isElementPresent(webdriver.By.css(selector));
+        }, waitTimeout);
+    };
 
     // make dir for screenshots
     var dir = '/tmp/screenshots';
@@ -50,7 +49,7 @@ var WorldConstructor = function(callback) {
     callback({
         fixture: fixture,
         cleandb: cleandb,
-        client: client,
+        client: driver,
         absUrl: absUrl
     });
 };

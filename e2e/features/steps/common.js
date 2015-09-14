@@ -2,6 +2,10 @@
 var common = function() {
     this.World = require('../support/world.js').World;
 
+    this.When(/^I open the app$/, function() {
+        return this.client.get(this.absUrl('/'));
+    });
+
     this.Given(/^(\w+) received (\d+) postcards$/, function(user, count, done) {
         this.fixture('_postcards', [user, count], done);
     });
@@ -10,14 +14,19 @@ var common = function() {
         var client = this.client;
         var token = 'fake_token_' + user;
 
+        // this.fixture('_users', [user, token], function() {
+        //     client.executeScript(function(token) {
+        //         localStorage.setItem('token', token);
+        //     }, token).then(function() {
+        //         done();
+        //     });
+        // });
         this.fixture('_users', [user, token], function() {
-            // inject js here, since webdriverio's localstorage API not work 
-            // TODO not work
-            client.execute('localStorage.setItem("token", "' + token + '");').then(function(ret) {
-                console.log('hi'); // outputs: 10
-                console.log(ret.value); // outputs: 10
+            client.executeScript('localStorage.setItem("token", "' + token + '")').then(function() {
+                done();
             });
         });
+
     });
 };
 
