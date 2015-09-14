@@ -7,8 +7,17 @@ var common = function() {
     });
 
     this.Given(/^(\w+) (?:am|are|is) logged in$/, function(user, done) {
-        this.token = 'fake_token_' + user;
-        this.fixture('_users', [user, this.token], done);
+        var client = this.client;
+        var token = 'fake_token_' + user;
+
+        this.fixture('_users', [user, token], function() {
+            // inject js here, since webdriverio's localstorage API not work 
+            // TODO not work
+            client.execute('localStorage.setItem("token", "' + token + '");').then(function(ret) {
+                console.log('hi'); // outputs: 10
+                console.log(ret.value); // outputs: 10
+            });
+        });
     });
 };
 
