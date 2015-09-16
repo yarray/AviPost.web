@@ -15,10 +15,12 @@ var gallery = function() {
 
     this.Then(/^with (\d+) figures/, function(count) {
         var client = this.client;
-        return client
-            .findElements(By.css(':not([data-template]) > figure'))
+        return client.sleep(1000)
+            .then(function() {
+                return client.findElements(By.css(':not([data-template]) > figure'));
+            })
             .then(function(res) {
-                expect(res).to.have.length(parseInt(count, 10));
+                return expect(res).to.have.length(parseInt(count, 10));
             });
     });
 };

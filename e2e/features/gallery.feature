@@ -2,7 +2,7 @@ Feature: postcard gallery
 
     Background:
         Given I am logged in
-        # And I received 30 postcards
+        And I received 30 postcards
 
     Scenario: view my postcards
         When I visit my gallery

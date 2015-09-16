@@ -15,6 +15,10 @@ function gallery(root, uri) {
     const request = new XMLHttpRequest();
     request.open('GET', uri + '/postcards/');
     request.setRequestHeader('Accept', 'application/json');
+    const token = localStorage.getItem('token');
+    if (token) {
+        request.setRequestHeader('Authorization', 'Bearer ' + token);
+    }
 
     const cardElements = ajax.promise(request)
         .catch(res => {

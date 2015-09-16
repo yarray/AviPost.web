@@ -7,10 +7,10 @@ var clientSession = function() {
     this.Before(function(scenario, done) {
         var that = this;
 
-        that.cleandb(function() {
-            that.fixture('_oauth', [], function() {
-                done();
-            });
+        that.cleandb().then(function() {
+            return that.fixture('_oauth', []);
+        }).then(function() {
+            done();
         });
     });
 
@@ -29,10 +29,10 @@ var clientSession = function() {
                     });
             }
         }).then(function() { 
-            that.cleandb();
+            return that.cleandb();
         }).then(function() {
-            that.client.quit().then(done);
-        });
+            return that.client.quit();
+        }).then(done);
     });
 };
 
