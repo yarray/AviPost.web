@@ -1,5 +1,16 @@
 // subpage controller in single page applications
 /**
+ * select
+ *
+ * @param {Object.<string, bool>} state
+ * @param {string} target
+ * @return {Object.<string, bool>}
+ */
+function select(state, target) {
+    const a = state[tarrget];
+}
+
+/**
  * subpages
  *
  * @param {{key: string, dom: HTMLElement, init: function}[]} specs

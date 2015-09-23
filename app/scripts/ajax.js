@@ -3,9 +3,9 @@
  * build html query string from params
  *
  * @param {object} object
- * @return {string}
+ * @return {String}
  */
-function params(object) {
+function querystr(object) {
     return Object.keys(object)
         .map(key => key.toString() + '=' + encodeURIComponent(object[key]))
         .join('&');
@@ -14,20 +14,38 @@ function params(object) {
 /**
  * create a Promise from XMLHttpRequest
  *
- * @param {XMLHttpRequest} request
+ * @param {String} url
+ * @param {String} verb
+ * @param {?Object} headers
+ * @param {?Object} params
+ * @param {?Object} data
+ *
  * @return {Promise}
  */
-function promise(request ) {
+function ajax(url, verb, { params = {}, headers = {}, data = {} }) {
+    const request = new XMLHttpRequest();
+
+    request.open(verb, `${url}?${querystr(params)}`);
+    Object.keys(headers).forEach(key => {
+        request.setRequestHeader(key, headers[key]);
+    });
+
     return new Promise((resolve, reject) => {
         request.onload = () => {
             if (request.status < 400) {
-                resolve(request);
+                resolve(JSON.parse(request.responseText), request);
             } else {
-                reject(request);
+                reject(new Error(request.statusText));
             }
         };
-        request.send();
+
+        const formdata = new FormData();
+        Object.keys(data).forEach(key => {
+            formdata.append(key, data[key]);
+        });
+
+        request.send(formdata);
     });
 }
 
-export default { params, promise };
+export default ajax;

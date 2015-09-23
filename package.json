@@ -1,9 +1,12 @@
 {
   "dependencies": {
     "array.from": "^0.2.0",
+    "axios": "^0.6.0",
     "es6-collections": "^0.5.5",
     "imagesloaded": "^3.1.8",
-    "page": "^1.6.1"
+    "most": "^0.15.0",
+    "page": "^1.6.1",
+    "ramda": "^0.17.1"
   },
   "devDependencies": {
     "babel": "^5.8.20",

@@ -2,16 +2,20 @@
  * controller for the compose page
  *
  * @param {HTMLElement} root
+ * @param {Resource} postcards
  * @return {undefined}
  */
-function compose(root) {
+function compose(root, postcards) {
+    const status = {};
+
     const msgPanel = root.querySelector('textarea');
     const placeholder = msgPanel.getAttribute('placeholder');
 
     const coverInput = root.querySelector('input[type=file]');
     const bg = root.querySelector('[data-tag=cover]');
 
-    const preview = root.querySelector('[data-tag=preview]');
+    const previewBtn = root.querySelector('[data-tag=preview]');
+    const sendBtn = root.querySelector('[data-tag=send]');
 
     msgPanel.removeAttribute('disabled'); // don't know why firefox "remember" disabled state even after refreshing
     msgPanel.addEventListener('focus', e => {
@@ -35,10 +39,11 @@ function compose(root) {
             };
 
             reader.readAsDataURL(files[0]);
+            status.cover = files[0];
         }
     });
 
-    preview.addEventListener('click', e => {
+    previewBtn.addEventListener('click', e => {
         root.classList.toggle('preview');
         e.target.classList.toggle('fa-eye-slash');
         if (!msgPanel.hasAttribute('disabled')) {
@@ -46,6 +51,16 @@ function compose(root) {
         } else {
             msgPanel.removeAttribute('disabled');
         }
+        e.preventDefault();
+    });
+
+    sendBtn.addEventListener('click', e => {
+        postcards.post({
+            receiver: 2,
+            message: msgPanel.textContent,
+            cover: status.cover,
+        });
+        // otherwise the event will be triggered twice: is there better solution?
         e.preventDefault();
     });
 }
