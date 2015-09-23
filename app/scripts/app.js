@@ -6,6 +6,7 @@ import createSubpages from './subpage.js';
 import gallery from './gallery.js';
 import compose from './compose.js';
 import nav from './nav.js';
+import resource from './resource.js';
 
 polyfill();
 
@@ -15,7 +16,7 @@ function app(config) {
             key: '/gallery',
             dom: document.querySelector('#gallery'),
             init(dom) {
-                gallery(dom, config.uri);
+                gallery(dom, resource(config.uri, 'postcards'));
             },
         },
 
@@ -23,7 +24,7 @@ function app(config) {
             key: '/compose',
             dom: document.querySelector('#compose'),
             init(dom) {
-                compose(dom, config.uri);
+                compose(dom, resource(config.uri, 'postcards'));
             },
         },
     ]);
