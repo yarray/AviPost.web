@@ -5,14 +5,14 @@ general:
 
 machine:
   node:
-    version: iojs-v2.2.1
+    version: iojs-v3.0.0
   python:
     version: 3.4.3
   services:
     - docker
   environment:
     PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
-    DJANGO_SETTINGS_MODULE: avipost.settings.ci
+    DJANGO_SETTINGS_MODULE: avipost.settings.ci_admin
 
 checkout:
   post:
@@ -42,13 +42,10 @@ database:
 ## Customize test commands
 test:
   pre:
-    - docker run --name=api --net='host' -e "DJANGO_SETTINGS_MODULE=avipost.settings.ci_stubbed_prod" -d avipost
+    - docker run --name=api --net='host' -e "DJANGO_SETTINGS_MODULE=avipost.settings.ci" -d avipost
     - gulp build.test
     - docker build -t avipost.web dist/
     - docker run --name=app -p 3000:80 -d avipost.web 
-    - wget -O selenium-server.jar http://selenium-release.storage.googleapis.com/2.47/selenium-server-standalone-2.47.1.jar
-    - java -jar selenium-server.jar -log ${CIRCLE_ARTIFACTS}/selenium.log -browserSideLog:
-        background: true
   override:
     - cucumber-js e2e/features
   post:
