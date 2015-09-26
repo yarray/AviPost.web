@@ -18,29 +18,33 @@ function gallery(root, postcards) {
     ]);
 
     function image(card) {
-        return h('li', [
-            h('figure', [
-                h('img', { props: { src: card.cover } }),
-            ]),
-        ]);
+        return (
+            h('li', {
+                hook: {
+                    create: (_, vnode) => {
+                        vnode.elm.classList.add('loading');
+                        loadImage(vnode.elm).then(
+                            () => vnode.elm.classList.remove('loading')
+                        );
+                    },
+                },
+            }, [
+                h('figure', [
+                    h('img', { props: { src: card.cover } }),
+                ]),
+            ]));
     }
 
-    function view(cards, loaded) {
-        return h('ul.page', { 'class': { loading: !loaded } }, cards.map(image));
-        // return h('ul.page', cards.map(image));
+    function view(cards) {
+        return h('ul.page', cards.map(image));
     }
 
     const load = most.periodic(1000, 1);
-    // const load = most.just(1);
     const cardsLoaded = load.map(postcards.get).await();
     const viewLoad = cardsLoaded.map(view);
-    const imagesLoaded = cardsLoaded.map(() => loadImage(root)).await();
-    const viewLoaded = most.zip(view, cardsLoaded, imagesLoaded);
-    const viewUpdate = most.merge(viewLoad, viewLoaded);
 
     // with side effect
-    // viewLoad.scan(patch, root).drain();
-    viewUpdate.scan(patch, root).drain();
+    viewLoad.scan(patch, root).drain();
 }
 
 
