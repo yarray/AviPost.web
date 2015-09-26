@@ -13,7 +13,7 @@ import imagesLoaded from 'imagesloaded';
 function loadImage(container, value) {
     return new Promise((resolve) => {
         imagesLoaded(container, () => {
-            resolve(value);
+            resolve(value ? value : true);
         });
     });
 }

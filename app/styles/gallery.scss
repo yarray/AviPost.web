@@ -29,9 +29,9 @@
         padding: 3px;
 
         background-color: $white;
+    }
 
-        &.loading {
-            @include hide;
-        }
+    ul.page.loading > li {
+        @include hide;
     }
 }

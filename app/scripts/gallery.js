@@ -1,8 +1,9 @@
 // The entrance of the gallery component
-// import { renderArray } from './template.js';
-import { loadImage } from './async.js';
 import snabbdom from 'snabbdom';
 import h from 'snabbdom/h';
+import most from 'most';
+
+import { loadImage } from './async.js';
 
 /**
  * controller for the gallery page
@@ -16,31 +17,30 @@ function gallery(root, postcards) {
         require('snabbdom/modules/class'),
     ]);
 
-    const view = (cards, loading) => {
-        const image = card => {
-            return h('li', { 'class': { loading } }, [
-                h('figure', [
-                    h('img', { props: { src: card.cover } }),
-                ]),
-            ]);
-        };
+    function image(card) {
+        return h('li', [
+            h('figure', [
+                h('img', { props: { src: card.cover } }),
+            ]),
+        ]);
+    }
 
-        return h('ul.page', cards.map(image));
-    };
+    function view(cards, loaded) {
+        return h('ul.page', { 'class': { loading: !loaded } }, cards.map(image));
+        // return h('ul.page', cards.map(image));
+    }
 
-    postcards.get()
-        .then(cards => {
-            const vnode = patch(root, view(cards, true));
-            return loadImage(root, { cards, vnode });
-        })
-        .then(data => {
-            patch(data.vnode, view(data.cards, false));
-        })
-        .catch(e => {
-            // TODO promote to notice
-            console.error(e);
-            throw e;
-        });
+    const load = most.periodic(1000, 1);
+    // const load = most.just(1);
+    const cardsLoaded = load.map(postcards.get).await();
+    const viewLoad = cardsLoaded.map(view);
+    const imagesLoaded = cardsLoaded.map(() => loadImage(root)).await();
+    const viewLoaded = most.zip(view, cardsLoaded, imagesLoaded);
+    const viewUpdate = most.merge(viewLoad, viewLoaded);
+
+    // with side effect
+    // viewLoad.scan(patch, root).drain();
+    viewUpdate.scan(patch, root).drain();
 }
 
 
