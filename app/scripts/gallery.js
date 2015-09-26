@@ -3,7 +3,7 @@ import snabbdom from 'snabbdom';
 import h from 'snabbdom/h';
 import most from 'most';
 
-import { loadImage } from './async.js';
+import { imagesLoaded } from './async.js';
 
 /**
  * controller for the gallery page
@@ -17,17 +17,17 @@ function gallery(root, postcards) {
         require('snabbdom/modules/class'),
     ]);
 
+    function hideImageUtilLoaded(element) {
+        element.classList.add('loading');
+        imagesLoaded(element).then(
+            () => element.classList.remove('loading')
+        );
+    }
+
     function image(card) {
         return (
             h('li', {
-                hook: {
-                    create: (_, vnode) => {
-                        vnode.elm.classList.add('loading');
-                        loadImage(vnode.elm).then(
-                            () => vnode.elm.classList.remove('loading')
-                        );
-                    },
-                },
+                hook: { create: (_, vnode) => hideImageUtilLoaded(vnode.elm) },
             }, [
                 h('figure', [
                     h('img', { props: { src: card.cover } }),

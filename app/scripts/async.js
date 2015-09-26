@@ -1,5 +1,5 @@
 // async operations as promise
-import imagesLoaded from 'imagesloaded';
+import imagesLoadedOrigin from 'imagesloaded';
 
 /**
  * loadImage
@@ -10,12 +10,12 @@ import imagesLoaded from 'imagesloaded';
  * @return {Promise.<T>}
  * @template T
  */
-function loadImage(container, value) {
+function imagesLoaded(container, value) {
     return new Promise((resolve) => {
-        imagesLoaded(container, () => {
+        imagesLoadedOrigin(container, () => {
             resolve(value ? value : true);
         });
     });
 }
 
-export default { loadImage };
+export default { imagesLoaded };
