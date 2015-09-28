@@ -26,12 +26,18 @@
         overflow: hidden;
 
         box-sizing: border-box;
-        padding: 3px;
+        padding: 2px;
 
-        background-color: $white;
+        // avoid padding or border flow to next column
+        break-inside: avoid;
     }
 
-    ul.page > li.loading {
+    ul.page figure {
+        background-color: $white;
+        border: 8px solid $white;
+    }
+
+    ul.page > li.image-loading {
         @include hide;
     }
 }

@@ -14,9 +14,10 @@ function app(config) {
     const subpages = createSubpages([
         {
             key: '/gallery',
-            dom: document.querySelector('#gallery > div'),
+            dom: document.querySelector('#gallery'),
             init(dom) {
-                gallery(dom, resource(config.uri, 'postcards'));
+                // TODO workaround
+                gallery(dom.children[0], resource(config.uri, 'postcards'));
             },
         },
 

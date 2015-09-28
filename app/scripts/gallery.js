@@ -17,17 +17,17 @@ function gallery(root, postcards) {
         require('snabbdom/modules/class'),
     ]);
 
-    function hideImageUtilLoaded(element) {
-        element.classList.add('loading');
+    function traceImageLoading(element) {
+        element.classList.add('image-loading');
         imagesLoaded(element).then(
-            () => element.classList.remove('loading')
+            () => element.classList.remove('image-loading')
         );
     }
 
     function image(card) {
         return (
             h('li', {
-                hook: { create: (_, vnode) => hideImageUtilLoaded(vnode.elm) },
+                hook: { create: (_, vnode) => traceImageLoading(vnode.elm) },
             }, [
                 h('figure', [
                     h('img', { props: { src: card.cover } }),
@@ -39,7 +39,9 @@ function gallery(root, postcards) {
         return h('ul.page', cards.map(image));
     }
 
-    const load = most.periodic(1000, 1);
+    // const load = most.periodic(1000, 1);
+    const load = most.just(1);
+    // TODO what if here is 'post'?
     const cardsLoaded = load.map(postcards.get).await();
     const viewLoad = cardsLoaded.map(view);
 
