@@ -2,6 +2,7 @@
 import snabbdom from 'snabbdom';
 import h from 'snabbdom/h';
 import most from 'most';
+import { identity, not } from 'ramda';
 
 import { imagesLoaded } from './async.js';
 
@@ -12,7 +13,7 @@ import { imagesLoaded } from './async.js';
  * @param {Resource} postcards
  * @param {Stream} activated
  */
-function gallery(root, postcards, on, off) {
+function gallery(root, postcards, toggle) {
     const patch = snabbdom.init([
         require('snabbdom/modules/props'),
         require('snabbdom/modules/class'),
@@ -40,8 +41,8 @@ function gallery(root, postcards, on, off) {
         return h('ul.page', cards.map(image));
     }
 
-    const input = on.map(data => {
-        return most.periodic(1000, data).until(off);
+    const input = toggle.filter(identity).map(data => {
+        return most.periodic(1000, data).until(toggle.filter(not));
     }).join();
     // TODO what if here is 'post'?
     const cardsLoaded = input.map(postcards.get).await();

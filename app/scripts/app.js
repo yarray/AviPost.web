@@ -44,14 +44,13 @@ function app(config) {
     }).constant(true);
 
     const galleryOff = most.create(add => {
-        page('/compose', ctx => {
-            subpages.get('/compose')();
-            add(ctx);
-        });
+        page.exit('/gallery', add);
     }).constant(false);
 
+    page('/compose', subpages.get('/compose'));
+
     gallery(document.querySelector('#gallery > div'), resource(config.uri, 'postcards'),
-            galleryOn, galleryOff).drain();
+            galleryOn.merge(galleryOff).skipRepeats()).drain();
 
     page({
         hashbang: true,
