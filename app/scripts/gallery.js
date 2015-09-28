@@ -10,8 +10,9 @@ import { imagesLoaded } from './async.js';
  *
  * @param {HTMLElement} root
  * @param {Resource} postcards
+ * @param {Stream} activated
  */
-function gallery(root, postcards) {
+function gallery(root, postcards, on, off) {
     const patch = snabbdom.init([
         require('snabbdom/modules/props'),
         require('snabbdom/modules/class'),
@@ -39,14 +40,15 @@ function gallery(root, postcards) {
         return h('ul.page', cards.map(image));
     }
 
-    // const load = most.periodic(1000, 1);
-    const load = most.just(1);
+    const input = on.map(data => {
+        return most.periodic(1000, data).until(off);
+    }).join();
     // TODO what if here is 'post'?
-    const cardsLoaded = load.map(postcards.get).await();
+    const cardsLoaded = input.map(postcards.get).await();
     const viewLoad = cardsLoaded.map(view);
 
     // with side effect
-    viewLoad.scan(patch, root).drain();
+    return viewLoad.scan(patch, root);
 }
 
 

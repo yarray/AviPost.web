@@ -1,5 +1,6 @@
 // The entrance of the app, mainly do routing & dispatching
 import page from 'page';
+import most from 'most';
 
 import polyfill from './polyfill.js';
 import createSubpages from './subpage.js';
@@ -15,9 +16,7 @@ function app(config) {
         {
             key: '/gallery',
             dom: document.querySelector('#gallery'),
-            init(dom) {
-                // TODO workaround
-                gallery(dom.children[0], resource(config.uri, 'postcards'));
+            init() {
             },
         },
 
@@ -37,9 +36,22 @@ function app(config) {
         next();
     });
 
-    subpages.forEach((handler, path) => {
-        page(path, handler);
-    });
+    const galleryOn = most.create(add => {
+        page('/gallery', ctx => {
+            subpages.get('/gallery')();
+            add(ctx);
+        });
+    }).constant(true);
+
+    const galleryOff = most.create(add => {
+        page('/compose', ctx => {
+            subpages.get('/compose')();
+            add(ctx);
+        });
+    }).constant(false);
+
+    gallery(document.querySelector('#gallery > div'), resource(config.uri, 'postcards'),
+            galleryOn, galleryOff).drain();
 
     page({
         hashbang: true,
