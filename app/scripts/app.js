@@ -56,6 +56,12 @@ function app(config) {
         routings.map(prop('gallery'))
     ).drain();
 
+    compose(
+        pages.compose,
+        resource(config.uri, 'postcards'),
+        routings.map(prop('compose'))
+    );
+
     const navElement = document.getElementsByTagName('nav')[0];
     // hook page show/hide
     routings.observe(states => {
