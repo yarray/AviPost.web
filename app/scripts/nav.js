@@ -2,13 +2,13 @@
  * nav
  *
  * @param {HTMLElement} element
- * @param {string} path
+ * @param {string} page
  */
-function nav(element, path) {
+function nav(element, page) {
     const links = Array.from(element.getElementsByTagName('a'));
     links.forEach(a => {
         a.classList.add('inactive');
-        if (a.getAttribute('href') === path) {
+        if (a.getAttribute('data-page') === page) {
             a.classList.remove('inactive');
         }
     });

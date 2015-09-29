@@ -1,12 +1,11 @@
 // The entrance of the app, mainly do routing & dispatching
 import most from 'most';
-import { prop } from 'ramda';
+import { prop, mapObj } from 'ramda';
 
 import polyfill from './polyfill.js';
 import createSubpages from './subpage.js';
 import gallery from './gallery.js';
 import compose from './compose.js';
-import nav from './nav.js';
 import resource from './resource.js';
 import router from './router.js';
 
@@ -38,37 +37,42 @@ function app(config) {
         }
     );
     // set pages
-    const pages = {
+    const pages = mapObj(
+        selector => document.querySelector(selector)
+    )({
         gallery: '#gallery',
         compose: '#compose',
-    };
+    });
+
     // routing stream hooked to onhashchange
     const routings = most.fromEvent('hashchange', window)
+        .startWith()
         .map(() => routes(window.location.hash));
 
     // transform and direct stream to gallery
     gallery(
-        document.querySelector('#gallery > div'),
+        pages.gallery.firstElementChild,
         resource(config.uri, 'postcards'),
         routings.map(prop('gallery'))
     ).drain();
 
+    const navElement = document.getElementsByTagName('nav')[0];
     // hook page show/hide
     routings.observe(states => {
         Object.keys(states).forEach(
             page => {
-                document.querySelector(pages[page])
-                    .style.display = states[page] ? null : 'none';
+                pages[page].style.display = states[page] ? null : 'none';
+                const nav = navElement.querySelector(`[data-page="${page}"]`);
+                if (states[page]) {
+                    nav.classList.remove('inactive');
+                } else {
+                    nav.classList.add('inactive');
+                }
             }
         );
     });
 
-    // TODO highlight navElement
-    const navElement = document.getElementsByTagName('nav')[0];
-    // page('*', (ctx, next) => {
-    //     nav(navElement, ctx.pathname);
-    //     next();
-    // });
+    // TODO first time not work
     // TODO fallback redirect
 }
 
