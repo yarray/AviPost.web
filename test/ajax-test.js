@@ -1,8 +1,12 @@
 import sinon from 'sinon';
+import jsdom from 'mocha-jsdom';
+import { expect } from 'chai';
 
 import ajax from '../app/scripts/ajax.js';
 
 describe('param parser', () => {
+    jsdom();
+
     beforeEach(function() {
         this.xhr = sinon.useFakeXMLHttpRequest();
     });
@@ -18,14 +22,14 @@ describe('param parser', () => {
                 params: {
                     a: 'hello',
                     b: 42,
-                    c: 'world'
-                }
+                    c: 'world',
+                },
             })
             .then(() => {
                 expect(this.xhr.url).to.be.equal(
                     'http://127.0.0.1/?a=hello&b=42&c=world'
                 );
-        });
+            });
     });
 
     it('can parse troublesome params', function() {
@@ -35,13 +39,13 @@ describe('param parser', () => {
                 params: {
                     a: 'hell=',
                     b: '42&',
-                    c: "'wor ld"
-                }
+                    c: "'wor ld",
+                },
             })
             .then(() => {
                 expect(this.xhr.url).to.be.equal(
                     "http://127.0.0.1/?a=hell%3D&b=42%26&c='wor%20ld"
                 );
-        });
+            });
     });
 });

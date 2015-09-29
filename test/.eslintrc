@@ -1,0 +1,13 @@
+{
+    rules: {
+        // we need "this" as mocha's context so arrow function will not work
+        "func-names": 0
+    },
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true,
+        "mocha": true
+    },
+    "extends": ["airbnb", "../.eslintrc"]
+}

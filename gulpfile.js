@@ -72,7 +72,6 @@ gulp.task('watch', ['scripts', 'styles'], function() {
 });
 
 gulp.task('test', function() {
-    require('./test/init');
     var babel = require('babel/register');
     return gulp.src('./test/**/*-test.js')
         .pipe(mocha(

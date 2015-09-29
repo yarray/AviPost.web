@@ -42,7 +42,7 @@ function gallery(root, postcards, toggle) {
     }
 
     const input = toggle.filter(identity).map(data => {
-        return most.periodic(1000, data).until(toggle.filter(not));
+        return most.periodic(1000, data).until(toggle);
     }).join();
     // TODO what if here is 'post'?
     const cardsLoaded = input.map(postcards.get).await();
