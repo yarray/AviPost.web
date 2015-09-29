@@ -2,7 +2,7 @@
 import snabbdom from 'snabbdom';
 import h from 'snabbdom/h';
 import most from 'most';
-import { identity, not } from 'ramda';
+import { identity } from 'ramda';
 
 import { imagesLoaded } from './async.js';
 

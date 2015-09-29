@@ -17,6 +17,10 @@
         "semi": [
             2,
             "always"
+        ],
+        "id-length": [
+            2,
+            { "min": 1 }
         ]
     }
 }

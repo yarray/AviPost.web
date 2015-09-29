@@ -1,6 +1,6 @@
 // The entrance of the app, mainly do routing & dispatching
 import most from 'most';
-import { forEach } from 'ramda';
+import { prop } from 'ramda';
 
 import polyfill from './polyfill.js';
 import createSubpages from './subpage.js';
@@ -44,14 +44,13 @@ function app(config) {
     };
     // routing stream hooked to onhashchange
     const routings = most.fromEvent('hashchange', window)
-        .tap(console.log(window.location.hash))
         .map(() => routes(window.location.hash));
 
     // transform and direct stream to gallery
     gallery(
         document.querySelector('#gallery > div'),
         resource(config.uri, 'postcards'),
-        routings
+        routings.map(prop('gallery'))
     ).drain();
 
     // hook page show/hide
