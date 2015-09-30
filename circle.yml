@@ -31,7 +31,7 @@ dependencies:
   override:
     - mkdir -p ~/docker
     - if [[ -e ~/docker/base.tar ]]; then docker load -i ~/docker/base.tar; else docker pull nginx && docker save nginx > ~/docker/base.tar; fi
-    - npm config set python $(pyenv whence --path python2)
+    - npm config set python $(pyenv whence --path python2 | head -1)
     - npm install
 
 database:
