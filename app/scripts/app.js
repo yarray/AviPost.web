@@ -3,7 +3,6 @@ import most from 'most';
 import { prop, mapObj } from 'ramda';
 
 import polyfill from './polyfill.js';
-import createSubpages from './subpage.js';
 import gallery from './gallery.js';
 import compose from './compose.js';
 import resource from './resource.js';
@@ -12,23 +11,6 @@ import router from './router.js';
 polyfill();
 
 function app(config) {
-    const subpages = createSubpages([
-        {
-            key: '/gallery',
-            dom: document.querySelector('#gallery'),
-            init() {
-            },
-        },
-
-        {
-            key: '/compose',
-            dom: document.querySelector('#compose'),
-            init(dom) {
-                compose(dom, resource(config.uri, 'postcards'));
-            },
-        },
-    ]);
-
     // init router
     const routes = router(
         {
