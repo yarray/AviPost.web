@@ -38,7 +38,7 @@ function app(config) {
         pages.gallery.firstElementChild,
         resource(config.uri, 'postcards'),
         routings.map(prop('gallery'))
-    ).drain();
+    );
 
     compose(
         pages.compose,

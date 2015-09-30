@@ -42,14 +42,14 @@ function gallery(root, postcards, toggle) {
     }
 
     const input = toggle.filter(identity).map(data => {
-        return most.periodic(1000, data).until(toggle);
+        return most.periodic(1000, data).until(toggle.skip(1));
     }).join();
     // TODO what if here is 'post'?
     const cardsLoaded = input.map(postcards.get).await();
     const viewLoad = cardsLoaded.map(view);
 
     // with side effect
-    return viewLoad.scan(patch, root);
+    return viewLoad.reduce(patch, root);
 }
 
 
