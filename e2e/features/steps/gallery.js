@@ -6,7 +6,7 @@ var gallery = function() {
     this.World = require('../support/world.js').World;
 
     this.When(/^I visit my gallery$/, function() {
-        return this.client.get(this.absUrl('#!/gallery'));
+        return this.client.get(this.absUrl('#/gallery'));
     });
 
     this.Then(/^I see the gallery$/, function() {
