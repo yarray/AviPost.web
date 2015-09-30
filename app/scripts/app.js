@@ -63,8 +63,9 @@ function app(config) {
 
     routings.map(nav).reduce(patch, navElement);
 
-    // TODO first time not work
-    // TODO fallback redirect
+    if (!window.location.hash) {
+        window.location.hash = '#/gallery';
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
