@@ -1,10 +1,17 @@
 @import '_colors';
 
+@font-face {
+    font-family: AlegreyaSC;
+    src: url(fonts/Alegreya_SC/AlegreyaSC-Regular.ttf);
+}
+
 nav {
     position: relative; // only with this z-index will work with fixed elements
     z-index: 51;
 
     display: flex;
+
+    font-family: AlegreyaSC;
 
     width: 400px;
     padding: 10px 0;

@@ -1,8 +1,10 @@
 // The entrance of the app, mainly do routing & dispatching
 import most from 'most';
+import snabbdom from 'snabbdom';
 import { prop, mapObj } from 'ramda';
 
 import polyfill from './polyfill.js';
+import nav from './nav.js';
 import gallery from './gallery.js';
 import compose from './compose.js';
 import resource from './resource.js';
@@ -50,15 +52,16 @@ function app(config) {
         Object.keys(states).forEach(
             page => {
                 pages[page].style.display = states[page] ? null : 'none';
-                const nav = navElement.querySelector(`[data-page="${page}"]`);
-                if (states[page]) {
-                    nav.classList.remove('inactive');
-                } else {
-                    nav.classList.add('inactive');
-                }
             }
         );
     });
+
+    const patch = snabbdom.init([
+        require('snabbdom/modules/props'),
+        require('snabbdom/modules/class'),
+    ]);
+
+    routings.map(nav).reduce(patch, navElement);
 
     // TODO first time not work
     // TODO fallback redirect

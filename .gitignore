@@ -11,5 +11,8 @@ dist/
 .*.sw*
 .*~
 
+# Mac
+.DS_Store
+
 # webstorm project folder
 .idea
