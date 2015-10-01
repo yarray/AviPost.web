@@ -1,7 +1,8 @@
 {
     rules: {
         // we need "this" as mocha's context so arrow function will not work
-        "func-names": 0
+        "func-names": 0,
+        "no-unused-expressions": 0
     },
     "env": {
         "es6": true,

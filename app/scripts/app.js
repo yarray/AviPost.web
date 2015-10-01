@@ -14,12 +14,8 @@ polyfill();
 
 function app(config) {
     // init router
-    const routes = router(
-        {
-            gallery: '#/gallery',
-            compose: '#/compose',
-        }
-    );
+    const routes = router(['#/gallery', '#/compose']);
+
     // set pages
     const pages = mapObj(
         selector => document.querySelector(selector)
@@ -31,7 +27,7 @@ function app(config) {
     // routing stream hooked to onhashchange
     const routings = most.fromEvent('hashchange', window)
         .startWith()
-        .map(() => routes(window.location.hash));
+        .map(() => routes.parse(window.location.hash));
 
     // transform and direct stream to gallery
     gallery(
@@ -49,7 +45,7 @@ function app(config) {
     const navElement = document.getElementsByTagName('nav')[0];
     // hook page show/hide
     routings.observe(states => {
-        Object.keys(states).forEach(
+        Object.keys(pages).forEach(
             page => {
                 pages[page].style.display = states[page] ? null : 'none';
             }
