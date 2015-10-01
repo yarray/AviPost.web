@@ -1,12 +1,11 @@
 // The entrance of the app, mainly do routing & dispatching
 import most from 'most';
-import snabbdom from 'snabbdom';
 import { prop, mapObj } from 'ramda';
 
 import polyfill from './polyfill.js';
-import nav from './nav.js';
 import gallery from './gallery.js';
 import compose from './compose.js';
+import common from './common.js';
 import resource from './resource.js';
 import router from './router.js';
 
@@ -18,10 +17,10 @@ function app(config) {
 
     // set pages
     const pages = mapObj(
-        selector => document.querySelector(selector)
+        id => document.getElementById(id)
     )({
-        gallery: '#gallery',
-        compose: '#compose',
+        gallery: 'gallery',
+        compose: 'compose',
     });
 
     // routing stream hooked to onhashchange
@@ -42,22 +41,7 @@ function app(config) {
         routings.map(prop('compose'))
     );
 
-    const navElement = document.getElementsByTagName('nav')[0];
-    // hook page show/hide
-    routings.observe(states => {
-        Object.keys(pages).forEach(
-            page => {
-                pages[page].style.display = states[page] ? null : 'none';
-            }
-        );
-    });
-
-    const patch = snabbdom.init([
-        require('snabbdom/modules/props'),
-        require('snabbdom/modules/class'),
-    ]);
-
-    routings.map(nav).reduce(patch, navElement);
+    common(pages, routings);
 
     if (!window.location.hash) {
         window.location.hash = '#/gallery';
