@@ -1,4 +1,7 @@
-import { compose, mergeAll, zip, map, filter, fromPairs, all, reverse } from 'ramda';
+import {
+    compose, mergeAll, zip, map, filter,
+    fromPairs, all, allPass, reverse, equals, length,
+} from 'ramda';
 import querystring from 'querystring';
 
 function router(patterns, options) {
@@ -25,12 +28,17 @@ function router(patterns, options) {
         const [trunk, query] = url.split('?');
         const urlFragments = trunk.split(/[#/]/).filter(s => s);
 
-        const test = compose(
-            all(
-                ([value, key]) => key.startsWith(':') || value === key
+        const test = allPass([
+            compose(
+                all(
+                    ([value, key]) => key.startsWith(':') || value === key
+                ),
+                zip(urlFragments)
             ),
-            zip(urlFragments)
-        );
+            compose(
+                equals(urlFragments.length), length
+            ),
+        ]);
 
         const createPatch = compose(
             fromPairs, filter(([key]) => key.startsWith(':')), map(reverse), zip(urlFragments)

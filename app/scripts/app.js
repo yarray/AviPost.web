@@ -13,7 +13,7 @@ polyfill();
 
 function app(config) {
     // init router
-    const routes = router(['#/gallery', '#/compose']);
+    const routes = router(['#/gallery', '#/compose', '#/'], { shortcut: { '#/': '#/gallery' } });
 
     // set pages
     const pages = mapObj(
@@ -42,10 +42,6 @@ function app(config) {
     );
 
     common(document.querySelector('nav'), pages, routings);
-
-    if (!window.location.hash) {
-        window.location.hash = '#/gallery';
-    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
