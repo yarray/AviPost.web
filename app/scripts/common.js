@@ -27,12 +27,12 @@ function nav(states) {
 /**
  * common
  *
+ * @param {HTMLElement} navElement
  * @param {Object} pages
- * @param {Stream} states
+ * @param {Stream} routings
  * @return {undefined}
  */
-function common(pages, routings) {
-    const navElement = document.getElementsByTagName('nav')[0];
+function common(navElement, pages, routings) {
     // hook page show/hide
     routings.observe(states => {
         Object.keys(pages).forEach(

@@ -41,7 +41,7 @@ function app(config) {
         routings.map(prop('compose'))
     );
 
-    common(pages, routings);
+    common(document.querySelector('nav'), pages, routings);
 
     if (!window.location.hash) {
         window.location.hash = '#/gallery';

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import router from '../app/scripts/router.js';
 
 describe('router', function() {
-    it('can handle simple rules', () => {
+    it('handles simple rules', () => {
         const routes = router(
             ['#/gallery', '#/compose']
         ).parse('#/gallery');
@@ -10,52 +10,64 @@ describe('router', function() {
         expect(routes.compose).to.be.undefined;
     });
 
-    it('can handle layered url', () => {
+    it('handles layered url', () => {
         const routes = router(
             ['#/compose/edit']
         ).parse('#/compose/edit');
         expect(routes.compose).to.deep.equal({ edit: {} });
     });
 
-    it('can handle rules with params in url', () => {
+    it('handles rules with params in url', () => {
         const routes = router(
             ['#/gallery/:page']
         ).parse('#/gallery/12');
         expect(routes.gallery).to.deep.equal({ page: '12' });
     });
 
-    it('can handle rules with params in query strings', () => {
+    it('handles rules with params in query strings', () => {
         const routes = router(
             ['#/gallery/']
         ).parse('#/gallery?sender=Tom&receiver=Jerry');
         expect(routes.gallery).to.deep.equal({ sender: 'Tom', receiver: 'Jerry' });
     });
 
-    it('can handle rules with params in query strings and url', () => {
+    it('handles rules with params in query strings and url', () => {
         const routes = router(
             ['#/gallery/:page']
         ).parse('#/gallery/12?sender=Tom&receiver=Jerry');
         expect(routes.gallery).to.deep.equal({ sender: 'Tom', receiver: 'Jerry', page: '12' });
     });
 
-    it('can handle shortcut', () => {
-        // currently a little messy, implement after refactoring
-        //
-        // const routes = router(
-        //     ['#/detail'],
-        //     { shortcut: { '#/detail': '#/compose/preview/fullscreen' } }
-        // ).parse('#/detail');
-        // expect(routes).to.deep.equal({
-        //     detail: {},
-        //     compose: {
-        //         preview: {
-        //             fullscreen: {},
-        //         },
-        //     },
-        // });
+    it('handles shortcut', () => {
+        const routes = router(
+            ['#/detail'],
+            { shortcut: { '#/detail': '#/compose/preview/fullscreen' } }
+        ).parse('#/detail');
+        expect(routes).to.deep.equal({
+            compose: {
+                preview: {
+                    fullscreen: {},
+                },
+            },
+        });
     });
 
-    it('tolerate slashes', () => {
+    it('handles shortcut with params in url', () => {
+        const routes = router(
+            ['#/detail/:id'],
+            { shortcut: { '#/detail/:id': '#/compose/preview/:id/fullscreen' } }
+        ).parse('#/detail/12');
+        expect(routes).to.deep.equal({
+            compose: {
+                preview: {
+                    id: '12',
+                    fullscreen: {},
+                },
+            },
+        });
+    });
+
+    it('tolerates slashes', () => {
         const routes = router(
             ['#/detail']
         ).parse('#/detail////');

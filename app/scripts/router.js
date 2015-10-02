@@ -1,42 +1,19 @@
-import { zipWith, map, mergeAll } from 'ramda';
+import { compose, mergeAll, zip, map, filter, fromPairs, all, reverse } from 'ramda';
 import querystring from 'querystring';
 
-
-function patchesSingle(patternDef, urlDef) {
-    return mergeAll(zipWith((ptoken, utoken) => {
-        if (ptoken.startsWith(':')) {
-            const res = {};
-            res[ptoken] = utoken;
-            return res;
-        }
-    }, patternDef, urlDef));
-}
-
-function matchSingle(patternDef, urlDef) {
-    return (zipWith((ptoken, utoken) => {
-        return utoken === ptoken || ptoken.startsWith(':');
-    }, patternDef, urlDef).every(s => s));
-}
-
-function parseSingle(patternDef, patches, query) {
-    const res = {};
-    let current = res;
-    patternDef.forEach(p => {
-        if (patches[p]) {
-            current[p.replace(/^:/, '')] = patches[p];
-        } else {
-            current = current[p] = {};
-        }
-    });
-    if (query) {
-        Object.assign(current, querystring.parse(query));
+function router(patterns, options) {
+    function fragments(pattern) {
+        return pattern.split(/[#/]/).filter(s => s);
     }
-    return res;
-}
 
-
-function router(patterns) {
-    const patternDefs = patterns.map(p => p.split(/[#/]/).filter(s => s));
+    const rules = patterns.map(
+        p => [
+            fragments(
+                options && options.shortcut && options.shortcut[p] || p
+            ),
+            fragments(p),
+        ]
+    );
 
     /**
      * parse
@@ -46,20 +23,44 @@ function router(patterns) {
      */
     function parse(url) {
         const [trunk, query] = url.split('?');
-        const urlDef = trunk.split(/[#/]/).filter(s => s);
-        return mergeAll(map(patternDef => {
-            return !matchSingle(patternDef, urlDef) ? {} :
-                parseSingle(patternDef, patchesSingle(patternDef, urlDef), query);
-        }, patternDefs));
+        const urlFragments = trunk.split(/[#/]/).filter(s => s);
+
+        const test = compose(
+            all(
+                ([value, key]) => key.startsWith(':') || value === key
+            ),
+            zip(urlFragments)
+        );
+
+        const createPatch = compose(
+            fromPairs, filter(([key]) => key.startsWith(':')), map(reverse), zip(urlFragments)
+        );
+
+        function build([target, patch]) {
+            const res = {};
+            let current = res;
+            target.forEach(fragment => {
+                if (patch[fragment]) {
+                    current[fragment.replace(/^:/, '')] = patch[fragment];
+                } else {
+                    current = current[fragment] = {};
+                }
+            });
+            if (query) {
+                Object.assign(current, querystring.parse(query));
+            }
+            return res;
+        }
+
+        const createState = compose(
+            mergeAll, map(build),
+            map(([a, b]) => [a, createPatch(b)]), filter(([, a]) => test(a))
+        );
+
+        return createState(rules);
     }
 
-    function depth(i) {
-        // TODO
-    }
-    return {
-        parse,
-        depth,
-    };
+    return { parse };
 }
 
 export default router;
