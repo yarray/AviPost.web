@@ -9,6 +9,7 @@ function router(patterns, options) {
         return pattern.split(/[#/]/).filter(s => s);
     }
 
+    // TODO a better name
     const rules = patterns.map(
         p => [
             fragments(
@@ -44,6 +45,7 @@ function router(patterns, options) {
             fromPairs, filter(([key]) => key.startsWith(':')), map(reverse), zip(urlFragments)
         );
 
+        // TODO change to functional
         function build([target, patch]) {
             const res = {};
             let current = res;
