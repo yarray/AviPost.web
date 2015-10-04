@@ -37,6 +37,11 @@
         border: 8px solid $white;
     }
 
+    ul.page img:hover {
+        filter: saturate(.3) sepia(60%) brightness(.7);
+    }
+
+
     ul.page > li.image-loading {
         @include hide;
     }

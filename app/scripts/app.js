@@ -26,7 +26,7 @@ function app(config) {
     // routing stream hooked to onhashchange
     const routings = most.fromEvent('hashchange', window)
         .startWith()
-        .map(() => routes.parse(window.location.hash));
+        .map(() => routes(window.location.hash));
 
     // transform and direct stream to gallery
     gallery(
