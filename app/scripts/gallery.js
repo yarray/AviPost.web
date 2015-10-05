@@ -33,6 +33,7 @@ function gallery(root, postcards, toggle) {
             }, [
                 h('figure', [
                     h('img', { props: { src: card.cover } }),
+                    h('span', card.message),
                 ]),
             ]));
     }
