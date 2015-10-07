@@ -2,8 +2,7 @@
 @import '_mixin';
 
 
-$msg-gap: 50px;
-$msg-height: 120px;
+$msg-height: 70px;
 
 
 #gallery {
@@ -20,19 +19,14 @@ $msg-height: 120px;
 
         width: 90%;
         padding: 0;
-
-        column-count: 4;
-        column-gap: 0;
     }
 
     ul.page > li {
         overflow: hidden;
 
-        box-sizing: border-box;
-        padding: 2px;
+        padding: 2px .25%;
 
-        // avoid padding or border flow to next column
-        break-inside: avoid;
+        width: 24.5%;
     }
 
     figure {
@@ -47,35 +41,29 @@ $msg-height: 120px;
         margin-bottom: -$msg-height;
     }
 
-    // ul.page img:hover {
-    //     filter: saturate(.3) sepia(60%) brightness(.7);
-    // }
-
-
-    figure > span {
-        // The effect is far from perfect, due to the very buggy implementations of css columns in chrome, which:
-        // * do not support any change on img for the second column
-        // * even if span is set to position: relative, it stops working for the second column
+    figcaption {
         color: $white;
         font-family: courier;
         font-size: 18pt;
         font-style: italic;
-        text-shadow: $black 0 0 15px;
 
         display: block;
         width: 100%;
         text-align: center;
 
         height: $msg-height;
+
         opacity: 0;
     }
 
-    figure:hover > span {
-        box-sizing: border-box;
+    figure:hover figcaption {
         opacity: 1;
+        position: relative;
+        z-index: 2;
     }
 
-    figure:hover > img {
+    figure:hover img {
+        filter: saturate(.5) brightness(.6);
     }
 
     ul.page > li.image-loading {

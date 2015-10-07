@@ -4,7 +4,6 @@ import h from 'snabbdom/h';
 import most from 'most';
 import { identity } from 'ramda';
 
-import { imagesLoaded } from './async.js';
 
 /**
  * controller for the gallery page
@@ -17,33 +16,30 @@ function gallery(root, postcards, toggle) {
     const patch = snabbdom.init([
         require('snabbdom/modules/props'),
         require('snabbdom/modules/class'),
+        require('./behavior.js'),
+        require('./masonry.js'),
     ]);
-
-    function traceImageLoading(element) {
-        element.classList.add('image-loading');
-        imagesLoaded(element).then(
-            () => element.classList.remove('image-loading')
-        );
-    }
 
     function image(card) {
         return (
             h('li', {
-                hook: { create: (_, vnode) => traceImageLoading(vnode.elm) },
+                behavior: { hideTillImagesLoaded: {} },
             }, [
                 h('figure', [
                     h('img', { props: { src: card.cover } }),
-                    h('span', card.message),
+                    h('figcaption', card.message),
                 ]),
             ]));
     }
 
     function view(cards) {
-        return h('ul.page', cards.map(image));
+        return h('ul.page', {
+            masonry: {},
+        }, cards.map(image));
     }
 
     const input = toggle.filter(identity).map(data => {
-        return most.periodic(1000, data).until(toggle.skip(1));
+        return most.periodic(3000, data).until(toggle.skip(1));
     }).join();
     // TODO what if here is 'post'?
     const cardsLoaded = input.map(postcards.get).await();
