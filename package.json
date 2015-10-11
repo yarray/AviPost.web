@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "array.from": "^0.2.0",
+    "flyd": "^0.1.15",
     "imagesloaded": "^3.1.8",
     "masonry-layout": "^3.3.2",
     "most": "^0.15.0",

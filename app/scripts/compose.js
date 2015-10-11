@@ -1,3 +1,10 @@
+import snabbdom from 'snabbdom';
+import h from 'snabbdom/h';
+import most from 'most';
+import flyd from 'flyd';
+import filter from 'flyd/module/filter';
+import {head, curry} from 'ramda';
+
 /**
  * controller for the compose page
  *
@@ -6,64 +13,144 @@
  * @return {undefined}
  */
 function compose(root, postcards, toggle) {
-    const status = {};
-
-    const msgPanel = root.querySelector('textarea');
-    const placeholder = msgPanel.getAttribute('placeholder');
-
-    const coverInput = root.querySelector('input[type=file]');
-    const bg = root.querySelector('[data-tag=cover]');
-
-    const previewBtn = root.querySelector('[data-tag=preview]');
-    const sendBtn = root.querySelector('[data-tag=send]');
+    const patch = snabbdom.init([
+        require('snabbdom/modules/props'),
+        require('snabbdom/modules/class'),
+        require('snabbdom/modules/attributes'),
+        require('snabbdom/modules/eventlisteners'),
+    ]);
 
     const init = () => {
-        msgPanel.removeAttribute('disabled'); // don't know why firefox "remember" disabled state even after refreshing
-        msgPanel.addEventListener('focus', e => {
-            root.classList.add('writing');
-            e.target.removeAttribute('placeholder');
-        });
+        // var observer = new MutationObserver(function(mutations) {
 
-        msgPanel.addEventListener('blur', e => {
-            root.classList.remove('writing');
-            e.target.setAttribute('placeholder', placeholder);
-        });
+        //     mutations.forEach(function(mutation) {
+        //         console.log(mutation);
+        //     });
+        // });
+        // var config = { attributes: true, childList: true, characterData: true, subtree: true };
+        // observer.observe(document.getElementById('compose'), config);
 
-        coverInput.addEventListener('change', e => {
-            const files = e.target.files;
-            if (files && files[0]) {
-                const reader = new FileReader();
-
-                reader.onload = progress => {
-                    bg.getElementsByTagName('img')[0]
-                        .setAttribute('src', progress.target.result);
-                };
-
-                reader.readAsDataURL(files[0]);
-                status.cover = files[0];
-            }
-        });
-
-        previewBtn.addEventListener('click', e => {
-            root.classList.toggle('preview');
-            e.target.classList.toggle('fa-eye-slash');
-            if (!msgPanel.hasAttribute('disabled')) {
-                msgPanel.setAttribute('disabled', '');
-            } else {
-                msgPanel.removeAttribute('disabled');
-            }
-            e.preventDefault();
-        });
-
-        sendBtn.addEventListener('click', e => {
+        const processImage = (file) => {
+            const reader = new FileReader();
+            reader.onload = progress => {
+                actions$( { type: 'changeCover', data: progress.target.result } );
+            };
+            reader.readAsDataURL(file);
+        };
+        function sendPostcard(message, cover) {
+            console.log(cover);
             postcards.post({
                 receiver: 2,
-                message: msgPanel.textContent,
-                cover: status.cover,
+                message: message,
+                cover: cover,
             });
-            // otherwise the event will be triggered twice: is there better solution?
-            e.preventDefault();
+        }
+        function update(model, action) {
+            console.log(action);
+            if (action.type === 'changeCover') {
+                return { ...model, src: action.data };
+            } else if (action.type === 'focus') {
+                return { ...model, isWriting: true };
+            } else if (action.type === 'blur') {
+                return { ...model, isWriting: false };
+            } else if (action.type === 'preview') {
+                return { ...model, isPreview: !model.isPreview };
+            } else if (action.type === 'changeMessage') {
+                return { ...model, message: action.data };
+            } else if (action.type === 'changeFile') {
+                processImage(action.data);
+                return { ...model, cover: action.data };
+            } else if (action.type === 'submit') {
+                sendPostcard(model.message, model.cover);
+            }
+            return model;
+        }
+
+        const textarea = (action, state) => {
+            return h('textarea', {
+                attrs: {
+                    placeholder: state.isWriting ? '' : 'say something',
+                    disabled: state.isPreview,
+                    rows: '4',
+                    cols: '40',
+                    name: 'message',
+                    maxlength: 140,
+                },
+                on: {
+                    focus: [ action, { type: 'focus'} ],
+                    blur: [ action, { type: 'blur'} ],
+                    input: e => action( { type: 'changeMessage', data: e.target.value } ),
+                },
+            });
+        };
+
+        const cover = (action, state) => {
+            return h('div',
+                { attrs: { 'data-tag': 'cover'} },
+                [ h('img', { attrs: { src: state.src } } ) ]
+            );
+        };
+
+        const imageBtn = (action, state) => {
+            return h('label.fa.fa-image',
+                { attrs: { 'data-tag': 'upload-cover' } },
+                [ h('input', {
+                    attrs: { type: 'file' },
+                    on: { change: e => action({ type: 'changeFile', data: head(e.target.files) } ) } }
+                ) ]
+            );
+        };
+
+        const previewBtn = (action, state) => {
+            return h('label.fa',
+                {
+                    attrs: { 'data-tag': 'preview' },
+                    class: {
+                        'fa-eye': !state.isPreview,
+                        'fa-eye-slash': state.isPreview,
+                    },
+                },
+                [ h('input', {
+                    attrs: { type: 'button' },
+                    on: { click: [ action, { type: 'preview' } ] } }
+                ) ]
+            );
+        };
+
+        const sendBtn = (action, state) => {
+            return h('label.fa.fa-send',
+                { attrs: { 'data-tag': 'send' } },
+                [ h('input', {
+                    attrs: { type: 'button' },
+                    on: { click: [ action, { type: 'submit'} ] },
+                } ) ]
+            );
+        };
+
+        const composeBtns = (action, state) => {
+            return h('div',
+                { attrs: { 'data-tag': 'compose-tools' } },
+                [ imageBtn(action, state), previewBtn(action, state), sendBtn(action, state) ] );
+        };
+
+        const view = curry((action, state) => {
+            return h('div', [
+                textarea(action, state),
+                composeBtns(action, state),
+                cover(action, state),
+            ]);
         });
+        const initialState = {
+            isWriting: false,
+            isPreview: false,
+            message: '',
+            cover: '',
+            src: '//:0',
+        };
+        const actions$ = flyd.stream();
+        const model$ = flyd.scan(update, initialState, actions$);
+        const vnode$ = flyd.map(view(actions$), model$);
+        flyd.scan(patch, root, vnode$);
     };
 
     toggle.take(1).observe(init);

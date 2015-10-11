@@ -1,7 +1,7 @@
 @import '_colors';
 @import '_mixin';
 
-#compose {
+#compose > div {
     position: relative;
 
     display: flex;
@@ -68,7 +68,7 @@
         justify-content: space-around;
     }
 
-    [data-tag=compose-tools] > label {
+    [data-tag=compose-tools] label {
         @include round;
 
         font-size: 24px;

@@ -36,7 +36,7 @@ function app(config) {
     );
 
     compose(
-        pages.compose,
+        pages.compose.firstElementChild,
         resource(config.uri, 'postcards'),
         routings.map(prop('compose'))
     );
