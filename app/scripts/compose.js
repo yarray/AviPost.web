@@ -1,9 +1,7 @@
 import snabbdom from 'snabbdom';
 import h from 'snabbdom/h';
-import most from 'most';
 import flyd from 'flyd';
-import filter from 'flyd/module/filter';
-import {head, curry} from 'ramda';
+import {head, curry, merge} from 'ramda';
 
 /**
  * controller for the compose page
@@ -21,14 +19,7 @@ function compose(root, postcards, toggle) {
     ]);
 
     const init = () => {
-        // var observer = new MutationObserver(function(mutations) {
-
-        //     mutations.forEach(function(mutation) {
-        //         console.log(mutation);
-        //     });
-        // });
-        // var config = { attributes: true, childList: true, characterData: true, subtree: true };
-        // observer.observe(document.getElementById('compose'), config);
+        const actions$ = flyd.stream();
 
         const processImage = (file) => {
             const reader = new FileReader();
@@ -37,6 +28,7 @@ function compose(root, postcards, toggle) {
             };
             reader.readAsDataURL(file);
         };
+
         function sendPostcard(message, cover) {
             console.log(cover);
             postcards.post({
@@ -45,114 +37,107 @@ function compose(root, postcards, toggle) {
                 cover: cover,
             });
         }
-        function update(model, action) {
+
+        function update(state, action) {
             console.log(action);
-            if (action.type === 'changeCover') {
-                return { ...model, src: action.data };
-            } else if (action.type === 'focus') {
-                return { ...model, isWriting: true };
-            } else if (action.type === 'blur') {
-                return { ...model, isWriting: false };
-            } else if (action.type === 'preview') {
-                return { ...model, isPreview: !model.isPreview };
-            } else if (action.type === 'changeMessage') {
-                return { ...model, message: action.data };
-            } else if (action.type === 'changeFile') {
-                processImage(action.data);
-                return { ...model, cover: action.data };
-            } else if (action.type === 'submit') {
-                sendPostcard(model.message, model.cover);
+
+            switch (action.type) {
+                case 'changeCover':
+                    return merge(state, { src: action.data });
+                case 'focus':
+                    return merge(state, { writing: true });
+                case 'blur':
+                    return merge(state, { writing: false });
+                case 'preview':
+                    return merge(state, { previewing: !state.previewing });
+                case 'changeMessage':
+                    return merge(state, { message: action.data });
+                case 'changeFile':
+                    processImage(action.data);
+                    return merge(state, { cover: action.data });
+                case 'submit':
+                    sendPostcard(state.message, state.cover);
+                    return state;
+                default:
+                    return state;
             }
-            return model;
         }
 
-        const textarea = (action, state) => {
-            return h('textarea', {
-                attrs: {
-                    placeholder: state.isWriting ? '' : 'say something',
-                    disabled: state.isPreview,
-                    rows: '4',
-                    cols: '40',
-                    name: 'message',
-                    maxlength: 140,
+        const msgPanel = (action, state) => (
+            h('textarea', { attrs: { rows: 4, cols: 40, maxlength: 140,
+                    placeholder: state.writing ? '' : 'say something',
+                    disabled: state.previewing,
                 },
                 on: {
                     focus: [ action, { type: 'focus'} ],
                     blur: [ action, { type: 'blur'} ],
                     input: e => action( { type: 'changeMessage', data: e.target.value } ),
                 },
-            });
-        };
+            })
+        );
 
-        const cover = (action, state) => {
-            return h('div',
-                { attrs: { 'data-tag': 'cover'} },
-                [ h('img', { attrs: { src: state.src } } ) ]
-            );
-        };
+        const imageBtn = actions => (
+            h('label.fa.fa-image', { attrs: { 'data-tag': 'upload-cover' },
+            }, [
+                h('input', { attrs: { type: 'file' },
+                    on: { change: e => actions({ type: 'changeFile', data: head(e.target.files) } ) } }
+                 ),
+            ])
+        );
 
-        const imageBtn = (action, state) => {
-            return h('label.fa.fa-image',
-                { attrs: { 'data-tag': 'upload-cover' } },
-                [ h('input', {
-                    attrs: { type: 'file' },
-                    on: { change: e => action({ type: 'changeFile', data: head(e.target.files) } ) } }
-                ) ]
-            );
-        };
-
-        const previewBtn = (action, state) => {
-            return h('label.fa',
-                {
-                    attrs: { 'data-tag': 'preview' },
-                    class: {
-                        'fa-eye': !state.isPreview,
-                        'fa-eye-slash': state.isPreview,
-                    },
+        const previewBtn = (action, previewing) => (
+            h('label.fa', { attrs: { 'data-tag': 'preview' },
+                class: {
+                    'fa-eye': !previewing,
+                    'fa-eye-slash': previewing,
                 },
-                [ h('input', {
-                    attrs: { type: 'button' },
+            }, [
+                h('input', { attrs: { type: 'button' },
                     on: { click: [ action, { type: 'preview' } ] } }
-                ) ]
-            );
-        };
+                 ),
+            ])
+        );
 
-        const sendBtn = (action, state) => {
-            return h('label.fa.fa-send',
-                { attrs: { 'data-tag': 'send' } },
-                [ h('input', {
-                    attrs: { type: 'button' },
+        const sendBtn = action => (
+            h('label.fa.fa-send', { attrs: { 'data-tag': 'send' },
+            }, [
+                h('input', { attrs: { type: 'button' },
                     on: { click: [ action, { type: 'submit'} ] },
-                } ) ]
-            );
-        };
+                }),
+            ])
+        );
 
-        const composeBtns = (action, state) => {
-            return h('div',
-                { attrs: { 'data-tag': 'compose-tools' } },
-                [ imageBtn(action, state), previewBtn(action, state), sendBtn(action, state) ] );
-        };
+        const view = curry((action, state) => (
+            h('div', {
+                class: {
+                    preview: state.previewing,
+                    writing: state.writing,
+                },
+            }, [
+                msgPanel(action, state),
+                h('div', { attrs: { 'data-tag': 'compose-tools' } }, [
+                    imageBtn(action), previewBtn(action, state.previewing), sendBtn(action),
+                ]),
+                h('div', { attrs: { 'data-tag': 'cover' } }, [
+                    h('img', { attrs: { src: state.src } }),
+                ]),
+            ])
+        ));
 
-        const view = curry((action, state) => {
-            return h('div', [
-                textarea(action, state),
-                composeBtns(action, state),
-                cover(action, state),
-            ]);
-        });
         const initialState = {
-            isWriting: false,
-            isPreview: false,
+            writing: false,
+            previewing: false,
             message: '',
             cover: '',
             src: '//:0',
         };
-        const actions$ = flyd.stream();
-        const model$ = flyd.scan(update, initialState, actions$);
-        const vnode$ = flyd.map(view(actions$), model$);
+
+        const state$ = flyd.scan(update, initialState, actions$);
+        const vnode$ = flyd.map(view(actions$), state$);
         flyd.scan(patch, root, vnode$);
     };
 
+    // TODO very strange since we use most with flyd
     toggle.take(1).observe(init);
 }
 
