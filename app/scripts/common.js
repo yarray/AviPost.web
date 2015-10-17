@@ -1,4 +1,5 @@
 import snabbdom from 'snabbdom';
+import flyd from 'flyd';
 import h from 'snabbdom/h';
 
 /**
@@ -34,20 +35,20 @@ function nav(states) {
  */
 function common(navElement, pages, routings) {
     // hook page show/hide
-    routings.observe(states => {
+    flyd.on(states => {
         Object.keys(pages).forEach(
             page => {
                 pages[page].style.display = states[page] ? null : 'none';
             }
         );
-    });
+    })(routings);
 
     const patch = snabbdom.init([
         require('snabbdom/modules/props'),
         require('snabbdom/modules/class'),
     ]);
 
-    routings.map(nav).reduce(patch, navElement);
+    return flyd.scan(patch, navElement, routings.map(nav));
 }
 
 export default common;

@@ -1,10 +1,15 @@
 {
-    "libs": [
-        "browser",
-        "es6",
-        "ecma6"
-    ],
-    "plugins": {
-        "node": {}
-    }
+  "libs": [
+    "browser"
+  ],
+  "loadEagerly": [
+    "app/scripts/*.js",
+    "node_modules/flyd/flyd.js",
+    "node_modules/snabbdom/*.js"
+  ],
+  "plugins": {
+    "node": {},
+    "complete_strings": {},
+    "lint": {}
+  }
 }

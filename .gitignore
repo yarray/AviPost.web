@@ -16,3 +16,7 @@ dist/
 
 # webstorm project folder
 .idea
+
+# ctags
+tags
+.tags*

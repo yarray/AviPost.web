@@ -1,5 +1,5 @@
 // The entrance of the app, mainly do routing & dispatching
-import most from 'most';
+import flyd from 'flyd';
 import { prop, mapObj } from 'ramda';
 
 import polyfill from './polyfill.js';
@@ -24,24 +24,25 @@ function app(config) {
     });
 
     // routing stream hooked to onhashchange
-    const routings = most.fromEvent('hashchange', window)
-        .startWith()
-        .map(() => routes(window.location.hash));
+    const hashchanged$ = flyd.stream(window.location.hash);
+    window.onhashchange = () => hashchanged$(window.location.hash);
+
+    const routings$ = flyd.map(routes, hashchanged$);
 
     // transform and direct stream to gallery
     gallery(
         pages.gallery.firstElementChild,
         resource(config.uri, 'postcards'),
-        routings.map(prop('gallery'))
+        flyd.map(prop('gallery'), routings$)
     );
 
     compose(
         pages.compose.firstElementChild,
         resource(config.uri, 'postcards'),
-        routings.map(prop('compose'))
+        flyd.map(prop('compose'), routings$)
     );
 
-    common(document.querySelector('nav'), pages, routings);
+    common(document.querySelector('nav'), pages, routings$);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

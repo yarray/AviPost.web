@@ -1,8 +1,9 @@
 // The entrance of the gallery component
 import snabbdom from 'snabbdom';
 import h from 'snabbdom/h';
-import most from 'most';
-import { identity } from 'ramda';
+import { compose as c } from 'ramda';
+
+const flyd = require('./flyd.js');
 
 
 /**
@@ -12,7 +13,7 @@ import { identity } from 'ramda';
  * @param {Resource} postcards
  * @param {Stream} activated
  */
-function gallery(root, postcards, toggle) {
+const gallery = (root, postcards, toggle) => {
     const patch = snabbdom.init([
         require('snabbdom/modules/props'),
         require('snabbdom/modules/class'),
@@ -20,34 +21,36 @@ function gallery(root, postcards, toggle) {
         require('./masonry.js'),
     ]);
 
-    function image(card) {
-        return (
-            h('li', {
-                behavior: { hideTillImagesLoaded: {} },
-            }, [
-                h('figure', [
-                    h('img', { props: { src: card.cover } }),
-                    h('figcaption', card.message),
-                ]),
-            ]));
-    }
+    const image = card => (
+        h('li', {
+            behavior: { hideTillImagesLoaded: {} },
+        }, [
+            h('figure', [
+                h('img', { props: { src: card.cover } }),
+                h('figcaption', card.message),
+            ]),
+        ])
+    );
 
-    function view(cards) {
-        return h('ul.page', {
+    const view = cards => (
+        h('ul.page', {
             masonry: {},
-        }, cards.map(image));
-    }
+        }, cards.map(image))
+    );
 
-    const input = toggle.filter(identity).map(data => {
-        return most.periodic(3000, data).until(toggle.skip(1));
-    }).join();
-    // TODO what if here is 'post'?
-    const cardsLoaded = input.map(postcards.get).await();
-    const viewLoad = cardsLoaded.map(view);
+    const refresh = params => {
+        return params ? flyd.innerEvery(3000, params) : flyd.stream();
+    };
 
-    // with side effect
-    return viewLoad.reduce(patch, root);
-}
+    const process = c(
+            flyd.scan(patch, root),
+            flyd.map(view), flyd.map(postcards.get),
+            flyd.switchLatest,
+            flyd.map(refresh)
+            );
+
+    return process(toggle);
+};
 
 
 export default gallery;
