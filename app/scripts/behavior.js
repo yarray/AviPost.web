@@ -1,5 +1,5 @@
 // behavior module for snabbdom
-import imagesloaded from 'imagesloaded';
+const imagesloaded = require('imagesloaded');
 
 
 function create(_, newVnode) {
@@ -17,4 +17,5 @@ function create(_, newVnode) {
     }
 }
 
-export default { create };
+
+module.exports = { create };

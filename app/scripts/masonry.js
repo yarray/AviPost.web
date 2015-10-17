@@ -1,8 +1,7 @@
 // masonry adapter for virtual dom
 
-import Masonry from 'masonry-layout';
-import { equals } from 'ramda';
-import imagesloaded from 'imagesloaded';
+const Masonry = require('masonry-layout');
+const imagesloaded = require('imagesloaded');
 
 
 function update(oldVnode, newVnode) {
@@ -35,4 +34,5 @@ function update(oldVnode, newVnode) {
     }
 }
 
-export default { update, create: update };
+
+module.exports = { update, create: update };

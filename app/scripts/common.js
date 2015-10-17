@@ -1,6 +1,6 @@
-import snabbdom from 'snabbdom';
-import flyd from 'flyd';
-import h from 'snabbdom/h';
+const snabbdom = require('snabbdom');
+const flyd = require('flyd');
+const h = require('snabbdom/h');
 
 /**
  * nav
@@ -51,4 +51,4 @@ function common(navElement, pages, routings) {
     return flyd.scan(patch, navElement, routings.map(nav));
 }
 
-export default common;
+module.exports = common;

@@ -19,4 +19,5 @@ const wrapper = {};
 Object.assign(wrapper, flyd);
 Object.assign(wrapper, { every, switchLatest, innerEvery });
 
+
 module.exports = wrapper;

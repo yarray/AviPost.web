@@ -1,9 +1,10 @@
-import {
-    compose as c, mergeAll, zip, map, filter, converge,
+const {
+    mergeAll, zip, map, filter, converge,
     fromPairs, all, head, test, equals, __, either, both,
     last, assoc, merge, split, apply, eqProps,
-} from 'ramda';
-import querystring from 'querystring';
+} = require('ramda');
+const c = require('ramda').compose;
+const querystring = require('querystring');
 
 /**
  * router
@@ -77,4 +78,4 @@ function router(patterns, options) {
     return parse;
 }
 
-export default router;
+module.exports = router;

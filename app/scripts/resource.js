@@ -1,4 +1,4 @@
-import ajax from './ajax.js';
+const ajax = require('./ajax.js');
 
 
 /**
@@ -30,4 +30,4 @@ function resource(baseUrl, name) {
     return { get, post };
 }
 
-export default resource;
+module.exports = resource;

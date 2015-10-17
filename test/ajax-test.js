@@ -1,8 +1,8 @@
-import sinon from 'sinon';
-import jsdom from 'mocha-jsdom';
-import { expect } from 'chai';
+const sinon = require('sinon');
+const jsdom = require('mocha-jsdom');
+const { expect } = require('chai');
 
-import ajax from '../app/scripts/ajax.js';
+const ajax = require('../app/scripts/ajax.js');
 
 describe('param parser', () => {
     jsdom();

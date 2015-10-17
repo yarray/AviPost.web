@@ -48,4 +48,5 @@ function ajax(url, verb, { params = {}, headers = {}, data = {} }) {
     });
 }
 
-export default ajax;
+
+module.exports = ajax;

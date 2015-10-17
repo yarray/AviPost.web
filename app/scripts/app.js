@@ -1,13 +1,13 @@
 // The entrance of the app, mainly do routing & dispatching
-import flyd from 'flyd';
-import { prop, mapObj } from 'ramda';
+const flyd = require('flyd');
+const { prop, mapObj } = require('ramda');
 
-import polyfill from './polyfill.js';
-import gallery from './gallery.js';
-import compose from './compose.js';
-import common from './common.js';
-import resource from './resource.js';
-import router from './router.js';
+const polyfill = require('./polyfill.js');
+const gallery = require('./gallery.js');
+const compose = require('./compose.js');
+const common = require('./common.js');
+const resource = require('./resource.js');
+const router = require('./router.js');
 
 polyfill();
 

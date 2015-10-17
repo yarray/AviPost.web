@@ -1,9 +1,10 @@
-import snabbdom from 'snabbdom';
-import h from 'snabbdom/h';
-import flyd from 'flyd';
-import flatMap from 'flyd/module/flatmap';
-import filter from 'flyd/module/filter';
-import {compose as c, head, curry, merge, identity} from 'ramda';
+const snabbdom = require('snabbdom');
+const h = require('snabbdom/h');
+const flyd = require('flyd');
+const flatMap = require('flyd/module/flatmap');
+const filter = require('flyd/module/filter');
+const { head, curry, merge, identity } = require('ramda');
+const c = require('ramda').compose;
 
 /**
  * controller for the compose page
@@ -142,4 +143,4 @@ function compose(root, postcards, toggle) {
     return flatMap(() => process(actions$), filter(identity, toggle));
 }
 
-export default compose;
+module.exports = compose;

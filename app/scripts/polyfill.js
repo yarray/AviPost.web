@@ -2,4 +2,4 @@ function polyfill() {
     require('array.from');
 }
 
-export default polyfill;
+module.exports = polyfill;

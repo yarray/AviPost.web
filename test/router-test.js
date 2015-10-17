@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import router from '../app/scripts/router.js';
+const { expect } = require('chai');
+const router = require('../app/scripts/router.js');
 
 describe('router', function() {
     it('handles simple rules', () => {

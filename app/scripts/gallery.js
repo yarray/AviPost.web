@@ -1,7 +1,7 @@
 // The entrance of the gallery component
-import snabbdom from 'snabbdom';
-import h from 'snabbdom/h';
-import { compose as c } from 'ramda';
+const snabbdom = require('snabbdom');
+const h = require('snabbdom/h');
+const c = require('ramda').compose;
 
 const flyd = require('./flyd.js');
 
@@ -53,4 +53,4 @@ const gallery = (root, postcards, toggle) => {
 };
 
 
-export default gallery;
+module.exports = gallery;
