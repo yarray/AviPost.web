@@ -39,6 +39,7 @@ function app(config) {
     compose(
         pages.compose.firstElementChild,
         resource(config.uri, 'postcards'),
+        resource(config.uri, 'users'),
         flyd.map(prop('compose'), routings$)
     );
 

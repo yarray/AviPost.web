@@ -12,12 +12,21 @@
     align-items: center;
     justify-content: center;
 
+    textarea,
+    input.receiver,
+    datalist {
+        position: relative;
+        z-index: 2;
+    }
+
+    input.receiver {
+        margin-bottom: 20px;
+    }
+
     textarea {
         font-family: 'Courier', sans-serif;
         font-size: 18pt;
         line-height: 1.75;
-
-        z-index: 2;
 
         box-sizing: border-box;
         padding: 35px 50px;

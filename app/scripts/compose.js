@@ -27,6 +27,14 @@ const msgPanel = (action, state) => (
     })
 );
 
+const rcvrPanel = (id, receivers) => (
+    h(`datalist#${id}`, receivers.map(receiver => (
+        h('option', {
+            attrs: { value: receiver.username },
+        })
+    )))
+);
+
 const imageBtn = actions => (
     h('label.fa.fa-image', { attrs: { 'data-tag': 'upload-cover' },
     }, [
@@ -65,6 +73,12 @@ const view = curry((action, state) => (
             writing: state.writing,
         },
     }, [
+        h('input.receiver', { attrs: { list: 'receivers' },
+            on: {
+                input: e => action( { type: 'changeReceiver', data: e.target.value } ),
+            },
+        }),
+        rcvrPanel('receivers', state.users),
         msgPanel(action, state),
         h('div', { attrs: { 'data-tag': 'compose-tools' } }, [
             imageBtn(action), previewBtn(action, state.previewing), sendBtn(action),
@@ -82,7 +96,7 @@ const view = curry((action, state) => (
  * @param {Resource} postcards
  * @return {undefined}
  */
-function compose(root, postcards, toggle) {
+function compose(root, postcards, users, toggle) {
     const actions$ = flyd.stream();
 
     const processImage = (file) => {
@@ -93,10 +107,10 @@ function compose(root, postcards, toggle) {
         reader.readAsDataURL(file);
     };
 
-    function sendPostcard(message, cover) {
+    function sendPostcard(message, cover, receiver) {
         console.log(cover);
         postcards.post({
-            receiver: 2,
+            receiver: receiver,
             message: message,
             cover: cover,
         });
@@ -116,12 +130,17 @@ function compose(root, postcards, toggle) {
                 return merge(state, { previewing: !state.previewing });
             case 'changeMessage':
                 return merge(state, { message: action.data });
+            case 'changeReceiver':
+                return merge(state, { receiver: action.data });
             case 'changeFile':
                 processImage(action.data);
                 return merge(state, { cover: action.data });
             case 'submit':
-                sendPostcard(state.message, state.cover);
+                sendPostcard(state.message, state.cover,
+                     state.users.find(u => u.username === state.receiver).id);
                 return state;
+            case 'loadUsers':
+                return merge(state, { users: action.data });
             default:
                 return state;
         }
@@ -133,7 +152,14 @@ function compose(root, postcards, toggle) {
         message: '',
         cover: '',
         src: '//:0',
+        users: [],
+        receiver: -1,
     };
+
+    c(
+        flyd.on(receivers => actions$({ type: 'loadUsers', data: receivers })),
+        flyd.map(users.get)
+    )(filter(identity, toggle));
 
     const process = c(
             flyd.scan(patch, root),

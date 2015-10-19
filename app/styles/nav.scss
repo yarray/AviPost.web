@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: AlegreyaSC;
-    src: url(fonts/Alegreya_SC/AlegreyaSC-Regular.ttf);
+    src: url('fonts/Alegreya_SC/AlegreyaSC-Regular.ttf');
 }
 
 nav {
@@ -20,20 +20,6 @@ nav {
 
     background-blend-mode: multiply;
     justify-content: space-around;
-
-    &:before {
-        position: fixed;
-        z-index: -1;
-        top: 0;
-        right: 0;
-        left: 0;
-
-        height: 120px;
-
-        content: '';
-
-        background-image: linear-gradient(180deg, #{$white} 0%, rgba(255, 255, 255, 0) 85%);
-    }
 
     a.inactive {
         opacity: .3;
