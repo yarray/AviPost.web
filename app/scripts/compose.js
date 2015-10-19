@@ -6,6 +6,75 @@ const filter = require('flyd/module/filter');
 const { head, curry, merge, identity } = require('ramda');
 const c = require('ramda').compose;
 
+
+const patch = snabbdom.init([
+    require('snabbdom/modules/props'),
+    require('snabbdom/modules/class'),
+    require('snabbdom/modules/attributes'),
+    require('snabbdom/modules/eventlisteners'),
+]);
+
+const msgPanel = (action, state) => (
+    h('textarea', { attrs: { rows: 4, cols: 40, maxlength: 140,
+            placeholder: state.writing ? '' : 'say something',
+            disabled: state.previewing,
+        },
+        on: {
+            focus: [ action, { type: 'focus'} ],
+            blur: [ action, { type: 'blur'} ],
+            input: e => action( { type: 'changeMessage', data: e.target.value } ),
+        },
+    })
+);
+
+const imageBtn = actions => (
+    h('label.fa.fa-image', { attrs: { 'data-tag': 'upload-cover' },
+    }, [
+        h('input', { attrs: { type: 'file' },
+            on: { change: e => actions({ type: 'changeFile', data: head(e.target.files) } ) } }
+         ),
+    ])
+);
+
+const previewBtn = (action, previewing) => (
+    h('label.fa', { attrs: { 'data-tag': 'preview' },
+        class: {
+            'fa-eye': !previewing,
+            'fa-eye-slash': previewing,
+        },
+    }, [
+        h('input', { attrs: { type: 'button' },
+            on: { click: [ action, { type: 'preview' } ] } }
+         ),
+    ])
+);
+
+const sendBtn = action => (
+    h('label.fa.fa-send', { attrs: { 'data-tag': 'send' },
+    }, [
+        h('input', { attrs: { type: 'button' },
+            on: { click: [ action, { type: 'submit'} ] },
+        }),
+    ])
+);
+
+const view = curry((action, state) => (
+    h('div', {
+        class: {
+            preview: state.previewing,
+            writing: state.writing,
+        },
+    }, [
+        msgPanel(action, state),
+        h('div', { attrs: { 'data-tag': 'compose-tools' } }, [
+            imageBtn(action), previewBtn(action, state.previewing), sendBtn(action),
+        ]),
+        h('div', { attrs: { 'data-tag': 'cover' } }, [
+            h('img', { attrs: { src: state.src } }),
+        ]),
+    ])
+));
+
 /**
  * controller for the compose page
  *
@@ -14,13 +83,6 @@ const c = require('ramda').compose;
  * @return {undefined}
  */
 function compose(root, postcards, toggle) {
-    const patch = snabbdom.init([
-        require('snabbdom/modules/props'),
-        require('snabbdom/modules/class'),
-        require('snabbdom/modules/attributes'),
-        require('snabbdom/modules/eventlisteners'),
-    ]);
-
     const actions$ = flyd.stream();
 
     const processImage = (file) => {
@@ -64,67 +126,6 @@ function compose(root, postcards, toggle) {
                 return state;
         }
     }
-
-    const msgPanel = (action, state) => (
-        h('textarea', { attrs: { rows: 4, cols: 40, maxlength: 140,
-                placeholder: state.writing ? '' : 'say something',
-                disabled: state.previewing,
-            },
-            on: {
-                focus: [ action, { type: 'focus'} ],
-                blur: [ action, { type: 'blur'} ],
-                input: e => action( { type: 'changeMessage', data: e.target.value } ),
-            },
-        })
-    );
-
-    const imageBtn = actions => (
-        h('label.fa.fa-image', { attrs: { 'data-tag': 'upload-cover' },
-        }, [
-            h('input', { attrs: { type: 'file' },
-                on: { change: e => actions({ type: 'changeFile', data: head(e.target.files) } ) } }
-             ),
-        ])
-    );
-
-    const previewBtn = (action, previewing) => (
-        h('label.fa', { attrs: { 'data-tag': 'preview' },
-            class: {
-                'fa-eye': !previewing,
-                'fa-eye-slash': previewing,
-            },
-        }, [
-            h('input', { attrs: { type: 'button' },
-                on: { click: [ action, { type: 'preview' } ] } }
-             ),
-        ])
-    );
-
-    const sendBtn = action => (
-        h('label.fa.fa-send', { attrs: { 'data-tag': 'send' },
-        }, [
-            h('input', { attrs: { type: 'button' },
-                on: { click: [ action, { type: 'submit'} ] },
-            }),
-        ])
-    );
-
-    const view = curry((action, state) => (
-        h('div', {
-            class: {
-                preview: state.previewing,
-                writing: state.writing,
-            },
-        }, [
-            msgPanel(action, state),
-            h('div', { attrs: { 'data-tag': 'compose-tools' } }, [
-                imageBtn(action), previewBtn(action, state.previewing), sendBtn(action),
-            ]),
-            h('div', { attrs: { 'data-tag': 'cover' } }, [
-                h('img', { attrs: { src: state.src } }),
-            ]),
-        ])
-    ));
 
     const initialState = {
         writing: false,

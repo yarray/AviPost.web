@@ -3,7 +3,6 @@
     "browser"
   ],
   "loadEagerly": [
-    "app/scripts/*.js",
     "node_modules/flyd/flyd.js",
     "node_modules/snabbdom/*.js"
   ],
