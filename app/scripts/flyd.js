@@ -1,12 +1,13 @@
 // This is a wrapper for flyd for easier use
+const R = require('ramda');
 
 const flyd = require('flyd');
 const every = require('flyd/module/every');
 const switchLatest = require('flyd/module/switchlatest');
 const flatMap = require('flyd/module/flatmap');
-const filter = require('flyd/module/filter');
+const filter = R.curryN(2, require('flyd/module/filter'));
+const sampleOn = require('flyd/module/sampleon');
 
-const R = require('ramda');
 const c = R.compose;
 
 
@@ -18,14 +19,12 @@ const innerEvery = R.curryN(2, (sec, data) => c(
     flyd.map(() => data), flyd.merge(innerSingle), every
 )(sec));
 
-const emit = R.curryN(3, (stream, type, e) => stream({ type, e }));
-const extract = R.curryN(2, (type, stream) => filter(event => event.type === type, stream));
 
 const wrapper = {};
 Object.assign(wrapper, flyd);
 Object.assign(wrapper, {
-    every, switchLatest, flatMap, filter,
-    innerEvery, emit, extract });
+    every, switchLatest, flatMap, filter, sampleOn,
+    innerEvery });
 
 
 module.exports = wrapper;
