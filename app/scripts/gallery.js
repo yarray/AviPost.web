@@ -39,15 +39,15 @@ const view = cards => (
  */
 const gallery = (root, postcards, toggle) => {
     const refresh = params => {
-        return params ? flyd.innerEvery(3000, params) : flyd.stream();
+        return params ? flyd.innerEvery(5000, params) : flyd.stream();
     };
 
     const process = c(
-            flyd.scan(patch, root),
-            flyd.map(view), flyd.map(postcards.get),
-            flyd.switchLatest,
-            flyd.map(refresh)
-            );
+        flyd.scan(patch, root),
+        flyd.map(view), flyd.map(postcards.get),
+        flyd.switchLatest,
+        flyd.map(refresh)
+    );
 
     return process(toggle);
 };

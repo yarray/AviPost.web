@@ -12,6 +12,7 @@ const c = R.compose;
 
 
 // TODO very ugly workaround since high order stream in flyd will "swallow" events in the same execution loop
+// TODO trigger twice if merging innerSingle, not trigger if not
 const innerSingle = flyd.stream(
     [flyd.stream(true)], self => setTimeout(() => self(true), 0.1));
 
@@ -19,12 +20,22 @@ const innerEvery = R.curryN(2, (sec, data) => c(
     flyd.map(() => data), flyd.merge(innerSingle), every
 )(sec));
 
+// debug utility, use it like log(console)
+const log = out => flyd.map(R.tap(out.log.bind(out)));
+
+const first = s => flyd.stream([s], self => {
+    self(s());
+    self.end(true);
+});
+
 
 const wrapper = {};
 Object.assign(wrapper, flyd);
 Object.assign(wrapper, {
     every, switchLatest, flatMap, filter, sampleOn,
-    innerEvery });
+    innerEvery, first, log,
+    do: flyd.on,
+});
 
 
 module.exports = wrapper;
