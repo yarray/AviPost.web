@@ -23,7 +23,7 @@ var merge = require('merge-stream');
 var del = require('del');
 
 // development
-// 
+//
 gulp.task('lint', function() {
     return gulp.src('./app/scripts/**/*.js')
         .pipe(eslint())
@@ -32,9 +32,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('scripts', function() {
-    var scripts = browserify('./app/scripts/app.js', {
-            debug: true
-        })
+    var scripts = browserify('./app/scripts/app.js', { debug: true })
         .transform(babelify)
         .bundle()
         .on('error', function(err) {

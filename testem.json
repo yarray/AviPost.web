@@ -1,0 +1,11 @@
+{
+    "framework": "mocha",
+    "src_files": [
+        "app/scripts/*.js",
+        "test/*.js"
+    ],
+    "serve_files": [
+        ".tmp/test-bundle.js"
+    ],
+    "before_tests": "./node_modules/.bin/browserify -t babelify -d test/main.js -o .tmp/test-bundle.js"
+}

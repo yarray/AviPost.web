@@ -3,14 +3,9 @@
 const Masonry = require('masonry-layout');
 const imagesloaded = require('imagesloaded');
 
-
-function update(oldVnode, newVnode) {
+function updateMasonry(oldVnode, newVnode) {
     const oldMasonry = oldVnode.data.masonry;
     const newMasonry = newVnode.data.masonry;
-
-    if (!oldMasonry && !newMasonry) {
-        return;
-    }
 
     if (oldMasonry && !newMasonry) {
         oldMasonry.control.destroy();
@@ -34,5 +29,8 @@ function update(oldVnode, newVnode) {
     }
 }
 
+function update(oldVnode, newVnode) {
+    updateMasonry(oldVnode, newVnode);
+}
 
 module.exports = { update, create: update };
