@@ -39,7 +39,7 @@ function router(patterns, options) {
         // pattern: [String] -> patch: { k: v }
         const createPatch = c(
             fromPairs,
-            filter(c(test('/^:'), head)),
+            filter(c(test(/^:/), head)),
             zip(__, urlFragments)
         );
 
@@ -66,7 +66,7 @@ function router(patterns, options) {
         // pattern: String -> state: Object
         const createState = converge(
             applyPatch,
-            c(createPatch, fragments), c(fragments, expand)
+            [ c(createPatch, fragments), c(fragments, expand) ]
         );
 
         // patterns: [String] -> states for all routes: Object
