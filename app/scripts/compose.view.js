@@ -27,8 +27,7 @@ const msgPanel = (events, state) => (
 );
 
 const imageBtn = events => (
-    h('label.fa.fa-image', { attrs: { 'data-tag': 'upload-cover' },
-    }, [
+    h('label.upload-cover.fa.fa-image', [
         h('input', { attrs: { type: 'file' },
             on: {
                 change: e => events([ EventType.ChangeCover, head(e.target.files) ]),
@@ -38,7 +37,7 @@ const imageBtn = events => (
 );
 
 const previewBtn = (events, previewing) => (
-    h('label.fa', { attrs: { 'data-tag': 'preview' },
+    h('label.preview.fa', {
         class: {
             'fa-eye': !previewing,
             'fa-eye-slash': previewing,
@@ -53,14 +52,21 @@ const previewBtn = (events, previewing) => (
 );
 
 const sendBtn = events => (
-    h('label.fa.fa-send', { attrs: { 'data-tag': 'send' },
-    }, [
+    h('label.send.fa.fa-send', [
         h('input', { attrs: { type: 'button' },
             on: {
                 click: [ events, [ EventType.Submit ]],
             },
         }),
     ])
+);
+
+const searchableDropdown = state => (
+    h('div', { searchableDropdown: {
+        params: map(
+            ({ username, id }) => ({ name: username, value: id }), state.users
+        ),
+    }})
 );
 
 const view = curry((events, state) => (
@@ -70,17 +76,14 @@ const view = curry((events, state) => (
             writing: state.writing,
         },
     }, [
-        h('div', { searchableDropdown: {
-            params: map(
-                ({ username, id }) => ({ name: username, value: id }),
-                state.users
-            ),
-        }}),
-        msgPanel(events, state),
-        h('div', { attrs: { 'data-tag': 'compose-tools' } }, [
+        h('div.compose-tools', [
             imageBtn(events), previewBtn(events, state.previewing), sendBtn(events),
         ]),
-        h('div', { attrs: { 'data-tag': 'cover' } }, [
+        msgPanel(events, state),
+        h('div.misc', [
+            searchableDropdown(state),
+        ]),
+        h('div.cover', [
             h('img', { attrs: { src: state.background } }),
         ]),
     ])

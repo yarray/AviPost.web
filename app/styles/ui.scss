@@ -1,13 +1,42 @@
 // styles for ui components, split it if controls are overloaded for us
 @import 'colors';
 
+
 .searchable-dropdown {
+    $item-height: 30px;
+    $item-padding: 12px;
+
+    input,
+    ul,
+    li {
+        box-sizing: border-box;
+    }
+
+    input {
+        height: $item-height;
+        padding-left: 3px;
+        border: 0;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
     ul {
         background-color: $white;
+        padding: 0;
+        margin-top: 2px;
     }
 
     li {
         display: block;
+        line-height: $item-height;
         cursor: pointer;
+        padding-left: $item-padding;
+        border-bottom: 1.5px dashed $light-grey;
+    }
+
+    li:last-child {
+        border-color: transparent;
     }
 }

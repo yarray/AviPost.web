@@ -1,27 +1,23 @@
 @import '_colors';
 @import '_mixin';
 
-#compose > div {
-    position: relative;
+$editor-width: 700px;
 
-    display: flex;
-    flex-direction: column;
+#compose {
+    > div {
+        position: relative;
 
-    padding-top: 50px;
+        display: flex;
+        flex-direction: column;
 
-    align-items: center;
-    justify-content: center;
+        align-items: center;
+        justify-content: center;
+    }
 
     textarea,
-    input.receiver,
-    datalist,
     .searchable-dropdown {
         position: relative;
         z-index: 2;
-    }
-
-    input.receiver {
-        margin-bottom: 20px;
     }
 
     textarea {
@@ -31,6 +27,8 @@
 
         box-sizing: border-box;
         padding: 35px 50px;
+
+        width: $editor-width;
 
         resize: none;
 
@@ -49,7 +47,7 @@
         }
     }
 
-    [data-tag=cover] {
+    .cover {
         position: fixed;
         top: 0;
         right: 0;
@@ -66,18 +64,18 @@
         justify-content: center;
     }
 
-    [data-tag=compose-tools] {
+    .compose-tools {
         z-index: 2;
 
         display: flex;
 
-        width: 450px;
-        margin-top: 50px;
+        width: $editor-width;
+        margin-bottom: 20px;
 
-        justify-content: space-around;
+        justify-content: flex-end;
     }
 
-    [data-tag=compose-tools] label {
+    .compose-tools label {
         @include round;
 
         font-size: 24px;
@@ -86,6 +84,7 @@
 
         width: 50px;
         height: 50px;
+        margin-left: 25px;
 
         cursor: pointer;
 
@@ -96,21 +95,27 @@
         justify-content: center;
     }
 
-    [data-tag=compose-tools] input {
+    .compose-tools input {
         @include hide;
     }
-}
 
-[data-tag=upload-cover] {
-    background-color: $blue;
-}
+    .upload-cover {
+        background-color: $blue;
+    }
 
-[data-tag=preview] {
-    background-color: $green;
-}
+    .preview {
+        background-color: $green;
+    }
 
-[data-tag=send] {
-    background-color: $blue;
+    .send {
+        background-color: $blue;
+    }
+
+    .misc {
+        display: flex;
+        width: $editor-width;
+        margin-top: 20px;
+    }
 }
 
 #compose > .preview,
@@ -119,7 +124,7 @@
 }
 
 #compose > .preview {
-    [data-tag=cover] {
+    .cover {
         opacity: 1;
     }
 }
