@@ -27,8 +27,8 @@ const listItem = curry((events, item) => (
         on: {
             click: e => events([ ActionType.Select, e.target.textContent ]),
         },
-        attrs: { 'data-value': item.value },
-    }, item.name)
+        attrs: { 'data-value': item },
+    }, item)
 ));
 
 const view = curry((events, { all, keyword, showList }) => (
@@ -38,14 +38,14 @@ const view = curry((events, { all, keyword, showList }) => (
                 value: keyword,
             },
             on: {
-                input: e => events([ ActionType.ChangeInput, e.target.value ]),
+                input: e => events([ ActionType.ChangeInput, e.target ]),
                 focus: [ events, [ ActionType.StartSearch ]],
             },
         }),
         h('ul', {
             style: { display: showList ? '' : 'none' },
         }, c(
-            map(listItem(events)), filter(item => item.name.startsWith(keyword))
+            map(listItem(events)), filter(item => item.startsWith(keyword))
         )(all)),
     ])
 ));
@@ -69,19 +69,26 @@ const diff = ({ all, keyword, showList }, [ actionType, data ]) => {
 
 const update = (state, action) => merge(state, diff(state, action));
 
-const SearchableDropdown = (root, list) => {
+const SearchableDropdown = (root, { list, on }) => {
     const actions$ = flyd.stream([ ActionType.Init ]);
+    const state$ = flyd.scan(update, { all: (list || []), keyword: '', showList: false, on }, actions$);
+
+    const handlers = merge({
+        selected: () => {},
+    })(on);
+
+    flyd.do(
+        ([, keyword]) => handlers.selected(keyword),
+        flyd.filter(([type]) => type === ActionType.Select, actions$)
+    );
 
     flyd.scan(
         patch, root,
-        c(
-            flyd.map(view(actions$)),
-            flyd.scan(update, { all: (list || []), keyword: '', showList: false })
-        )(actions$)
+        flyd.map(view(actions$), state$)
     );
 
     return {
-        update: newList => actions$([ ActionType.Update, newList || [] ]),
+        update: ({ list: newList }) => actions$([ ActionType.Update, newList || [] ]),
     };
 };
 

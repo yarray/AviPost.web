@@ -1,5 +1,5 @@
 const h = require('snabbdom/h');
-const { head, curry, map } = require('ramda');
+const { head, curry, pluck } = require('ramda');
 
 
 const EventType = {
@@ -61,11 +61,14 @@ const sendBtn = events => (
     ])
 );
 
-const searchableDropdown = state => (
+const searchableDropdown = (events, state) => (
     h('div', { searchableDropdown: {
-        params: map(
-            ({ username, id }) => ({ name: username, value: id }), state.users
-        ),
+        params: {
+            on: {
+                selected: user => events([ EventType.ChangeReceiver, user ]),
+            },
+            list: pluck('username', state.users),
+        },
     }})
 );
 
@@ -81,7 +84,7 @@ const view = curry((events, state) => (
         ]),
         msgPanel(events, state),
         h('div.misc', [
-            searchableDropdown(state),
+            searchableDropdown(events, state),
         ]),
         h('div.cover', [
             h('img', { attrs: { src: state.background } }),
