@@ -84,6 +84,7 @@ const view = curry((events, state) => (
         ]),
         msgPanel(events, state),
         h('div.misc', [
+            h('span', 'To'),
             searchableDropdown(events, state),
         ]),
         h('div.cover', [

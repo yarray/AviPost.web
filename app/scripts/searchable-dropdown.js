@@ -38,7 +38,7 @@ const view = curry((events, { all, keyword, showList }) => (
                 value: keyword,
             },
             on: {
-                input: e => events([ ActionType.ChangeInput, e.target ]),
+                input: e => events([ ActionType.ChangeInput, e.target.value ]),
                 focus: [ events, [ ActionType.StartSearch ]],
             },
         }),

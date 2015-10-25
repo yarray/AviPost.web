@@ -15,20 +15,45 @@ $editor-width: 700px;
     }
 
     textarea,
-    .searchable-dropdown {
+    .searchable-dropdown,
+    .compose-tools,
+    span {
         position: relative;
         z-index: 2;
     }
 
-    textarea {
+    .searchable-dropdown input {
+        max-width: 150px;
+        border-bottom: 2px dashed $light-grey;
+        background-color: transparent;
+        box-sizing: border-box;
+        padding: 0 5px;
+    }
+
+    textarea,
+    .searchable-dropdown input,
+    .misc span {
         font-family: 'Courier', sans-serif;
         font-size: 18pt;
-        line-height: 1.75;
+    }
 
+    .misc {
+        display: flex;
+        width: $editor-width;
+        margin-top: 20px;
+    }
+
+    .misc span {
+        margin-right: 10px;
+        border-bottom: 2px solid transparent;
+    }
+
+    textarea {
         box-sizing: border-box;
         padding: 35px 50px;
 
         width: $editor-width;
+        line-height: 1.75;
 
         resize: none;
 
@@ -109,12 +134,6 @@ $editor-width: 700px;
 
     .send {
         background-color: $blue;
-    }
-
-    .misc {
-        display: flex;
-        width: $editor-width;
-        margin-top: 20px;
     }
 }
 
