@@ -1,12 +1,9 @@
 const sinon = require('sinon');
-const jsdom = require('mocha-jsdom');
 const { expect } = require('chai');
 
 const ajax = require('../app/scripts/ajax.js');
 
-describe('param parser', () => {
-    jsdom();
-
+describe('ajax', () => {
     beforeEach(function() {
         this.xhr = sinon.useFakeXMLHttpRequest();
     });

@@ -7,5 +7,7 @@
     "serve_files": [
         ".tmp/test-bundle.js"
     ],
-    "before_tests": "./node_modules/.bin/browserify -t babelify -d test/main.js -o .tmp/test-bundle.js"
+    "before_tests": "./node_modules/.bin/browserify -t babelify -d test/main.js -o .tmp/test-bundle.js",
+    "on_exit": "rm .tmp/test-bundle.js",
+    "launch_in_ci": ["chrome"]
 }

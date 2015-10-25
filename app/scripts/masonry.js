@@ -3,6 +3,8 @@
 const Masonry = require('masonry-layout');
 const imagesloaded = require('imagesloaded');
 
+const searchableDropdown = require('./searchable-dropdown.js');
+
 function updateMasonry(oldVnode, newVnode) {
     const oldMasonry = oldVnode.data.masonry;
     const newMasonry = newVnode.data.masonry;
@@ -29,8 +31,21 @@ function updateMasonry(oldVnode, newVnode) {
     }
 }
 
+function createSearchableDropdown(vnode) {
+    const params = vnode.data.searchableDropdown;
+
+    if (params) {
+        searchableDropdown(vnode.elm, params);
+    }
+}
+
 function update(oldVnode, newVnode) {
     updateMasonry(oldVnode, newVnode);
 }
 
-module.exports = { update, create: update };
+function create(oldVnode, newVnode) {
+    updateMasonry(oldVnode, newVnode);
+    createSearchableDropdown(newVnode);
+}
+
+module.exports = { update, create };

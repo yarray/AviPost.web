@@ -4,6 +4,7 @@ const patch = require('snabbdom').init([
     require('snabbdom/modules/attributes'),
     require('snabbdom/modules/eventlisteners'),
     require('snabbdom/modules/props'),
+    require('snabbdom/modules/style'),
 ]);
 const c = require('ramda').compose;
 
@@ -26,14 +27,14 @@ const view = flyd.curryN(2, (events, { matched, active } ) => (
     h('div', [
         h('input', {
             on: {
-                change: e => events([ActionType.ChangeInput, e.target.value]),
-                // focus: events([ActionType.StartSearch]),
-                // blur: events([ActionType.StopSearch]),
+                change: e => events([ ActionType.ChangeInput, e.target.value ]),
+                focus: [ events, [ ActionType.StartSearch ]],
+                blur: [ events, [ ActionType.StopSearch ]],
             },
         }),
-        h('ul', matched.map(listItem), {
-            props: { display: active ? null : 'none' },
-        }),
+        h('ul', {
+            style: { display: active ? '' : 'none' },
+        }, matched.map(listItem)),
     ])
 ));
 
@@ -61,8 +62,7 @@ const SearchableDropdown = (root, list) => {
         patch, root,
         c(
             flyd.map(view(actions$)),
-            flyd.scan(update, { all: list, matched: list, active: false }),
-            flyd.log(console)
+            flyd.scan(update, { all: list, matched: list, active: false })
         )(actions$)
     );
 

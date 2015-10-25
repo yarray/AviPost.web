@@ -1,12 +1,9 @@
-const jsdom = require('mocha-jsdom');
 const { expect } = require('chai');
 const snabbdom = require('snabbdom');
 
 const searchableDropdown = require('../app/scripts/searchable-dropdown.js');
 
-describe('param parser', () => {
-    jsdom();
-
+describe('searchable dropdown', () => {
     beforeEach(function() {
         this.elm = document.createElement('div');
         this.vnode0 = this.elm;
@@ -47,13 +44,13 @@ describe('param parser', () => {
         expect(this.ul().children[0].textContent).to.equal('Sheep');
     });
 
-    it('should hide dropdown until input is focused', function() {
+    it.only('should hide dropdown until input is focused', function() {
         searchableDropdown(this.vnode0, []);
 
-        expect(getComputedStyle(this.ul()).display).to.equal('none');
+        expect(this.ul().style.display).to.equal('none');
         this.input().focus();
-        expect(getComputedStyle(this.ul()).display).not.to.equal('none');
-        // this.input().blur();
-        // expect(getComputedStyle(this.ul()).display).to.equal('none');
+        expect(this.ul().style.display).not.to.equal('none');
+        this.input().blur();
+        expect(this.ul().style.display).to.equal('none');
     });
 });
