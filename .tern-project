@@ -1,14 +1,18 @@
 {
-  "libs": [
-    "browser"
-  ],
-  "loadEagerly": [
-    "node_modules/flyd/flyd.js",
-    "node_modules/snabbdom/*.js"
-  ],
-  "plugins": {
-    "node": {},
-    "complete_strings": {},
-    "lint": {}
-  }
+    "libs": [
+        "browser"
+    ],
+    "loadEagerly": [
+        ".tern/ramda.json",
+        "node_modules/flyd/flyd.js",
+        "node_modules/snabbdom/*.js"
+    ],
+    "dontLoad": [
+        "node_modules/ramda/dist/ramda.js"
+    ],
+    "plugins": {
+        "node": {},
+        "complete_strings": {},
+        "lint": {}
+    }
 }

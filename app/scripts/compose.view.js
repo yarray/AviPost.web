@@ -1,5 +1,5 @@
 const h = require('snabbdom/h');
-const { head, curry } = require('ramda');
+const { head, curry, map } = require('ramda');
 
 
 const EventType = {
@@ -24,14 +24,6 @@ const msgPanel = (events, state) => (
             input: e => events([ EventType.ChangeMessage, e.target.value ]),
         },
     })
-);
-
-const rcvrPanel = (id, receivers) => (
-    h(`datalist#${id}`, receivers.map(receiver => (
-        h('option', {
-            attrs: { value: receiver.username },
-        })
-    )))
 );
 
 const imageBtn = events => (
@@ -78,12 +70,12 @@ const view = curry((events, state) => (
             writing: state.writing,
         },
     }, [
-        h('input.receiver', { attrs: { list: 'receivers' },
-            on: {
-                input: e => events([ EventType.ChangeReceiver, e.target.value ]),
-            },
-        }),
-        rcvrPanel('receivers', state.users),
+        h('div', { searchableDropdown: {
+            params: map(
+                ({ username, id }) => ({ name: username, value: id }),
+                state.users
+            ),
+        }}),
         msgPanel(events, state),
         h('div', { attrs: { 'data-tag': 'compose-tools' } }, [
             imageBtn(events), previewBtn(events, state.previewing), sendBtn(events),

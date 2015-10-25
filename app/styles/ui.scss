@@ -1,0 +1,13 @@
+// styles for ui components, split it if controls are overloaded for us
+@import 'colors';
+
+.searchable-dropdown {
+    ul {
+        background-color: $white;
+    }
+
+    li {
+        display: block;
+        cursor: pointer;
+    }
+}

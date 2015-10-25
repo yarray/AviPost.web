@@ -12,6 +12,7 @@ const patch = snabbdom.init([
     require('snabbdom/modules/class'),
     require('snabbdom/modules/attributes'),
     require('snabbdom/modules/eventlisteners'),
+    require('./ui.js'),
 ]);
 
 const ActionType = Object.assign(

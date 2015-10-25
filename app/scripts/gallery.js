@@ -10,7 +10,7 @@ const patch = snabbdom.init([
     require('snabbdom/modules/props'),
     require('snabbdom/modules/class'),
     require('./behavior.js'),
-    require('./masonry.js'),
+    require('./ui.js'),
 ]);
 
 const image = card => (

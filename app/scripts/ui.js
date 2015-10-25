@@ -31,21 +31,23 @@ function updateMasonry(oldVnode, newVnode) {
     }
 }
 
-function createSearchableDropdown(vnode) {
-    const params = vnode.data.searchableDropdown;
+function updateSearchableDropdown(oldVnode, newVnode) {
+    const oldControl = oldVnode.data.searchableDropdown;
+    const newControl = newVnode.data.searchableDropdown;
 
-    if (params) {
-        searchableDropdown(vnode.elm, params);
+    if (newControl) {
+        if (!oldControl) {
+            newControl.control = searchableDropdown(newVnode.elm, newControl.params);
+        } else {
+            newControl.control = oldControl.control;
+            newControl.control.update(newControl.params);
+        }
     }
 }
 
 function update(oldVnode, newVnode) {
     updateMasonry(oldVnode, newVnode);
+    updateSearchableDropdown(oldVnode, newVnode);
 }
 
-function create(oldVnode, newVnode) {
-    updateMasonry(oldVnode, newVnode);
-    createSearchableDropdown(newVnode);
-}
-
-module.exports = { update, create };
+module.exports = { update, create: update };
