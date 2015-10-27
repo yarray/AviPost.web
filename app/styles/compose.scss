@@ -31,8 +31,7 @@ $editor-width: 700px;
     }
 
     textarea,
-    .searchable-dropdown input,
-    .misc span {
+    .searchable-dropdown input {
         font-family: 'Courier', sans-serif;
         font-size: 18pt;
     }
@@ -45,7 +44,9 @@ $editor-width: 700px;
 
     .misc span {
         margin-right: 10px;
-        border-bottom: 2px solid transparent;
+        font-size: 18pt;
+        vertical-align: baseline;
+        color: $grey;
     }
 
     textarea {

@@ -1,9 +1,9 @@
 {
     "libs": [
-        "browser"
+        "browser",
+        ".tern/ramda"
     ],
     "loadEagerly": [
-        ".tern/ramda.json",
         "node_modules/flyd/flyd.js",
         "node_modules/snabbdom/*.js"
     ],
@@ -13,6 +13,7 @@
     "plugins": {
         "node": {},
         "complete_strings": {},
-        "lint": {}
+        "lint": {},
+        "doc_comment": { "strong": true }
     }
 }

@@ -72,7 +72,23 @@ const searchableDropdown = (events, state) => (
     }})
 );
 
-const view = curry((events, state) => (
+/**
+ * @typedef {Object} ComposeState
+ * @property {boolean} writing
+ * @property {boolean} previewing
+ * @property {string} message
+ * @property {File} cover
+ * @property {string} background
+ * @property {Array.<Object>} users
+ * @property {number} receiver
+ */
+
+/**
+ * @param {function} events
+ * @param {ComposeState} state
+ * @return {undefined}
+ */
+const view = (events, state) => (
     h('div', {
         class: {
             preview: state.previewing,
@@ -84,14 +100,14 @@ const view = curry((events, state) => (
         ]),
         msgPanel(events, state),
         h('div.misc', [
-            h('span', 'To'),
+            h('span', 'To '),
             searchableDropdown(events, state),
         ]),
         h('div.cover', [
             h('img', { attrs: { src: state.background } }),
         ]),
     ])
-));
+);
 
 
-module.exports = { EventType, view };
+module.exports = { EventType, view: curry(view) };
