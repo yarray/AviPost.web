@@ -10,7 +10,7 @@ nav {
     $border-width: 10px;
     $panel-height: 70px;
 
-    position: absolute;
+    position: fixed;
     z-index: 51;
     box-sizing: border-box;
 
@@ -26,9 +26,11 @@ nav {
 
     padding: 10px 0 20px;
     margin-top: calc(#{$border-width - $panel-height});
-    transition: margin-top .3s ease;
+    transition: margin-top .2s;
+    transition-delay: .7s;
 
     background-color: $white;
+    background-clip: padding-box;
     justify-content: space-around;
 
     border-image-source: repeating-linear-gradient(
@@ -53,4 +55,5 @@ nav {
 
 nav:hover {
     margin-top: 0;
+    transition-delay: 0s; 
 }

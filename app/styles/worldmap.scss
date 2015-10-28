@@ -1,3 +1,9 @@
-#worldmap .map {
-    height: 100vh;
+#worldmap {
+    .map {
+        height: 100vh;
+    }
+
+    .leaflet-control-attribution a {
+        font-size: 11pt;
+    }
 }
