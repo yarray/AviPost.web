@@ -1,10 +1,11 @@
 // The entrance of the app, mainly do routing & dispatching
-const flyd = require('flyd');
 const { prop, mapObj } = require('ramda');
 
+const flyd = require('./flyd.js');
 const polyfill = require('./polyfill.js');
 const gallery = require('./gallery.js');
 const compose = require('./compose.js');
+const worldmap = require('./worldmap.js');
 const common = require('./common.js');
 const resource = require('./resource.js');
 const router = require('./router.js');
@@ -13,7 +14,7 @@ polyfill();
 
 function app(config) {
     // init router
-    const routes = router(['#/gallery', '#/compose', '#/'], { shortcut: { '#/': '#/gallery' } });
+    const routes = router(['#/gallery', '#/compose', '#/worldmap', '#/'], { shortcut: { '#/': '#/gallery' } });
 
     // set pages
     const pages = mapObj(
@@ -21,6 +22,7 @@ function app(config) {
     )({
         gallery: 'gallery',
         compose: 'compose',
+        worldmap: 'worldmap',
     });
 
     // routing stream hooked to onhashchange
@@ -42,6 +44,9 @@ function app(config) {
         resource(config.uri, 'users'),
         flyd.map(prop('compose'), routings$)
     );
+
+    flyd.do( ()=> worldmap(pages.worldmap.firstElementChild),
+             flyd.first(flyd.filter(prop('worldmap'), routings$)));
 
     common(document.querySelector('nav'), pages, routings$);
 }

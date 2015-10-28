@@ -21,7 +21,8 @@ function nav(states) {
 
     return h('nav', [
         navItem('Compose', '#/compose', states.compose),
-        navItem('Gallery', '#/gallery', states.gallery)]);
+        navItem('Gallery', '#/gallery', states.gallery),
+        navItem('Worldmap', '#/worldmap', states.worldmap)]);
 }
 
 
