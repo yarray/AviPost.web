@@ -3,6 +3,7 @@
     "array.from": "^0.2.0",
     "flyd": "^0.1.15",
     "imagesloaded": "^3.1.8",
+    "leaflet": "^0.7.7",
     "masonry-layout": "^3.3.2",
     "page": "^1.6.4",
     "ramda": "^0.18.0",
