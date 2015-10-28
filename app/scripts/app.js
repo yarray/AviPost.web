@@ -45,7 +45,7 @@ function app(config) {
         flyd.map(prop('compose'), routings$)
     );
 
-    flyd.do( ()=> worldmap(pages.worldmap.firstElementChild),
+    flyd.do( ()=> worldmap(pages.worldmap.querySelector('.map')),
              flyd.first(flyd.filter(prop('worldmap'), routings$)));
 
     common(document.querySelector('nav'), pages, routings$);

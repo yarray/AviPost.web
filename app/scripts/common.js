@@ -2,28 +2,23 @@ const snabbdom = require('snabbdom');
 const flyd = require('flyd');
 const h = require('snabbdom/h');
 
-/**
- * nav
- *
- * @param {HTMLElement} element
- * @param {string} page
- */
-function nav(states) {
-    function navItem(name, href, isActive) {
-        return (
-            h('a', {
-                'class': { inactive: !isActive },
-                props: {
-                    'href': href,
-                },
-            }, name));
-    }
 
-    return h('nav', [
+const navItem = (name, href, isActive) => (
+    h('a', {
+        'class': { inactive: !isActive },
+        props: {
+            'href': href,
+        },
+    }, name)
+);
+
+const nav = states => (
+    h('nav', [
         navItem('Compose', '#/compose', states.compose),
         navItem('Gallery', '#/gallery', states.gallery),
-        navItem('Worldmap', '#/worldmap', states.worldmap)]);
-}
+        navItem('Worldmap', '#/worldmap', states.worldmap),
+    ])
+);
 
 
 /**

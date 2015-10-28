@@ -1,9 +1,11 @@
 @import '_colors';
 @import '_mixin';
+@import '_metrics';
 @import 'nav';
 @import 'gallery';
 @import 'compose';
 @import 'ui';
+@import 'worldmap';
 
 
 body {
@@ -48,6 +50,3 @@ img {
     height: 0;
 }
 
-#worldmap > div {
-    height: 600px;
-}

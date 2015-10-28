@@ -1,9 +1,11 @@
 @import '_colors';
 @import '_mixin';
+@import  '_metrics';
 
-$editor-width: 700px;
 
 #compose {
+    padding-top: 120px;
+
     > div {
         position: relative;
 
@@ -38,7 +40,7 @@ $editor-width: 700px;
 
     .misc {
         display: flex;
-        width: $editor-width;
+        width: $content-width;
         margin-top: 20px;
     }
 
@@ -53,7 +55,7 @@ $editor-width: 700px;
         box-sizing: border-box;
         padding: 35px 50px;
 
-        width: $editor-width;
+        width: $content-width;
         line-height: 1.75;
 
         resize: none;
@@ -95,7 +97,7 @@ $editor-width: 700px;
 
         display: flex;
 
-        width: $editor-width;
+        width: $content-width;
         margin-bottom: 20px;
 
         justify-content: flex-end;
