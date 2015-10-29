@@ -62,8 +62,11 @@ gulp.task('styles', function() {
 });
 
 gulp.task('images', function() {
-    return gulp.src('./node_modules/leaflet/dist/images/*')
+    var leaflet = gulp.src('./node_modules/leaflet/dist/images/*')
         .pipe(gulp.dest('./.tmp/images/leaflet/'));
+    var images = gulp.src('./app/images/*')
+        .pipe(gulp.dest('./.tmp/images/'));
+    return merge(leaflet, images);
 });
 
 gulp.task('serve', ['watch'], serve(['.tmp', 'app']));
@@ -72,6 +75,7 @@ gulp.task('watch', ['scripts', 'styles', 'images'], function() {
     gulp.watch('./app/scripts/**/*.js', ['scripts']);
     gulp.watch('./app/config/*.js', ['scripts']);
     gulp.watch('./app/styles/**/*.scss', ['styles']);
+    gulp.watch('./app/images/**/*', ['images']);
 });
 
 gulp.task('test', function() {

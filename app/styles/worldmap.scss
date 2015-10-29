@@ -6,4 +6,37 @@
     .leaflet-control-attribution a {
         font-size: 11pt;
     }
+
+    .leaflet-popup-content img {
+        border: thick solid $white;
+        background-color: $white;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .leaflet-popup-content {
+        margin: 0;
+        width: 200px !important;
+    }
+
+    .leaflet-popup-content-wrapper {
+        border-radius: 0;
+        padding: 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .leaflet-popup-tip {
+        box-shadow: none;
+        background-color: $light-grey;
+    }
+
+    .card-view .leaflet-tile-loaded {
+        // filter: blur(3px) brightness(.8);
+        filter: brightness(.7);
+    }
+
+    .leaflet-marker-icon {
+        clip-path: circle(30px at center);
+    }
 }
