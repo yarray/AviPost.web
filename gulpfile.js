@@ -61,9 +61,14 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('./.tmp/styles/'));
 });
 
+gulp.task('images', function() {
+    return gulp.src('./node_modules/leaflet/dist/images/*')
+        .pipe(gulp.dest('./.tmp/images/leaflet/'));
+});
+
 gulp.task('serve', ['watch'], serve(['.tmp', 'app']));
 
-gulp.task('watch', ['scripts', 'styles'], function() {
+gulp.task('watch', ['scripts', 'styles', 'images'], function() {
     gulp.watch('./app/scripts/**/*.js', ['scripts']);
     gulp.watch('./app/config/*.js', ['scripts']);
     gulp.watch('./app/styles/**/*.scss', ['styles']);
