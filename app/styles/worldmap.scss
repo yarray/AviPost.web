@@ -8,7 +8,7 @@
     }
 
     .leaflet-popup-content img {
-        border: 9px solid rgba(170, 170, 170, .3);
+        border: 6px solid rgba(170, 170, 170, .3);
         background-color: $white;
         background-clip: padding-box;
         width: 100%;
@@ -32,16 +32,4 @@
         box-shadow: none;
         background-color: $white;
     }
-
-    // .leaflet-marker-pane {
-    //     z-index: 7;
-    // }
-    //
-    // .leaflet-popup-pane {
-    //     z-index: 6;
-    // }
-
-    // .card-view .leaflet-tile-loaded {
-    //     filter: brightness(.7);
-    // }
 }
