@@ -2,9 +2,15 @@ const L = require('leaflet');
 const { map } = require('ramda');
 
 
+const messengers = [
+    'images/european_goldfinch.png',
+    'images/european_robin.png',
+];
+
 const markerIcon = src => L.icon({
     iconUrl: src,
-    iconSize: [60, 60],
+    iconSize: [40, 40],
+    popupAnchor: [105, 90],
 });
 
 
@@ -21,8 +27,10 @@ function worldmap(root, postcards) {
 
     postcards.get().then(
         map(({ latitude, longitude, cover }) => {
-            L.marker([ latitude, longitude ], { icon: markerIcon('images/messenger.png') })
-                .bindPopup(`<img src="${cover}">`, { closeButton: false, keepInView: true })
+            L.marker([ latitude, longitude ], { icon: markerIcon(messengers[Math.floor(Math.random() * 10 % 2)]) })
+                .bindPopup(`<img src="${cover}">`, {
+                    closeButton: false,
+                })
                 .addTo(worldMap);
         })
     );

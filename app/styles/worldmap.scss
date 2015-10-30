@@ -8,15 +8,16 @@
     }
 
     .leaflet-popup-content img {
-        border: thick solid $white;
+        border: 9px solid rgba(170, 170, 170, .3);
         background-color: $white;
+        background-clip: padding-box;
         width: 100%;
         box-sizing: border-box;
     }
 
     .leaflet-popup-content {
         margin: 0;
-        width: 200px !important;
+        width: 180px !important;
     }
 
     .leaflet-popup-content-wrapper {
@@ -27,16 +28,20 @@
     }
 
     .leaflet-popup-tip {
+        display: none;
         box-shadow: none;
-        background-color: $light-grey;
+        background-color: $white;
     }
 
-    .card-view .leaflet-tile-loaded {
-        // filter: blur(3px) brightness(.8);
-        filter: brightness(.7);
-    }
+    // .leaflet-marker-pane {
+    //     z-index: 7;
+    // }
+    //
+    // .leaflet-popup-pane {
+    //     z-index: 6;
+    // }
 
-    .leaflet-marker-icon {
-        clip-path: circle(30px at center);
-    }
+    // .card-view .leaflet-tile-loaded {
+    //     filter: brightness(.7);
+    // }
 }
