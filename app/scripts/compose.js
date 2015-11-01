@@ -94,7 +94,13 @@ function compose(root, postcards, users, toggle) {
     const state$ = flyd.scan(update, initialState, action$);
 
     const sendPostcard = c(
-        postcards.post, pick(['receiver', 'message', 'cover']));
+        postcards.post,
+        merge({
+            latitude: (Math.random() - 0.5) * 160,
+            longitude: (Math.random() - 0.5) * 360,
+            messenger: 1,
+        }),
+        pick(['receiver', 'message', 'cover']));
 
     flyd.do(
         sendPostcard,
